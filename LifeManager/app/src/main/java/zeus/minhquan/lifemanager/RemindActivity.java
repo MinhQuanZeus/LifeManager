@@ -6,23 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class RemindActivity extends AppCompatActivity {
 
-    private ImageView iv_remind;
+    private ImageView ivAdd;
 
     public void setDefault(){
-        iv_remind = (ImageView) findViewById(R.id.iv_remind);
+        ivAdd = (ImageView) findViewById(R.id.iv_add);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_remind);
         setDefault();
-        iv_remind.setOnClickListener(new View.OnClickListener() {
+        ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, RemindActivity.class);
+                Intent intent = new Intent(RemindActivity.this, AddRemindActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
