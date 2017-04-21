@@ -8,17 +8,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import zeus.minhquan.lifemanager.dal.DatabaseApplication;
+import zeus.minhquan.lifemanager.dal.DatabaseContext;
+import zeus.minhquan.lifemanager.model.RemindInfo;
 
 public class AddRemindActivity extends AppCompatActivity {
 
     private static final String TAG = "AddRemindActivity";
     private static final int HOUR_OF_TIME = 12;
+    private EditText etTitle;
+    private EditText etDescription;
     private TextView txtDate;
     private TextView txtTime;
     private MyDate myDatePicker;
     private MyTime myTimePicker;
+    private ImageView ivSave;
 
     public enum HalfTime{
         AM,
@@ -99,8 +108,11 @@ public class AddRemindActivity extends AppCompatActivity {
     }
 
     public void setDefault(){
+        etTitle = (EditText) findViewById(R.id.et_title);
+        etDescription = (EditText) findViewById(R.id.et_description);
         txtDate = (TextView) findViewById(R.id.et_date);
         txtTime = (TextView) findViewById(R.id.et_time);
+        ivSave = (ImageView) findViewById(R.id.et_save);
         //current date time
 
         txtDate.setText(getCurrentDate(TimeType.DATE));
@@ -142,6 +154,17 @@ public class AddRemindActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showTimePickerDialog();
+            }
+        });
+        ivSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO : valid input
+
+                //add remind to sqlite
+                DatabaseContext db = DatabaseApplication.getInstance().getDatabaseContext();
+                db.add(new RemindInfo(etTitle.getText().toString(), etDescription.getText().toString(),
+                        txtDate.getText().toString(), txtTime.getText().toString()));
             }
         });
     }
