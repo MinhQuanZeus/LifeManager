@@ -3,6 +3,7 @@
     package="zeus.minhquan.lifemanager">
 
     <application
+        android:name=".RemindApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +21,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".RemindActivity" />
-        <activity android:name=".AddRemindActivity"></activity>
+        <activity android:name=".AddRemindActivity" />
+        <activity android:name=".MyItemsReminds"></activity>
     </application>
 
 </manifest>
