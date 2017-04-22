@@ -15,7 +15,7 @@ import zeus.minhquan.lifemanager.model.RemindInfo;
  * Created by EDGY on 4/21/2017.
  */
 
-public class DatabaseContext extends SQLiteAssetHelper{
+public class DatabaseContext extends SQLiteOpenHelper{
     private static final String TAG = "DatabaseContext";
     private static final String REMIND_TABLE_NAME = "remind_tbl";
     private static final String DATABASE_NAME = "remind.db";
@@ -40,30 +40,35 @@ public class DatabaseContext extends SQLiteAssetHelper{
     public boolean add(RemindInfo remindInfo){
         long result = 0;
         if(remindInfo != null){
-            sqLiteDatabase = this.getReadableDatabase();
+            sqLiteDatabase = this.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(REMIND_TITLE, remindInfo.getTitle());
             values.put(REMIND_DESCRIPTION, remindInfo.getDescription());
             values.put(REMIND_DATE, remindInfo.getDate());
             values.put(REMIND_TIME, remindInfo.getTime());
-            Cursor cursor = sqLiteDatabase.query("remind_tbl", REMIND_ALL_COLUMNS, null, null, null,null, null);
-//            result = sqLiteDatabase.insert(REMIND_TABLE_NAME, null, values);
-            Log.d(TAG,result + "");
+            result = sqLiteDatabase.insert(REMIND_TABLE_NAME, null, values);
+            sqLiteDatabase = this.getReadableDatabase();
+            Cursor cursor = sqLiteDatabase.query(REMIND_TABLE_NAME, REMIND_ALL_COLUMNS, null, null, null, null, null);
+            while(cursor.moveToNext()){
+                Log.d(TAG,cursor.getString(cursor.getColumnIndex(REMIND_DESCRIPTION)));
+                break;
+            }
+            Log.d(TAG,result + "resultAdd");
             sqLiteDatabase.close();
         }
-        return result != 0;
+        return true;
     }
 
-//    @Override
-//    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + REMIND_TABLE_NAME + "(" + REMIND_TITLE + " TEXT,"
-//                + REMIND_DESCRIPTION + " TEXT," + REMIND_DATE + " TEXT," + REMIND_TIME + " TEXT)";
-//        sqLiteDatabase.execSQL(CREATE_CONTACTS_TABLE);
-//    }
-//
-//    @Override
-//    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+REMIND_TABLE_NAME);
-//        onCreate(sqLiteDatabase);
-//    }
+    @Override
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + REMIND_TABLE_NAME + "(" + REMIND_TITLE + " TEXT,"
+                + REMIND_DESCRIPTION + " TEXT," + REMIND_DATE + " TEXT," + REMIND_TIME + " TEXT)";
+        sqLiteDatabase.execSQL(CREATE_CONTACTS_TABLE);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+REMIND_TABLE_NAME);
+        onCreate(sqLiteDatabase);
+    }
 }

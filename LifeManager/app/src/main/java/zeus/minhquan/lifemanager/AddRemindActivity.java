@@ -3,6 +3,8 @@ package zeus.minhquan.lifemanager;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import java.util.Calendar;
+
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,8 @@ public class AddRemindActivity extends AppCompatActivity {
     private MyDate myDatePicker;
     private MyTime myTimePicker;
     private ImageView ivSave;
+    private ImageView ivRecord;
+    private TextView tvRecord;
 
     public enum HalfTime{
         AM,
@@ -113,6 +117,8 @@ public class AddRemindActivity extends AppCompatActivity {
         txtDate = (TextView) findViewById(R.id.et_date);
         txtTime = (TextView) findViewById(R.id.et_time);
         ivSave = (ImageView) findViewById(R.id.et_save);
+        ivRecord = (ImageView) findViewById(R.id.iv_record);
+        tvRecord = (TextView) findViewById(R.id.et_record);
         //current date time
 
         txtDate.setText(getCurrentDate(TimeType.DATE));
@@ -167,6 +173,25 @@ public class AddRemindActivity extends AppCompatActivity {
                         txtDate.getText().toString(), txtTime.getText().toString()));
             }
         });
+        ivRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRecordActivity();
+            }
+        });
+        tvRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showRecordActivity();
+            }
+        });
+
+    }
+
+    public void showRecordActivity(){
+        Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public void showDatePickerDialog(){
