@@ -22,33 +22,32 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
+
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="4"
-                    android:layout_height="match_parent"></View>
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"></View>
 
                 <ImageView
                     android:id="@+id/iv_add"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    app:srcCompat="@drawable/add_button"
-                    />
+                    app:srcCompat="@drawable/add_button" />
+
                 <View
                     android:layout_width="0dp"
-                    android:layout_weight="4"
-                    android:layout_height="match_parent"></View>
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"></View>
             </LinearLayout>
-
-
 
 
             <LinearLayout
@@ -62,12 +61,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="2dp"
                     android:layout_weight="8"
-                    android:background="#008000"
-                    android:text="List of Reminds:"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp" />
 
-                <ImageButton
+                    android:textAlignment="center"
+                    android:text="List of Reminds:"
+
+                    android:textColor="#025602"
+                    android:textSize="40sp" />
+
+                <ImageView
                     android:id="@+id/btndelete"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -75,22 +76,17 @@
 
                     android:src="@drawable/deletionicon" />
             </LinearLayout>
-            <ListView  android:id="@+id/lvRemaind"
+
+            <ListView
+                android:id="@+id/lvRemaind"
                 android:layout_width="match_parent"
-                android:layout_weight="8"
                 android:layout_height="0dp"
-                >
-            </ListView>
+                android:layout_weight="8"></ListView>
 
         </LinearLayout>
 
 
-
-
-
     </LinearLayout>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

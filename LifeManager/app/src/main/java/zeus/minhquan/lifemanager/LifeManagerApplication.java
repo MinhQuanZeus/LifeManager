@@ -10,9 +10,9 @@ import zeus.minhquan.lifemanager.databases.RemindDatabase;
  * Created by anh82 on 4/18/2017.
  */
 
-public class RemindApplication extends Application {
+public class LifeManagerApplication extends Application {
     private RemindDatabase remindDatabase;
-    private static RemindApplication instance;
+    private static LifeManagerApplication instance;
 
     @Override
     public void onCreate() {
@@ -26,7 +26,7 @@ public class RemindApplication extends Application {
         return remindDatabase;
     }
 
-    public static RemindApplication getInstance() {
+    public static LifeManagerApplication getInstance() {
         return instance;
     }
 }

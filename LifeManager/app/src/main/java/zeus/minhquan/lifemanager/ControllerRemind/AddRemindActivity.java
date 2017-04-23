@@ -1,10 +1,12 @@
-package zeus.minhquan.lifemanager;
+package zeus.minhquan.lifemanager.ControllerRemind;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import java.util.Calendar;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -12,10 +14,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
-import zeus.minhquan.lifemanager.dal.DatabaseApplication;
-import zeus.minhquan.lifemanager.dal.DatabaseContext;
-import zeus.minhquan.lifemanager.model.RemindInfo;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import zeus.minhquan.lifemanager.MyBroadcastReceiver;
+import zeus.minhquan.lifemanager.R;
+import zeus.minhquan.lifemanager.LifeManagerApplication;
+import zeus.minhquan.lifemanager.databases.RemindDatabase;
+import zeus.minhquan.lifemanager.databases.models.Remind;
 
 public class AddRemindActivity extends AppCompatActivity {
 
@@ -28,6 +37,17 @@ public class AddRemindActivity extends AppCompatActivity {
     private MyDate myDatePicker;
     private MyTime myTimePicker;
     private ImageView ivSave;
+
+
+    int yearChoose;
+    int monthChoose;
+    int dayChoose;
+    int houseChoose;
+    int minuteChoose;
+
+
+
+
 
     public enum HalfTime{
         AM,
@@ -112,11 +132,18 @@ public class AddRemindActivity extends AppCompatActivity {
         etDescription = (EditText) findViewById(R.id.et_description);
         txtDate = (TextView) findViewById(R.id.et_date);
         txtTime = (TextView) findViewById(R.id.et_time);
-        ivSave = (ImageView) findViewById(R.id.et_save);
+        ivSave = (ImageView) findViewById(R.id.iv_save);
         //current date time
 
         txtDate.setText(getCurrentDate(TimeType.DATE));
         txtTime.setText(getCurrentDate(TimeType.TIME));
+
+        Calendar c = Calendar.getInstance();
+         yearChoose = c.get(Calendar.YEAR);
+         monthChoose = c.get(Calendar.MONTH);
+         dayChoose = c.get(Calendar.DAY_OF_MONTH);
+         houseChoose = c.get(Calendar.HOUR_OF_DAY);
+         minuteChoose = c.get(Calendar.MINUTE);
     }
 
     public enum TimeType{
@@ -160,13 +187,46 @@ public class AddRemindActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO : valid input
+                Date dateNow = new Date();
+                Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,houseChoose,minuteChoose).getTime();
+                Log.d("Date Now " , dateNow.toString());
+                Log.d( " thoi gian" , yearChoose + "," + monthChoose + "," + dayChoose + " , " +minuteChoose);
+                Log.d("date Future" , dateFuture.toString() );
 
-                //add remind to sqlite
-                DatabaseContext db = DatabaseApplication.getInstance().getDatabaseContext();
-                db.add(new RemindInfo(etTitle.getText().toString(), etDescription.getText().toString(),
-                        txtDate.getText().toString(), txtTime.getText().toString()));
+                int second = (int)((dateFuture.getTime() - dateNow.getTime())/1000) ;
+
+                Log.d("Second" , second + "");
+                if(second > 0){
+                    RemindDatabase db = LifeManagerApplication.getInstance().getStoryDatabase();
+                    db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
+                            ,txtDate.getText().toString(), txtTime.getText().toString()));
+//                    Log.d("Time" ,txtTime.getText().toString() );
+//                    Log.d("Date" ,txtDate.getText().toString() );
+
+                    Log.d("so giay hen là ", " " + second);
+                    startEvent(second);
+                }
+                else {
+
+                   Toast.makeText(null, "Thời gian không thể là quá khứ" ,Toast.LENGTH_LONG).show();
+                }
+
+
+
             }
         });
+    }
+
+    // doan code tao su kien dem
+    public void startEvent(int second){
+        Intent intent = new Intent(this, MyBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
+        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+
+       // alarmManager.cancel(pendingIntent);
+
     }
 
     public void showDatePickerDialog(){
@@ -175,9 +235,16 @@ public class AddRemindActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                 myDatePicker = new MyDate(year, month , date);
                 txtDate.setText(myDatePicker.getDate());
+                // lay ngay thang dc chon de chut nua tinh thoi gian hen gio
+                yearChoose = year;
+                monthChoose = month;
+                dayChoose = date;
+
+               // Log.d("Nam thang ngay" , yearChoose+" , "+monthChoose+" , "+dayChoose );
             }
         };
         DatePickerDialog datePicker = new DatePickerDialog(AddRemindActivity.this, callback, myDatePicker.getYear(), myDatePicker.getMonth(), myDatePicker.getMyDate());
+
         datePicker.setTitle("Choose your date");
         datePicker.show();
     }
@@ -189,6 +256,11 @@ public class AddRemindActivity extends AppCompatActivity {
                 Log.d(TAG,minute +" abc");
                 myTimePicker = new MyTime(hour, minute);
                 txtTime.setText(myTimePicker.getTime());
+
+                // lay thoi gian hien tai chut nua tinh thoi gian con lai de dem
+                houseChoose = hour;
+                minuteChoose = minute;
+               // Log.d("gio , phut" , houseChoose+" , "+minuteChoose);
             }
         };
         TimePickerDialog timePickerDialog = new TimePickerDialog(AddRemindActivity.this, callback, myTimePicker.getHour(), myTimePicker.getMin(), true);

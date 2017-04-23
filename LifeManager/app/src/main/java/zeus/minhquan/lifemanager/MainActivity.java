@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import zeus.minhquan.lifemanager.ControllerRemind.RemindActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView iv_remind;

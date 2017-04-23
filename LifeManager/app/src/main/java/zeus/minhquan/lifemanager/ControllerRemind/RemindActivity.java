@@ -1,18 +1,18 @@
-package zeus.minhquan.lifemanager;
+package zeus.minhquan.lifemanager.ControllerRemind;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import zeus.minhquan.lifemanager.R;
+import zeus.minhquan.lifemanager.LifeManagerApplication;
 import zeus.minhquan.lifemanager.databases.RemindDatabase;
 import zeus.minhquan.lifemanager.databases.models.Remind;
 
@@ -26,7 +26,7 @@ public class RemindActivity extends AppCompatActivity {
     ListView lvRemind=null;
 
 
-    ImageButton btnRemoveAll;
+    ImageView btnRemoveAll;
 
 
 
@@ -36,10 +36,15 @@ public class RemindActivity extends AppCompatActivity {
         setContentView(R.layout.activity_remind);
         ivAdd = (ImageView) findViewById(R.id.iv_add);
         lvRemind=(ListView) findViewById(R.id.lvRemaind);
-        btnRemoveAll=(ImageButton) findViewById(R.id.btndelete);
-        RemindDatabase remindDatabase = RemindApplication.getInstance().getStoryDatabase();
+        btnRemoveAll=(ImageView) findViewById(R.id.btndelete);
+        RemindDatabase remindDatabase = LifeManagerApplication.getInstance().getStoryDatabase();
+
          arrRemind = new ArrayList<>();
         arrRemind = (ArrayList<Remind>) remindDatabase.loadAllReminds();
+        for(Remind r :arrRemind){
+            Log.d("Remind  :   " , r.getTitle() + " , " +r.getDescription());
+        }
+
 
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,15 +57,14 @@ public class RemindActivity extends AppCompatActivity {
         });
 
         //Khởi tạo đối tượng adapter và gán Data source
-        adapter=new MyArrayAdapter(this,
-                R.layout.my_item_layout
-                , arrRemind/*thiết lập data source*/);
+        adapter=new MyArrayAdapter(this, R.layout.my_item_layout, arrRemind);
         lvRemind.setAdapter(adapter);
 
         btnRemoveAll.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
+
                 xulyXoa();
             }
         });

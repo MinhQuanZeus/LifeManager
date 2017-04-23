@@ -13,6 +13,10 @@
         <TextView
             android:id="@+id/contentRemind"
             android:layout_width="0dp"
+            android:textAlignment="center"
+            android:fontFamily="sans-serif"
+            android:textColor="#00f510"
+            android:textSize="25sp"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"
             android:layout_weight="9"
@@ -20,6 +24,7 @@
 
         <CheckBox  android:id="@+id/chkitem"
             android:layout_width="0dp"
+            android:text="Xóa"
             android:layout_height="match_parent"
             android:layout_weight="2" />
 
@@ -40,34 +45,42 @@
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:paddingTop="2dp"
-            android:textSize="15sp" />
+            android:textAlignment="textStart"
+            android:textColor="#4564b7"
+            android:textSize="20sp" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"></View>
+            android:layout_weight="2">
+
+        </View>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="3"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/timeRemind"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_marginTop="4dp"
-            android:layout_weight="9"
+            android:layout_weight="6"
             android:paddingLeft="2dp"
             android:paddingRight="2dp"
             android:paddingTop="2dp"
-            android:textSize="15sp" />
+            android:textAlignment="gravity"
+            android:textColor="#be6767"
+            android:textSize="20sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"></View>
+        <TextView
+            android:id="@+id/record"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"/>
     </LinearLayout>
 
 

@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager;
+package zeus.minhquan.lifemanager.ControllerRemind;
 
 /**
  * Created by anh82 on 4/21/2017.
@@ -6,6 +6,8 @@ package zeus.minhquan.lifemanager;
 
 import java.util.ArrayList;
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.databases.models.Remind;
 
-public class MyArrayAdapter extends
-        ArrayAdapter<Remind>
+public class MyArrayAdapter extends ArrayAdapter<Remind>
 {
     Activity context=null;
     ArrayList<Remind>myArray=null;
@@ -43,8 +45,10 @@ public class MyArrayAdapter extends
      * @return View: trả về chính convertView
      */
 
-    public View getView(int position, View convertView,
-                        ViewGroup parent) {
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         /**
          * bạn chú ý là ở đây Tôi không làm:
          * if(convertView==null)
@@ -63,19 +67,22 @@ public class MyArrayAdapter extends
         if(myArray.size()>0 && position>=0)
         {
             //dòng lệnh lấy TextView ra để hiển thị Mã và tên lên
-            final TextView txtdisplay=(TextView) convertView.findViewById(R.id.contentRemind);
-            //lấy ra nhân viên thứ position
             final Remind emp = myArray.get(position);
+            final TextView txtdisplay=(TextView) convertView.findViewById(R.id.contentRemind);
+            final TextView desciption=(TextView) convertView.findViewById(R.id.descriptionRemind);
+            final TextView time=(TextView) convertView.findViewById(R.id.timeRemind);
+            final TextView record = (TextView) convertView.findViewById(R.id.record);
+
+            //lấy ra nhân viên thứ position
+
             //đưa thông tin lên TextView
             //emp.toString() sẽ trả về Id và Name
             txtdisplay.setText(emp.getTitle());
-            //lấy ImageView ra để thiết lập hình ảnh cho đúng
-            final TextView desciption=(TextView)
-                    convertView.findViewById(R.id.descriptionRemind);
             desciption.setText(emp.getDescription());
-            final TextView time=(TextView)
-                    convertView.findViewById(R.id.timeRemind);
-            desciption.setText(emp.getTime());
+            time.setText(emp.getTime() +"   "+ emp.getDate());
+            if(emp.getRecord_name() != null || emp.getRecord_name() != ""){
+                record.setText(emp.getRecord_name());
+            }
 
 
         }
