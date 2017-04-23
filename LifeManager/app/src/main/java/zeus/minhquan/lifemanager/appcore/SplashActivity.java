@@ -1,10 +1,11 @@
-package zeus.minhquan.lifemanager;
+package zeus.minhquan.lifemanager.appcore;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+
+import zeus.minhquan.lifemanager.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -12,7 +13,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        CountDownTimer countDownTimer = new CountDownTimer(3000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(2000,1000) {
 
 
             @Override
