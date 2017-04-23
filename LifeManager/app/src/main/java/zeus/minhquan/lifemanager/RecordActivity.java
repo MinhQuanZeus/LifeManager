@@ -1,24 +1,30 @@
 package zeus.minhquan.lifemanager;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import zeus.minhquan.lifemanager.model.RemindInfo;
+import zeus.minhquan.lifemanager.adapters.RecordAdapter;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -34,15 +40,27 @@ public class RecordActivity extends AppCompatActivity {
     private Random random;
     private boolean isStartRecording;
     private boolean isRecording;
+    private boolean isPlayRecord;
+    private boolean isPlaying;
     private ArrayList<FileRecord> fileRecords;
     private String outputPath;
     private String outputName;
+    private TextView tvTimeRecord;
+    private Timer timer;
+    private ListView records;
+    private MediaPlayer mediaRecordPlayer;
+    private boolean isChooseRecord;
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
+        tvTimeRecord = (TextView) findViewById(R.id.tv_time_record);
+        records = (ListView) findViewById(R.id.lv_record);
         random = new Random();
         isStartRecording = true;
         isRecording = true;
+        isPlayRecord = true;
+        isPlaying = false;
+        isChooseRecord = false;
     }
 
     @Override
@@ -51,6 +69,7 @@ public class RecordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record);
         setDefault();
         fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
+        loadAllRecord();
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,11 +82,49 @@ public class RecordActivity extends AppCompatActivity {
                         readyToRecord();
                         isStartRecording = false;
                         isRecording = true;
-
                         try {
                             mediaRecorder.prepare();
                             mediaRecorder.start();
+                            timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                private int count = 0;
+                                private int second = 0;
+                                private int minute = 0;
+                                private String ticks;
+                                private String seconds;
+                                private String minutes;
 
+                                public String defaultDisplay(int number){
+                                    if(number < 10){
+                                        return "0" + number;
+                                    } else return "" + number;
+                                }
+
+                                @Override
+                                public void run() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            count++;
+                                            ticks = defaultDisplay(count);
+                                            if(count >= 99){
+                                                count = 0;
+                                                second++;
+                                                if(second > 59){
+                                                    second = 0;
+                                                    minute++;
+                                                    if(minute == 5){
+                                                        cancel();
+                                                    }
+                                                }
+                                            }
+                                            seconds = defaultDisplay(second);
+                                            minutes = defaultDisplay(minute);
+                                            tvTimeRecord.setText(minutes + " : " + seconds + " : " + ticks);
+                                        }
+                                    });
+                                }
+                            },0,10);
                         } catch (IllegalStateException e) {
                             // TODO Auto-generated catch block
                             Toast.makeText(RecordActivity.this, "Recording error",
@@ -93,6 +150,8 @@ public class RecordActivity extends AppCompatActivity {
                         try {
                             mediaRecorder.stop();
                             fileRecords.add(new FileRecord(outputPath, outputName));
+                            timer.cancel();
+                            loadAllRecord();
                         }catch (Exception e){
 
                         }
@@ -102,6 +161,62 @@ public class RecordActivity extends AppCompatActivity {
                 }
             }
         });
+        records.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!isChooseRecord) {
+                    view.findViewById(R.id.background_infor).setBackgroundColor(0xFF00FF00);
+
+                    isChooseRecord = true;
+                } else {
+
+                    view.findViewById(R.id.background_infor).setBackgroundColor(0xFFFFFFFF);
+                    isChooseRecord = false;
+                }
+//                    FileRecord fileRecord = (FileRecord) (parent.getItemAtPosition(position));
+//                    playRecord(fileRecord.getFilePath());
+            }
+        });
+    }
+
+    public void loadAllRecord(){
+        if(fileRecords != null) {
+            RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords);
+            records.setAdapter(recordAdapter);
+        }
+    }
+
+    public void playRecord(String recordPath){
+        if (!isRecording) {
+            Toast.makeText(RecordActivity.this, "Please stop recorder to play",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (isPlayRecord) {
+            mediaRecordPlayer = new MediaPlayer();
+            try {
+
+                mediaRecordPlayer.setDataSource(recordPath);
+                mediaRecordPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            isPlayRecord = false;
+            isStartRecording = false;
+            isPlaying = true;
+            mediaRecordPlayer.start();
+            Toast.makeText(RecordActivity.this, "Recording Playing",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            if (mediaRecordPlayer != null) {
+                isPlayRecord = true;
+                isStartRecording = true;
+                isPlaying = false;
+                mediaRecordPlayer.stop();
+                mediaRecordPlayer.release();
+                readyToRecord();
+            }
+        }
     }
 
     @Override

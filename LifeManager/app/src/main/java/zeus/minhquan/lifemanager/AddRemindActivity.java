@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import zeus.minhquan.lifemanager.dal.DatabaseApplication;
+import zeus.minhquan.lifemanager.dal.LifeManagerApplication;
 import zeus.minhquan.lifemanager.dal.DatabaseContext;
 import zeus.minhquan.lifemanager.model.RemindInfo;
 
@@ -168,7 +168,7 @@ public class AddRemindActivity extends AppCompatActivity {
                 //TODO : valid input
 
                 //add remind to sqlite
-                DatabaseContext db = DatabaseApplication.getInstance().getDatabaseContext();
+                DatabaseContext db = LifeManagerApplication.getInstance().getDatabaseContext();
                 db.add(new RemindInfo(etTitle.getText().toString(), etDescription.getText().toString(),
                         txtDate.getText().toString(), txtTime.getText().toString()));
             }

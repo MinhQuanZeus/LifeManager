@@ -6,8 +6,8 @@ import android.app.Application;
  * Created by EDGY on 4/21/2017.
  */
 
-public class DatabaseApplication extends Application {
-    private static DatabaseApplication instance;
+public class LifeManagerApplication extends Application {
+    private static LifeManagerApplication instance;
     private DatabaseContext databaseContext;
 
     @Override
@@ -17,7 +17,7 @@ public class DatabaseApplication extends Application {
         super.onCreate();
     }
 
-    public static DatabaseApplication getInstance() {
+    public static LifeManagerApplication getInstance() {
         return instance;
     }
 
