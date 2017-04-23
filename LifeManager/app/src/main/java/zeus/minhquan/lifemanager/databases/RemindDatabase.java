@@ -22,6 +22,7 @@ import zeus.minhquan.lifemanager.databases.models.Remind;
 public class RemindDatabase extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "LifeManager.db";
+    private static final String TABLE_NAME = "remind_tbl";
     private static final int DATABASE_VERSION = 1;
     private SQLiteDatabase db;
     private static final String ID="id";
@@ -60,18 +61,30 @@ public class RemindDatabase extends SQLiteAssetHelper {
             }
 
 
-            result = db.insert("remind_tbl", null, values);
+            result = db.insert(TABLE_NAME, null, values);
             Log.d("Ok ! fine",result + "");
             db.close();
         }
         return result != 0;
+    }
+    public boolean delete(int remindId){
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(TABLE_NAME, ID + " = ?",
+                    new String[]{String.valueOf(remindId)});
+            db.close();
+            return true;
+        } catch (Exception ex){
+          //  Log.d(TAG, ex.toString());
+        }
+        return false;
     }
 
     public List<Remind> loadAllReminds(){
         // get readable database , lay quyen dc doc
         List<Remind> reminds = new ArrayList<>();
         db = getReadableDatabase();
-        Cursor cursor = db.query("remind_tbl",REMIND_ALL_COLUMNS, null, null, null,null, null);
+        Cursor cursor = db.query(TABLE_NAME,REMIND_ALL_COLUMNS, null, null, null,null, null);
 
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex(ID));

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zeus.minhquan.lifemanager">
+    //record
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    //camera
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
 
     <application
         android:name=".LifeManagerApplication"
@@ -22,10 +30,9 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".controllerRemind.RemindActivity">
-
         </activity>
+        <activity android:name=".RecordActivity"/>
         <activity android:name=".controllerRemind.AddRemindActivity">
-
         </activity>
         <receiver android:name=".receiverAlarm.MyBroadcastReceiver" >
         </receiver>
