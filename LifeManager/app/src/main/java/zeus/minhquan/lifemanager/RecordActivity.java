@@ -68,15 +68,17 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         setDefault();
-        fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
-        loadAllRecord();
+        if(checkPermission()) {
+            fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
+            loadAllRecord();
+        }
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isStartRecording) {
                     if (checkPermission()) {
                         outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        outputName = CreateRandomAudioFileName(5) + "AudioRecording.3gp";
+                        outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
                         outputFile = outputPath + "/" + outputName;
                         Log.d(TAG,"file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
                         readyToRecord();

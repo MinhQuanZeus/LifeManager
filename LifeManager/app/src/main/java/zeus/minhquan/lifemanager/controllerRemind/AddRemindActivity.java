@@ -106,7 +106,6 @@ public class AddRemindActivity extends AppCompatActivity {
         private int myDate;
         private static final int COUNT_MONTH_START = 1;
 
-
         public MyDate(int year, int month, int date) {
             this.year = year;
             this.month = month + COUNT_MONTH_START;
@@ -205,14 +204,13 @@ public class AddRemindActivity extends AppCompatActivity {
                     RemindDatabase db = LifeManagerApplication.getInstance().getStoryDatabase();
                     db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
                             ,txtDate.getText().toString(), txtTime.getText().toString()));
-//                    Log.d("Time" ,txtTime.getText().toString() );
-//                    Log.d("Date" ,txtDate.getText().toString() );
+
                     Log.d("so giay hen là ", " " + second);
                     startEvent(second);
                 }
                 else {
 
-                   Toast.makeText(null, "Thời gian không thể là quá khứ" ,Toast.LENGTH_LONG).show();
+
                 }
 
 
