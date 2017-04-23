@@ -99,10 +99,8 @@ public class AlarmNotificationManager {
     }
 
     public void handleNextAlarmNotificationStatus() {
-        // Check if notifications are enabled
         if (!shouldEnableNotifications()) return;
 
-        // Find the alarm that will fire next
         List<Alarm> alarms = AlarmList.get(mContext).getAlarms();
         Calendar now = Calendar.getInstance();
         SortedMap<Long, UUID> alarmValues = new TreeMap<>();
@@ -112,7 +110,6 @@ public class AlarmNotificationManager {
             }
         }
 
-        //  Decide whether we need to enable, update or remove the notification, or do nothing
         if (!alarmValues.isEmpty()) {
             Long alarmTime = alarmValues.firstKey();
             UUID alarmId = alarmValues.get(alarmTime);
@@ -131,7 +128,6 @@ public class AlarmNotificationManager {
     }
 
     public void handleAlarmRunningNotificationStatus(UUID alarmId) {
-        // Check if notifications are enabled
         if (!shouldEnableNotifications()) return;
 
         updateStateWithAlarmDetails(alarmId, 0, false);
@@ -143,7 +139,6 @@ public class AlarmNotificationManager {
     }
 
     public void disableNotifications() {
-        // We only attempt to disable the notification if it is already active
         if (mNotificationsActive) {
             AlarmRingingService.stopForegroundService(mContext);
             resetState();

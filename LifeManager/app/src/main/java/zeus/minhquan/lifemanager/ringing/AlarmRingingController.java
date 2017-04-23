@@ -42,8 +42,6 @@ public final class AlarmRingingController extends AlarmRingingSessionDispatcher 
 
     @Override
     protected void alarmRingingSessionCompleted() {
-        // We need to handle the case where the alarm timed out. In that case we
-        // wont get an explicit call from the AlarmRingingActivity to silence the alarm
         silenceAlarmRinging();
         mCurrentAlarm = null;
         super.alarmRingingSessionCompleted();
@@ -51,12 +49,10 @@ public final class AlarmRingingController extends AlarmRingingSessionDispatcher 
 
     @Override
     public void allAlarmRingingSessionsComplete() {
-        // Cleanup the state now that we are done with all ringing sessions
         mVibrator.cleanup();
         mRingtonePlayer.cleanup();
 
         SharedWakeLock.get(mContext).releaseFullWakeLock();
-        // We should now update the notification to show the next alarm if appropriate
         AlarmNotificationManager.get(mContext).handleNextAlarmNotificationStatus();
     }
 
@@ -89,9 +85,6 @@ public final class AlarmRingingController extends AlarmRingingSessionDispatcher 
     public void requestAllowDismiss() {
         mAllowDismissRequested = true;
     }
-
-    // alarmRingingSessionCompleted should always be called before this method.  If not, we should
-    // restart the AlarmRingingActivity so that we can successfully finish the alarm session
     public void alarmRingingSessionDismissed() {
         if (mAllowDismissRequested) {
             mAllowDismissRequested = false;

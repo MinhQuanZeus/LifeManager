@@ -65,8 +65,6 @@ public class AlarmRingingService extends Service {
     public void onCreate() {
         super.onCreate();
 
-     //   GeneralUtils.registerCrashReport(this);
-
         Log.d(TAG, "Alarm service created!");
 
         mController = AlarmRingingController.newInstance(getApplicationContext());
