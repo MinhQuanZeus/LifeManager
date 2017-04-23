@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zeus.minhquan.lifemanager">
-    //record
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    //camera
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false"/>
+
+    <uses-feature
+        android:name="android.hardware.sensor.light"
+        android:required="false"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".LifeManagerApplication"
+        android:name=".appcore.LifeManagerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name=".appcore.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,17 +37,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".appcore.MainActivity"></activity>
+
+        <!--alarm-->
+        <activity
+            android:name=".appcore.AlarmMainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <activity android:name=".controllerRemind.RemindActivity">
-        </activity>
-        <activity android:name=".RecordActivity"/>
-        <activity android:name=".controllerRemind.AddRemindActivity">
-        </activity>
-        <receiver android:name=".receiverAlarm.MyBroadcastReceiver" >
+
+        <activity
+            android:name=".ringing.AlarmRingingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+
+        <receiver
+            android:name=".ringing.AlarmWakeReceiver"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <service
+            android:name=".ringing.AlarmRingingService"
+            android:enabled="true"/>
+
+        <receiver
+            android:name=".scheduling.AlarmRegistrar">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+            </intent-filter>
         </receiver>
-        <receiver android:name=".receiverAlarm.MyBroadcastReceiver2" >
-        </receiver>
+
+        <activity
+            android:name=".globalsettings.AlarmGlobalSettingsActivity"
+            android:label="@string/title_activity_alarm_settings"
+            android:parentActivityName=".appcore.AlarmMainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="appcore.AlarmMainActivity"/>
+        </activity>
+
+        <activity android:name="net.hockeyapp.android.UpdateActivity"/>
+        <activity android:name="net.hockeyapp.android.FeedbackActivity"/>
+        <activity android:name="net.hockeyapp.android.PaintActivity"/>
+
 
     </application>
 

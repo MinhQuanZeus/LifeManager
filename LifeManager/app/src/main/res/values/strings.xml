@@ -1,3 +1,49 @@
 <resources>
-    <string name="app_name">LifeManager</string>
+    <string name="app_name">Life Manager</string>
+    <string name="app_short_name">LifeManager</string>
+    <string name="alarm_list_title">Alarms</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_learn_more">Learn more</string>
+    <string name="action_add_alarm">Add alarm</string>
+    <string name="title_activity_alarm_settings">Settings</string>
+    <string name="empty_alarm_list_text">You don\'t have any alarms set!\nUse the button to add alarms</string>
+    <string name="title_activity_learn_more">Learn more</string>
+    <string name="alarm_list_weekend">Weekend</string>
+    <string name="alarm_list_weekdays">Weekdays</string>
+    <string name="alarm_list_every_day">Every day</string>
+    <string name="alarm_snooze_label">Snoozed</string>
+    <string name="alarm_no_games_label">No Games selected</string>
+    <string name="alarm_no_games_tap_to_add">Tap to add!</string>
+
+
+    <string name="game_vision_prompt">Find something %s</string>
+    <string name="game_emotion_prompt">Make a %s face</string>
+    <string name="action_feedback_UserVoice">Feedback</string>
+    <string name="action_tutorial">Tutorial</string>
+    <string name="game_time_up_message">Time\'s Up!</string>
+    <string name="game_failure_message">That does not look quite right</string>
+    <string name="game_success_message">You did it!</string>
+    <string name="game_emotion_failure">You look too %s, try again</string>
+    <string name="game_emotion_failure_not_enough">You don\'t look %s enough, try again</string>
+    <string name="game_twister_perfect_message">Perfect!</string>
+
+    <string name="accept">accept</string>
+    <string name="game_nonetwork_prompt">catch the sleepyhead!</string>
+    <string name="game_nonetwork_prompt2">keep going</string>
+    <string name="game_nonetwork_prompt3">almost there</string>
+    <string name="default_ringtone_name">Wake Up</string>
+
+    <string name="alarm_set_day_hour_minute">Alarm will ring in {days, plural, =1{# day} other{# days}}, {hours, plural, =1{# hour} other{# hours}} and {minutes, plural, =1 {# minute} other {# minutes}}</string>
+    <string name="alarm_set_day_hour">Alarm will ring in {days, plural, =1{# day} other{# days}} and {hours, plural, =1{# hour} other{# hours}}</string>
+    <string name="alarm_set_day_minute">Alarm will ring in {days, plural, =1{# day} other{# days}} and {minutes, plural, =1 {# minute} other {# minutes}}</string>
+    <string name="alarm_set_day">Alarm will ring in {days, plural, =1{# day} other{# days}}</string>
+    <string name="alarm_set_hour_minute">Alarm will ring in {hours, plural, =1{# hour} other{# hours}} and {minutes, plural, =1 {# minute} other {# minutes}}</string>
+    <string name="alarm_set_hour">Alarm will ring in {hours, plural, =1{# hour} other{# hours}}</string>
+    <string name="alarm_set_minute">Alarm will ring in {minutes, plural, =1{# minute} other{# minutes}}</string>
+    <string name="alarm_set_less_than_minute">Alarm will ring in less than a minute</string>
+
+    <string name="notification_next_alarm_content_title">Next LifeManager alarm</string>
+    <string name="notification_alarm_ringing_content_title">LifeManager alarm is ringing</string>
+    <string name="game_camera_too_dark">It\'s really dark here</string>
+    <string name="game_error_toast">Something went wrong :( play this instead</string>
 </resources>
