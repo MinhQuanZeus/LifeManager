@@ -12,7 +12,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.LifeManagerApplication;
+import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.databases.RemindDatabase;
 import zeus.minhquan.lifemanager.databases.models.Remind;
 
@@ -33,7 +33,7 @@ public class RemindActivity extends AppCompatActivity {
         ivAdd = (ImageView) findViewById(R.id.iv_add);
         lvRemind=(ListView) findViewById(R.id.lvRemaind);
         btnRemoveAll=(ImageView) findViewById(R.id.btndelete);
-        RemindDatabase remindDatabase = LifeManagerApplication.getInstance().getStoryDatabase();
+        RemindDatabase remindDatabase = LifeManagerApplication.getInstance().getRemindDatabase();
         Log.d("okok" , "long xam");
 
         arrRemind = new ArrayList<>();

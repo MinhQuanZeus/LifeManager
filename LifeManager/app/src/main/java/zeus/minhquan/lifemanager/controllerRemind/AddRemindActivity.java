@@ -23,10 +23,11 @@ import java.util.GregorianCalendar;
 import zeus.minhquan.lifemanager.RecordActivity;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver;
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.LifeManagerApplication;
+import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.databases.RemindDatabase;
 import zeus.minhquan.lifemanager.databases.models.Remind;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver2;
+import zeus.minhquan.lifemanager.scheduling.AlarmRegistrar;
 
 public class AddRemindActivity extends AppCompatActivity {
 
@@ -203,10 +204,9 @@ public class AddRemindActivity extends AppCompatActivity {
                 Log.d("Second" , second + "");
                 if(second > 0){
                     Log.d("hello" , "ABC");
-                    RemindDatabase db = LifeManagerApplication.getInstance().getStoryDatabase();
+                    RemindDatabase db = LifeManagerApplication.getInstance().getRemindDatabase();
                     db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
                             ,txtDate.getText().toString(), txtTime.getText().toString()));
-
                     Log.d("so giay hen là ", " " + second);
                     startEvent(second);
                 }

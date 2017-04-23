@@ -157,7 +157,6 @@ public final class AlarmScheduler {
         calendarAlarm.set(Calendar.MINUTE, alarm.getSnoozeMinute());
         calendarAlarm.set(Calendar.SECOND, alarm.getSnoozeSeconds());
         calendarAlarm.set(Calendar.MILLISECOND, 0);
-
         boolean thisWeek = false;
         final int nowDay = calendarFrom.get(Calendar.DAY_OF_WEEK);
         final int nowHour = calendarFrom.get(Calendar.HOUR_OF_DAY);
