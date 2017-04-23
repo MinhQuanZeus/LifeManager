@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.ControllerRemind;
+package zeus.minhquan.lifemanager.controllerRemind;
 
 /**
  * Created by anh82 on 4/21/2017.
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import zeus.minhquan.lifemanager.R;

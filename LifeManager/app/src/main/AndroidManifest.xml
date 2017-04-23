@@ -21,13 +21,15 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".ControllerRemind.RemindActivity">
+        <activity android:name=".controllerRemind.RemindActivity">
 
         </activity>
-        <activity android:name=".ControllerRemind.AddRemindActivity">
+        <activity android:name=".controllerRemind.AddRemindActivity">
 
         </activity>
-        <receiver android:name="MyBroadcastReceiver" >
+        <receiver android:name=".receiverAlarm.MyBroadcastReceiver" >
+        </receiver>
+        <receiver android:name=".receiverAlarm.MyBroadcastReceiver2" >
         </receiver>
 
     </application>

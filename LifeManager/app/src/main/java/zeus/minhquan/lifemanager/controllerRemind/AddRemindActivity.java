@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.ControllerRemind;
+package zeus.minhquan.lifemanager.controllerRemind;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -20,11 +20,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import zeus.minhquan.lifemanager.MyBroadcastReceiver;
+import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver;
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.LifeManagerApplication;
 import zeus.minhquan.lifemanager.databases.RemindDatabase;
 import zeus.minhquan.lifemanager.databases.models.Remind;
+import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver2;
 
 public class AddRemindActivity extends AppCompatActivity {
 
@@ -37,7 +38,6 @@ public class AddRemindActivity extends AppCompatActivity {
     private MyDate myDatePicker;
     private MyTime myTimePicker;
     private ImageView ivSave;
-
 
     int yearChoose;
     int monthChoose;
@@ -202,7 +202,6 @@ public class AddRemindActivity extends AppCompatActivity {
                             ,txtDate.getText().toString(), txtTime.getText().toString()));
 //                    Log.d("Time" ,txtTime.getText().toString() );
 //                    Log.d("Date" ,txtDate.getText().toString() );
-
                     Log.d("so giay hen là ", " " + second);
                     startEvent(second);
                 }
@@ -225,7 +224,17 @@ public class AddRemindActivity extends AppCompatActivity {
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
         Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
 
-       // alarmManager.cancel(pendingIntent);
+        // alarmManager.cancel(pendingIntent);
+
+    }
+    public void startEvent2(int second){
+        Intent intent = new Intent(this, MyBroadcastReceiver2.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
+        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+
+        // alarmManager.cancel(pendingIntent);
 
     }
 

@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.ControllerRemind;
+package zeus.minhquan.lifemanager.controllerRemind;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,11 +24,7 @@ public class RemindActivity extends AppCompatActivity {
     //Sử dụng MyArrayAdapter thay thì ArrayAdapter
     MyArrayAdapter adapter=null;
     ListView lvRemind=null;
-
-
     ImageView btnRemoveAll;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +34,11 @@ public class RemindActivity extends AppCompatActivity {
         lvRemind=(ListView) findViewById(R.id.lvRemaind);
         btnRemoveAll=(ImageView) findViewById(R.id.btndelete);
         RemindDatabase remindDatabase = LifeManagerApplication.getInstance().getStoryDatabase();
+        Log.d("okok" , "long xam");
 
-         arrRemind = new ArrayList<>();
+        arrRemind = new ArrayList<>();
         arrRemind = (ArrayList<Remind>) remindDatabase.loadAllReminds();
+
         for(Remind r :arrRemind){
             Log.d("Remind  :   " , r.getTitle() + " , " +r.getDescription());
         }
@@ -50,7 +48,8 @@ public class RemindActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RemindActivity.this, AddRemindActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(  Intent.FLAG_ACTIVITY_NEW_TASK);
+                // Intent.FLAG_ACTIVITY_CLEAR_TASK dung de xoa cai cu
                 startActivity(intent);
 
             }
