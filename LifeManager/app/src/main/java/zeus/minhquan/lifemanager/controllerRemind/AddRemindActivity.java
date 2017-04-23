@@ -190,6 +190,7 @@ public class AddRemindActivity extends AppCompatActivity {
         ivSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // Log.d("hello" , "ABC");
                 //TODO : valid input
                 Date dateNow = new Date();
                 Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,houseChoose,minuteChoose).getTime();
@@ -201,6 +202,7 @@ public class AddRemindActivity extends AppCompatActivity {
 
                 Log.d("Second" , second + "");
                 if(second > 0){
+                    Log.d("hello" , "ABC");
                     RemindDatabase db = LifeManagerApplication.getInstance().getStoryDatabase();
                     db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
                             ,txtDate.getText().toString(), txtTime.getText().toString()));
@@ -209,7 +211,7 @@ public class AddRemindActivity extends AppCompatActivity {
                     startEvent(second);
                 }
                 else {
-
+                    Log.d("hello" , "DEF");
 
                 }
 
