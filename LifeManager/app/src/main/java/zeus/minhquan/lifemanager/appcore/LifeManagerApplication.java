@@ -3,9 +3,7 @@ package zeus.minhquan.lifemanager.appcore;
 import android.app.Application;
 import android.content.Context;
 
-import com.uservoice.uservoicesdk.UserVoice;
-
-import zeus.minhquan.lifemanager.databases.RemindDatabase;
+import zeus.minhquan.lifemanager.database.RemindDatabase;
 
 /**
  * Created by QuanT on 4/22/2017.

@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.databases;
+package zeus.minhquan.lifemanager.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,7 +12,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import zeus.minhquan.lifemanager.databases.models.Remind;
+import zeus.minhquan.lifemanager.database.models.Remind;
 
 
 /**

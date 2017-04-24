@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
-import zeus.minhquan.lifemanager.databases.RemindDatabase;
-import zeus.minhquan.lifemanager.databases.models.Remind;
+import zeus.minhquan.lifemanager.database.RemindDatabase;
+import zeus.minhquan.lifemanager.database.models.Remind;
 
 public class RemindActivity extends AppCompatActivity {
 

@@ -24,10 +24,9 @@ import zeus.minhquan.lifemanager.RecordActivity;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver;
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
-import zeus.minhquan.lifemanager.databases.RemindDatabase;
-import zeus.minhquan.lifemanager.databases.models.Remind;
+import zeus.minhquan.lifemanager.database.RemindDatabase;
+import zeus.minhquan.lifemanager.database.models.Remind;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver2;
-import zeus.minhquan.lifemanager.scheduling.AlarmRegistrar;
 
 public class AddRemindActivity extends AppCompatActivity {
 

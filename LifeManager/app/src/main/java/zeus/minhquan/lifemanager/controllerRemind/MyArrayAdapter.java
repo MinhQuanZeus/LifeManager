@@ -15,7 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.databases.models.Remind;
+import zeus.minhquan.lifemanager.database.models.Remind;
 
 public class MyArrayAdapter extends ArrayAdapter<Remind>
 {

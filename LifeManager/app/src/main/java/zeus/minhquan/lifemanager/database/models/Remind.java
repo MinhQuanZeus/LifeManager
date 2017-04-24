@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.databases.models;
+package zeus.minhquan.lifemanager.database.models;
 
 /**
  * Created by anh82 on 4/18/2017.
