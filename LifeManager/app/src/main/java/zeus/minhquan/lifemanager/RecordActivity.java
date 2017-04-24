@@ -34,6 +34,10 @@ public class RecordActivity extends AppCompatActivity {
     private static final String TAG = "RecordActivity";
     private static final String RANDOM_CHARACTER = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
     private static final int REQUEST_PERMISSION_CODE = 1;
+    private static final int MAX_OF_2_NUMBER = 99;
+    private static final int MAX_OF_SECOND_IN_MIN = 59;
+    private static final int MAX_TIME_RECORD = 5;//min
+    private static final int WAIT_TO_LOAD = 200;
     private ImageView ivRecord;
     private MediaRecorder mediaRecorder;
     private String outputFile = null;
@@ -50,6 +54,8 @@ public class RecordActivity extends AppCompatActivity {
     private ListView records;
     private MediaPlayer mediaRecordPlayer;
     private boolean isChooseRecord;
+    private boolean isFirstRecord;
+
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
@@ -61,6 +67,7 @@ public class RecordActivity extends AppCompatActivity {
         isPlayRecord = true;
         isPlaying = false;
         isChooseRecord = false;
+        isFirstRecord = true;
     }
 
     @Override
@@ -76,74 +83,7 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isStartRecording) {
-                    if (checkPermission()) {
-                        outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
-                        outputFile = outputPath + "/" + outputName;
-                        Log.d(TAG,"file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
-                        readyToRecord();
-                        isStartRecording = false;
-                        isRecording = true;
-                        try {
-                            mediaRecorder.prepare();
-                            mediaRecorder.start();
-                            timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                private int count = 0;
-                                private int second = 0;
-                                private int minute = 0;
-                                private String ticks;
-                                private String seconds;
-                                private String minutes;
-
-                                public String defaultDisplay(int number){
-                                    if(number < 10){
-                                        return "0" + number;
-                                    } else return "" + number;
-                                }
-
-                                @Override
-                                public void run() {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            count++;
-                                            ticks = defaultDisplay(count);
-                                            if(count >= 99){
-                                                count = 0;
-                                                second++;
-                                                if(second > 59){
-                                                    second = 0;
-                                                    minute++;
-                                                    if(minute == 5){
-                                                        cancel();
-                                                    }
-                                                }
-                                            }
-                                            seconds = defaultDisplay(second);
-                                            minutes = defaultDisplay(minute);
-                                            tvTimeRecord.setText(minutes + " : " + seconds + " : " + ticks);
-                                        }
-                                    });
-                                }
-                            },0,10);
-                        } catch (IllegalStateException e) {
-                            // TODO Auto-generated catch block
-                            Toast.makeText(RecordActivity.this, "Recording error",
-                                    Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            Toast.makeText(RecordActivity.this, "Recording error",
-                                    Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-                        ivRecord.setImageResource(R.drawable.stop_recording);
-                        Toast.makeText(RecordActivity.this, "Recording started",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        requestPermission();
-                    }
+                    startRecord();
                 } else {
                     if (mediaRecorder != null) {
                         ivRecord.setImageResource(R.drawable.start_recording);
@@ -154,6 +94,7 @@ public class RecordActivity extends AppCompatActivity {
                             fileRecords.add(new FileRecord(outputPath, outputName));
                             timer.cancel();
                             loadAllRecord();
+                            isFirstRecord = false;
                         }catch (Exception e){
 
                         }
@@ -180,6 +121,81 @@ public class RecordActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void startRecord() {
+        if (checkPermission()) {
+            outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
+            outputFile = outputPath + "/" + outputName;
+            Log.d(TAG, "file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
+            if (isFirstRecord) {
+                readyToRecord();
+                isStartRecording = false;
+                isRecording = true;
+            } else {
+                try {
+                    mediaRecorder.prepare();
+                    mediaRecorder.start();
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        private int count = 0;
+                        private int second = 0;
+                        private int minute = 0;
+                        private String ticks;
+                        private String seconds;
+                        private String minutes;
+
+                        public String defaultDisplay(int number) {
+                            if (number < 10) {
+                                return "0" + number;
+                            } else return "" + number;
+                        }
+
+                        @Override
+                        public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    count++;
+                                    ticks = defaultDisplay(count);
+                                    if (count >= MAX_OF_2_NUMBER) {
+                                        count = 0;
+                                        second++;
+                                        if (second > MAX_OF_SECOND_IN_MIN) {
+                                            second = 0;
+                                            minute++;
+                                            if (minute == MAX_TIME_RECORD) {
+                                                cancel();
+                                            }
+                                        }
+                                    }
+                                    seconds = defaultDisplay(second);
+                                    minutes = defaultDisplay(minute);
+                                    tvTimeRecord.setText(minutes + " : " + seconds + " : " + ticks);
+                                }
+                            });
+                        }
+                    }, 0, 10);
+                } catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(RecordActivity.this, "Recording error",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(RecordActivity.this, "Recording error",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+                ivRecord.setImageResource(R.drawable.stop_recording);
+                Toast.makeText(RecordActivity.this, "Recording started",
+                        Toast.LENGTH_LONG).show();
+            }
+        } else {
+                requestPermission();
+            }
+        }
+
 
     public void loadAllRecord(){
         if(fileRecords != null) {
