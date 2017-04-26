@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_repeatingdays.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v17\\preference_repeatingdays.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_volumeslider.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v17\\preference_volumeslider.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v17\\preference_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_dropdown_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v17\\preference_dropdown_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_information_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v17\\preference_information_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_category_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v17\\preference_category_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\preference_time.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v17\\preference_time.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v17\\fragment_alarm_ringing.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v17\\fragment_alarm_ringing.xml"
+    }
+]

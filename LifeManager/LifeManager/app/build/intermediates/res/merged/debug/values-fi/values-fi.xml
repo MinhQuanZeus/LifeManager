@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="one">artikkeli</item>
+        <item quantity="other">artikkelit</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="one">kommentti</item>
+        <item quantity="other">kommentteja</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="one">idea</item>
+        <item quantity="other">ideoita</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="one">%1$s haluaa tämän idean</item>
+        <item quantity="other">%1$s haluaa tämän idean</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="one">henkilö</item>
+        <item quantity="other">ihmiset</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="one">tilaaja</item>
+        <item quantity="other">tilaajia</item>
+    </plurals>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Siirry etusivulle"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Siirry ylös"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Lisää"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Valmis"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Näytä kaikki"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Valitse sovellus"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"POIS KÄYTÖSTÄ"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"KÄYTÖSSÄ"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Haku…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Tyhjennä kysely"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Hakulauseke"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Haku"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Lähetä kysely"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Puhehaku"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Jakaminen:"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Jakaminen: %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Kutista"</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Haku"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="uv_admin_response_format">Valvojan vastaus: %1$s</string>
+    <string name="uv_all_articles">Kaikki artikkelit</string>
+    <string name="uv_all_results_filter">KAIKKI</string>
+    <string name="uv_android_sdk">Android SDK</string>
+    <string name="uv_article">Artikkeli</string>
+    <string name="uv_article_browse_question">Oliko tästä artikkelista apua?</string>
+    <string name="uv_article_instant_answer_question">Onko tästä artikkelista apua?</string>
+    <string name="uv_articles_filter">ARTIKKELIT</string>
+    <string name="uv_cancel">Peruuta</string>
+    <string name="uv_category">Luokka</string>
+    <string name="uv_close">Sulje</string>
+    <string name="uv_comment_hint">Kirjoita kommentti</string>
+    <string name="uv_confirm">Vahvista</string>
+    <string name="uv_contact_continue_button">Haluan lähettää viestin</string>
+    <string name="uv_contact_hint">Kirjoita kysymyksesi tai palautteesi</string>
+    <string name="uv_contact_us">Ota meihin yhteyttä</string>
+    <string name="uv_display_name">Näyttönimi</string>
+    <string name="uv_email_address">Sähköpostiosoite</string>
+    <string name="uv_email_address_hint">sinun@sahkoposti.com (pakollinen)</string>
+    <string name="uv_error">Virhe</string>
+    <string name="uv_failed_signin_error">Virheellinen sähköpostiosoite tai salasana</string>
+    <string name="uv_feedback_forum">Palaute-keskustelupalsta</string>
+    <string name="uv_forgot_password">Unohtunut salasana</string>
+    <string name="uv_helpful_article_message_question">Haluatko silti lähettää viestin?</string>
+    <string name="uv_i_want_this">Haluan tämän!</string>
+    <string name="uv_idea">Idea</string>
+    <string name="uv_idea_description_heading">Kuvaa ideaa yksityiskohtaisemmin</string>
+    <string name="uv_idea_description_hint">(valinnainen)</string>
+    <string name="uv_idea_form_help">Kun julkaiset idean keskustelupalstalla, toiset voivat tilata sen ja kommentoida sitä. Saat ilmoituksen, kun vastaamme ideaan.</string>
+    <string name="uv_idea_form_title">Julkaise idea</string>
+    <string name="uv_idea_text_heading">Ehdotan…</string>
+    <string name="uv_idea_text_hint">Kirjoita ideasi…</string>
+    <string name="uv_ideas_filter">IDEOITA</string>
+    <string name="uv_knowledge_base">Knowledge Base</string>
+    <string name="uv_loading">Ladataan...</string>
+    <string name="uv_matching_articles">Vastaavia artikkeleita</string>
+    <string name="uv_matching_articles_and_ideas">Vastaavia artikkeleita ja ideoita</string>
+    <string name="uv_matching_ideas">Vastaavia ideoita</string>
+    <string name="uv_menu_search">Hae</string>
+    <string name="uv_msg_bad_email_format">Anna kelvollinen sähköpostiosoite.</string>
+    <string name="uv_msg_comment_posted">Kommenttisi on julkaistu</string>
+    <string name="uv_msg_confirm_discard_idea">Haluatko varmasti hylätä ideasi?</string>
+    <string name="uv_msg_confirm_discard_message">Haluatko varmasti hylätä viestisi?</string>
+    <string name="uv_msg_custom_fields_validation">Täytä kaikki pakolliset kentät.</string>
+    <string name="uv_msg_forgot_password">Unohtunut salasana -sähköposti on lähetetty</string>
+    <string name="uv_msg_idea_created">Ideasi on luotu</string>
+    <string name="uv_msg_subscribe">Pidämme sinut ajan tasalla idean edetessä.</string>
+    <string name="uv_msg_subscribe_success">Olet tilannut tämän idean.</string>
+    <string name="uv_msg_ticket_created">Viestisi on lähetetty</string>
+    <string name="uv_msg_unsubscribe">Olet poistanut tämän idean tilauksen.</string>
+    <string name="uv_msg_user_identity_validation">Anna sähköpostiosoitteesi</string>
+    <string name="uv_name_hint">\"Nimetön\"</string>
+    <string name="uv_network_error">Virhe yhdistettäessä UserVoiceen</string>
+    <string name="uv_nevermind">Älä välitä</string>
+    <string name="uv_new_comment">Uusi kommentti</string>
+    <string name="uv_next">Seuraava</string>
+    <string name="uv_no">Ei</string>
+    <string name="uv_none_of_these_help">Mikään näistä ei auta</string>
+    <string name="uv_password">Salasana</string>
+    <string name="uv_password_dialog_title">Anna salasanasi</string>
+    <string name="uv_portal_title">Ohje</string>
+    <string name="uv_post_a_comment">Kommentoi</string>
+    <string name="uv_post_an_idea">Julkaise idea</string>
+    <string name="uv_post_comment">Julkaise kommentti</string>
+    <string name="uv_post_idea_continue_button">Haluan silti julkaista ideani</string>
+    <string name="uv_posted_by_format">%1$s on julkaissut tämän %2$s</string>
+    <string name="uv_powered_by_uservoice">Palvelun tarjoaa UserVoice</string>
+    <string name="uv_ranked">Sijoitus %1$s</string>
+    <string name="uv_remove_votes">Poista äänet</string>
+    <string name="uv_select_none">(ei yhtään)</string>
+    <string name="uv_select_one">Valitse yksi</string>
+    <string name="uv_send_message">Lähetä viesti</string>
+    <string name="uv_signin_dialog_ok">Kirjaudu</string>
+    <string name="uv_signin_dialog_title">Kirjaudu</string>
+    <string name="uv_status_format">Tila: %1$s</string>
+    <string name="uv_submit_idea">Lähetä idea</string>
+    <string name="uv_subscribe">Tilaa</string>
+    <string name="uv_subscribe_dialog_title">Tilaa tämä idea</string>
+    <string name="uv_suggestion_instant_answer_question">Onko tästä ideasta apua?</string>
+    <string name="uv_thanks">Kiitos!</string>
+    <string name="uv_title_idea">Idea</string>
+    <string name="uv_unhelpful_article_message_question">Haluatko lähettää meille viestin?</string>
+    <string name="uv_value">Arvo</string>
+    <string name="uv_very_yes">Kyllä!</string>
+    <string name="uv_yes">Kyllä</string>
+    <string name="uv_your_email_address">Sähköpostiosoitteesi</string>
+    <string name="uv_your_name">Nimesi</string>
+</resources>

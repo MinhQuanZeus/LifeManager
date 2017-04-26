@@ -1,0 +1,340 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:2:1-105:12
+	package
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:3:5-40
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:4:5-80
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:4:22-78
+uses-permission#android.permission.WAKE_LOCK
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:5:22-65
+uses-permission#android.permission.INTERNET
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:7:5-66
+MERGED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:11:5-67
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:12:5-67
+MERGED from [com.mixpanel.android:mixpanel-android:4.9.2] C:\Users\EDGY\.android\build-cache\38a8eac24e593ca42b85b354cc7f26524e38498c\output\AndroidManifest.xml:16:5-67
+MERGED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:11:5-67
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:7:22-64
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:10:5-70
+MERGED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:12:5-71
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:10:22-68
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:11:5-80
+MERGED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:16:5-81
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:13:5-81
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:11:22-78
+uses-permission#android.permission.CAMERA
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:14:5-65
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:14:22-62
+uses-feature#android.hardware.camera
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:15:5-85
+	android:required
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:15:58-82
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:15:19-57
+uses-feature#android.hardware.camera.front
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:16:5-91
+	android:required
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:16:64-88
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:16:19-63
+uses-feature#android.hardware.sensor.light
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:22:5-24:35
+	android:required
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:24:9-33
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:23:9-53
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:26:5-78
+MERGED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:15:5-79
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:26:22-76
+uses-permission#android.permission.VIBRATE
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:28:5-66
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:28:22-63
+application
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:30:5-103:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\EDGY\.android\build-cache\caa7f53f25fc36bc5a18e035414051eac7ca670e\output\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:transition:25.3.1] C:\Users\EDGY\.android\build-cache\77f5f9a9ad11df426b60aa2e85460608d00139d6\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:preference-v14:25.3.1] C:\Users\EDGY\.android\build-cache\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:preference-v7:25.3.1] C:\Users\EDGY\.android\build-cache\82aaa313e7c4d06bc6854b22f5a6d164c0a19bd5\output\AndroidManifest.xml:26:5-20
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:15:5-21:19
+MERGED from [com.mixpanel.android:mixpanel-android:4.9.2] C:\Users\EDGY\.android\build-cache\38a8eac24e593ca42b85b354cc7f26524e38498c\output\AndroidManifest.xml:42:5-122:19
+MERGED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:13:5-34:19
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\EDGY\.android\build-cache\b329064576c7a80ecce134f16b4fd5993b18f19e\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\EDGY\.android\build-cache\8a69607d7964a9afd7169b7c814111682695eca5\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\EDGY\.android\build-cache\5a7af9784ac059717a1063ff676dfa813718e066\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\EDGY\.android\build-cache\e1c42ccf74c46e7a1eb290995970b4017f390bfa\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\EDGY\.android\build-cache\05778e5d03568545711eed47615c3e0a597fca83\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\EDGY\.android\build-cache\b721f9e58ac5abf1640bf0e5ccf01d5686365f43\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\fec2f677d4f4a567a4d52baa7e528a56de7663b7\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\bb90d9c333ea3ec7d9a234db401816c3ad19e475\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\EDGY\.android\build-cache\7b7d01a4329393f9f882a45eced7658594ab0bce\output\AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:34:9-41
+	android:supportsRtl
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:36:9-35
+	android:roundIcon
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:35:9-54
+	android:allowBackup
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:32:9-35
+	android:icon
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:33:9-43
+	android:theme
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:37:9-40
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:31:9-55
+activity#zeus.minhquan.lifemanager.appcore.SplashActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:38:9-46:20
+	android:theme
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:40:13-69
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:39:13-51
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:41:13-45:29
+action#android.intent.action.MAIN
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:42:17-69
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:42:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:44:17-77
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:44:27-74
+activity#zeus.minhquan.lifemanager.appcore.MainActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:47:9-67
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:47:19-55
+activity#zeus.minhquan.lifemanager.appcore.AlarmMainActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:50:9-57:20
+	android:screenOrientation
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:52:13-49
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:51:13-54
+activity#zeus.minhquan.lifemanager.ringing.AlarmRingingActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:59:9-63:83
+	android:screenOrientation
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:62:13-49
+	android:launchMode
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:61:13-44
+	android:theme
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:63:13-80
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:60:13-57
+receiver#zeus.minhquan.lifemanager.ringing.AlarmWakeReceiver
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:65:9-68:39
+	android:enabled
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:67:13-35
+	android:exported
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:68:13-37
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:66:13-54
+service#zeus.minhquan.lifemanager.ringing.AlarmRingingService
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:70:9-72:37
+	android:enabled
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:72:13-35
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:71:13-56
+receiver#zeus.minhquan.lifemanager.scheduling.AlarmRegistrar
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:74:9-82:20
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:75:13-54
+intent-filter#android.intent.action.BOOT_COMPLETED+android.intent.action.DATE_CHANGED+android.intent.action.TIMEZONE_CHANGED+android.intent.action.TIME_SET
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:76:13-81:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:77:17-78
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:77:25-76
+action#android.intent.action.TIMEZONE_CHANGED
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:78:17-80
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:78:25-78
+action#android.intent.action.TIME_SET
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:79:17-72
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:79:25-70
+action#android.intent.action.DATE_CHANGED
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:80:17-76
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:80:25-74
+receiver#zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:83:9-70
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:83:19-68
+activity#zeus.minhquan.lifemanager.globalsettings.AlarmGlobalSettingsActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:85:9-93:20
+	android:screenOrientation
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:89:13-49
+	android:label
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:87:13-66
+	android:parentActivityName
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:88:13-68
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:86:13-71
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:90:13-92:60
+	android:value
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:92:17-58
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:91:17-63
+activity#net.hockeyapp.android.UpdateActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:95:9-72
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:16:9-73
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:95:19-70
+activity#net.hockeyapp.android.FeedbackActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:96:9-74
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:17:9-75
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:96:19-72
+activity#net.hockeyapp.android.PaintActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:97:9-71
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:18:9-72
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:97:19-69
+activity#zeus.minhquan.lifemanager.RecordActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:99:9-51
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:99:19-49
+activity#zeus.minhquan.lifemanager.controllerRemind.RemindActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:100:9-68
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:100:19-66
+activity#zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity
+ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:101:9-71
+	android:name
+		ADDED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:101:19-69
+uses-sdk
+INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\EDGY\.android\build-cache\caa7f53f25fc36bc5a18e035414051eac7ca670e\output\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:transition:25.3.1] C:\Users\EDGY\.android\build-cache\77f5f9a9ad11df426b60aa2e85460608d00139d6\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:preference-v14:25.3.1] C:\Users\EDGY\.android\build-cache\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:preference-v7:25.3.1] C:\Users\EDGY\.android\build-cache\82aaa313e7c4d06bc6854b22f5a6d164c0a19bd5\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\EDGY\.android\build-cache\943629d9e8534e630336b135e4e9fb0a77c55933\output\AndroidManifest.xml:20:5-43
+MERGED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.microsoft.projectoxford:vision:0.5.0] C:\Users\EDGY\.android\build-cache\a819e4fa3b0284f831899cec31ec9b4a12e8304e\output\AndroidManifest.xml:5:5-7:41
+MERGED from [com.microsoft.projectoxford:emotion:1.0.0] C:\Users\EDGY\.android\build-cache\0f854cf7e0a1d2a1c3ef8bff2c1497b0593a5f65\output\AndroidManifest.xml:5:5-7:41
+MERGED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.mixpanel.android:mixpanel-android:4.9.2] C:\Users\EDGY\.android\build-cache\38a8eac24e593ca42b85b354cc7f26524e38498c\output\AndroidManifest.xml:11:5-13:41
+MERGED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\EDGY\.android\build-cache\b329064576c7a80ecce134f16b4fd5993b18f19e\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\EDGY\.android\build-cache\8a69607d7964a9afd7169b7c814111682695eca5\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\EDGY\.android\build-cache\5a7af9784ac059717a1063ff676dfa813718e066\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\EDGY\.android\build-cache\e1c42ccf74c46e7a1eb290995970b4017f390bfa\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\EDGY\.android\build-cache\05778e5d03568545711eed47615c3e0a597fca83\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\EDGY\.android\build-cache\b721f9e58ac5abf1640bf0e5ccf01d5686365f43\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\fec2f677d4f4a567a4d52baa7e528a56de7663b7\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\bb90d9c333ea3ec7d9a234db401816c3ad19e475\output\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\EDGY\.android\build-cache\7b7d01a4329393f9f882a45eced7658594ab0bce\output\AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:transition:25.3.1] C:\Users\EDGY\.android\build-cache\77f5f9a9ad11df426b60aa2e85460608d00139d6\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:preference-v14:25.3.1] C:\Users\EDGY\.android\build-cache\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:preference-v7:25.3.1] C:\Users\EDGY\.android\build-cache\82aaa313e7c4d06bc6854b22f5a6d164c0a19bd5\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] C:\Users\EDGY\.android\build-cache\943629d9e8534e630336b135e4e9fb0a77c55933\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] C:\Users\EDGY\.android\build-cache\b329064576c7a80ecce134f16b4fd5993b18f19e\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] C:\Users\EDGY\.android\build-cache\8a69607d7964a9afd7169b7c814111682695eca5\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] C:\Users\EDGY\.android\build-cache\5a7af9784ac059717a1063ff676dfa813718e066\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] C:\Users\EDGY\.android\build-cache\e1c42ccf74c46e7a1eb290995970b4017f390bfa\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] C:\Users\EDGY\.android\build-cache\05778e5d03568545711eed47615c3e0a597fca83\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] C:\Users\EDGY\.android\build-cache\b721f9e58ac5abf1640bf0e5ccf01d5686365f43\output\AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\fec2f677d4f4a567a4d52baa7e528a56de7663b7\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] C:\Users\EDGY\.android\build-cache\bb90d9c333ea3ec7d9a234db401816c3ad19e475\output\AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-compat:25.3.1] C:\Users\EDGY\.android\build-cache\7b7d01a4329393f9f882a45eced7658594ab0bce\output\AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:design:25.3.1] C:\Users\EDGY\.android\build-cache\2f1c596ff6caa565255f8d2a43b5a0ea8231dbad\output\AndroidManifest.xml:26:9-47
+uses-permission#android.permission.CHANGE_WIFI_MULTICAST_STATE
+ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:13:5-86
+	android:name
+		ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:13:22-83
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:14:5-76
+	android:name
+		ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:14:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:17:5-75
+	android:name
+		ADDED from [com.microsoft.projectoxford:speechrecognition:0.6.0] C:\Users\EDGY\.android\build-cache\7144a153c8eb95b81b4167dd6bb479bbd137818f\output\AndroidManifest.xml:17:22-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+IMPLIED from D:\Gymnastic-hackathon\LifeManager\LifeManager\app\src\main\AndroidManifest.xml:2:1-105:12 reason: com.microsoft.SpeechSDK requested WRITE_EXTERNAL_STORAGE
+library
+ADDED from [com.microsoft.projectoxford:vision:0.5.0] C:\Users\EDGY\.android\build-cache\a819e4fa3b0284f831899cec31ec9b4a12e8304e\output\AndroidManifest.xml:9:5-16
+activity#net.hockeyapp.android.LoginActivity
+ADDED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:19:9-72
+	android:name
+		ADDED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:19:19-69
+activity#net.hockeyapp.android.ExpiryInfoActivity
+ADDED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:20:9-77
+	android:name
+		ADDED from [net.hockeyapp.android:HockeySDK:4.1.1] C:\Users\EDGY\.android\build-cache\b085a9f100f08951c0ac5b5735a3dbe4d801a5a8\output\AndroidManifest.xml:20:19-74
+activity#com.uservoice.uservoicesdk.activity.PortalActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:14:9-16:53
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:16:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:15:13-78
+activity#com.uservoice.uservoicesdk.activity.ForumActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:17:9-19:53
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:19:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:18:13-77
+activity#com.uservoice.uservoicesdk.activity.ArticleActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:20:9-22:53
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:22:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:21:13-79
+activity#com.uservoice.uservoicesdk.activity.TopicActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:23:9-25:53
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:25:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:24:13-77
+activity#com.uservoice.uservoicesdk.activity.ContactActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:26:9-29:53
+	android:configChanges
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:28:13-74
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:29:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:27:13-79
+activity#com.uservoice.uservoicesdk.activity.PostIdeaActivity
+ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:30:9-33:53
+	android:configChanges
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:32:13-74
+	android:theme
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:33:13-50
+	android:name
+		ADDED from [com.uservoice:uservoice-android-sdk:1.2.5] C:\Users\EDGY\.android\build-cache\3c9749f3c374d6e925d3069d8fef2b14b59e58d0\output\AndroidManifest.xml:31:13-80

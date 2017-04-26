@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\b329064576c7a80ecce134f16b4fd5993b18f19e\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_category_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v21\\preference_category_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_information_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v21\\preference_information_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\b329064576c7a80ecce134f16b4fd5993b18f19e\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v21\\preference_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_repeatingdays.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v21\\preference_repeatingdays.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\b329064576c7a80ecce134f16b4fd5993b18f19e\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_dropdown_material.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\5d4ee2d45fba03fb7233450f4777c9bbe9b9b43f\\output\\res\\layout-v21\\preference_dropdown_material.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\preference_volumeslider.xml",
+        "source": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\src\\main\\res\\layout-v21\\preference_volumeslider.xml"
+    },
+    {
+        "merged": "D:\\Gymnastic-hackathon\\LifeManager\\LifeManager\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\EDGY\\.android\\build-cache\\b329064576c7a80ecce134f16b4fd5993b18f19e\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    }
+]

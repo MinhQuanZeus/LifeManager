@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="uv_articles">
+        <item quantity="one">статья</item>
+        <item quantity="other">статьи</item>
+    </plurals>
+    <plurals name="uv_comments">
+        <item quantity="one">комментарий</item>
+        <item quantity="other">комментарии</item>
+    </plurals>
+    <plurals name="uv_ideas">
+        <item quantity="one">идея</item>
+        <item quantity="other">идеи</item>
+    </plurals>
+    <plurals name="uv_number_of_subscribers_format">
+        <item quantity="one">%1$s понравилась эта идея</item>
+        <item quantity="other">%1$s понравилась эта идея</item>
+    </plurals>
+    <plurals name="uv_people">
+        <item quantity="one">человек</item>
+        <item quantity="other">люди</item>
+    </plurals>
+    <plurals name="uv_subscribers">
+        <item quantity="one">подписчик</item>
+        <item quantity="other">подписчики</item>
+    </plurals>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Перейти на главный экран"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Перейти вверх"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Другие параметры"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Готово"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Показать все"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Выбрать приложение"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"ОТКЛ."</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"ВКЛ."</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Поиск"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Удалить запрос"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Поисковый запрос"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Поиск"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Отправить запрос"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Голосовой поиск"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Открыть доступ"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Открыть доступ пользователю %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Свернуть"</string>
+    <string name="com_mixpanel_android_close">Закрыть</string>
+    <string name="com_mixpanel_android_done">Готово</string>
+    <string name="com_mixpanel_android_exit">Завершить</string>
+    <string name="com_mixpanel_android_logo">By Mixpanel</string>
+    <string name="com_mixpanel_android_next">Следующий вопрос</string>
+    <string name="com_mixpanel_android_no_thanks">Нет, спасибо</string>
+    <string name="com_mixpanel_android_notification_image">Image not displayed</string>
+    <string name="com_mixpanel_android_previous">Предыдущий вопрос</string>
+    <string name="com_mixpanel_android_sure">Конечно!</string>
+    <string name="com_mixpanel_android_survey_prompt_dialog_message">Примите участие в небольшом опросе?</string>
+    <string name="com_mixpanel_android_survey_prompt_dialog_title">Нам важна обратная связь</string>
+    <string name="hockeyapp_crash_dialog_app_name_fallback">Это приложение</string>
+    <string name="hockeyapp_crash_dialog_message">Хотели бы вы отправить анонимный отчёт об ошибке, чтобы мы могли исправить проблему?</string>
+    <string name="hockeyapp_crash_dialog_negative_button">Не отправлять</string>
+    <string name="hockeyapp_crash_dialog_neutral_button">Всегда отправлять</string>
+    <string name="hockeyapp_crash_dialog_positive_button">Отправить отчёт</string>
+    <string name="hockeyapp_crash_dialog_title">%s неожиданно завершилось</string>
+    <string name="hockeyapp_dialog_error_message">Произошла ошибка</string>
+    <string name="hockeyapp_dialog_error_title">Ошибка</string>
+    <string name="hockeyapp_dialog_negative_button">Закрыть</string>
+    <string name="hockeyapp_dialog_positive_button">OK</string>
+    <string name="hockeyapp_download_failed_dialog_message">Обновление не может быть загружено. Попробуем снова?</string>
+    <string name="hockeyapp_download_failed_dialog_negative_button">Закрыть</string>
+    <string name="hockeyapp_download_failed_dialog_positive_button">Повтор</string>
+    <string name="hockeyapp_download_failed_dialog_title">Загрузка не удалась</string>
+    <string name="hockeyapp_error_no_network_message">Ваше устройство не имеет доступа в интернет. Пожалуйста, восстановите подключение и попробуйте снова.</string>
+    <string name="hockeyapp_expiry_info_text">%s истек. Пожалуйста, проверьте обновления HockeyApp.</string>
+    <string name="hockeyapp_expiry_info_title">Сборка истекла</string>
+    <string name="hockeyapp_feedback_attach_file">Прикрепить файл</string>
+    <string name="hockeyapp_feedback_attach_picture">Прикрепить изображение</string>
+    <string name="hockeyapp_feedback_attachment_button_text">Прикрепить файл</string>
+    <string name="hockeyapp_feedback_attachment_error">Ошибка</string>
+    <string name="hockeyapp_feedback_attachment_loading">Загрузка…</string>
+    <string name="hockeyapp_feedback_email_hint">Email</string>
+    <string name="hockeyapp_feedback_failed_text">Вы хотите отправить отзыв снова?</string>
+    <string name="hockeyapp_feedback_failed_title">Ожидаем</string>
+    <string name="hockeyapp_feedback_fetching_feedback_text">Получение отзывов…</string>
+    <string name="hockeyapp_feedback_generic_error">Произошла ошибка</string>
+    <string name="hockeyapp_feedback_last_updated_text">Последнее обновление: %s</string>
+    <string name="hockeyapp_feedback_max_attachments_allowed">Количество вложений не может быть более чем %s</string>
+    <string name="hockeyapp_feedback_message_hint">Сообщение</string>
+    <string name="hockeyapp_feedback_name_hint">Имя</string>
+    <string name="hockeyapp_feedback_refresh_button_text">Обновить</string>
+    <string name="hockeyapp_feedback_response_button_text">Добавить ответ</string>
+    <string name="hockeyapp_feedback_select_file">Выбрать файл</string>
+    <string name="hockeyapp_feedback_select_picture">Выбрать изображение</string>
+    <string name="hockeyapp_feedback_send_button_text">Отправить отзыв</string>
+    <string name="hockeyapp_feedback_send_generic_error">Ошибка при отправлении сообщения. Пожалуйста, проверьте введённые вами значения, ваше интернет соединение и попробуйте снова.</string>
+    <string name="hockeyapp_feedback_send_network_error">Сервер не доступен. Пожалуйста, проверьте ваше интернет соединение и затем попробуйте снова.</string>
+    <string name="hockeyapp_feedback_sending_feedback_text">Отправка отзыва…</string>
+    <string name="hockeyapp_feedback_subject_hint">Тема</string>
+    <string name="hockeyapp_feedback_title">Отзыв</string>
+    <string name="hockeyapp_feedback_validate_email_empty">Введите, пожалуйста, Email</string>
+    <string name="hockeyapp_feedback_validate_email_error">Введите, пожалуйста действующий Email адрес</string>
+    <string name="hockeyapp_feedback_validate_name_error">Введите, пожалуйста Имя</string>
+    <string name="hockeyapp_feedback_validate_subject_error">Введите, пожалуйста, Тему</string>
+    <string name="hockeyapp_feedback_validate_text_error">Сообщение не может быть отправлено. Пожалуйста, введите текст отзыва.</string>
+    <string name="hockeyapp_login_email_hint">Email</string>
+    <string name="hockeyapp_login_headline_text">Пожалуйста, введите ваш HockeyApp email адресс и пароль для получения доступа в это приложение.</string>
+    <string name="hockeyapp_login_headline_text_email_only">Пожалуйста, введите ваш HockeyApp email адресс для получения доступа в это приложение.</string>
+    <string name="hockeyapp_login_login_button_text">Логин</string>
+    <string name="hockeyapp_login_missing_credentials_toast">Пожалуйста, заполните недостающие учётные данные.</string>
+    <string name="hockeyapp_login_password_hint">Пароль</string>
+    <string name="hockeyapp_paint_dialog_message">Вы хотите сохранить ваш рисунок?</string>
+    <string name="hockeyapp_paint_dialog_negative_button">Выбросить</string>
+    <string name="hockeyapp_paint_dialog_neutral_button">Закрыть</string>
+    <string name="hockeyapp_paint_dialog_positive_button">Сохранить</string>
+    <string name="hockeyapp_paint_indicator_toast">Нарисуйте что нибудь!</string>
+    <string name="hockeyapp_paint_menu_clear">Стереть</string>
+    <string name="hockeyapp_paint_menu_save">Сохранить</string>
+    <string name="hockeyapp_paint_menu_undo">Отмена</string>
+    <string name="hockeyapp_permission_dialog_negative_button">Закрыть</string>
+    <string name="hockeyapp_permission_dialog_positive_button">Повторить</string>
+    <string name="hockeyapp_permission_update_message">Во время загрузки и установки приложения вы должны предоставить доступ к хранилищу данных.</string>
+    <string name="hockeyapp_permission_update_title">Нужен доступ к хранилищу данных</string>
+    <string name="hockeyapp_update_button">Обновить</string>
+    <string name="hockeyapp_update_dialog_message">Показывать информацию о доступных обновлениях?</string>
+    <string name="hockeyapp_update_dialog_negative_button">Игнорировать</string>
+    <string name="hockeyapp_update_dialog_positive_button">Показать</string>
+    <string name="hockeyapp_update_dialog_title">Доступно обновление</string>
+    <string name="hockeyapp_update_mandatory_toast">%s доступен и является обязательным для обновления!</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Поиск"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">">999"</string>
+    <string name="uv_admin_response_format">Ответ администратора: %1$s</string>
+    <string name="uv_all_articles">Все статьи</string>
+    <string name="uv_all_results_filter">ВСЕ</string>
+    <string name="uv_android_sdk">Android SDK</string>
+    <string name="uv_article">Статья</string>
+    <string name="uv_article_browse_question">Помогла ли вам эта статья?</string>
+    <string name="uv_article_instant_answer_question">Полезна ли эта статья?</string>
+    <string name="uv_articles_filter">СТАТЬИ</string>
+    <string name="uv_cancel">Отмена</string>
+    <string name="uv_category">Категория</string>
+    <string name="uv_close">Закрыть</string>
+    <string name="uv_comment_hint">Введите комментарий</string>
+    <string name="uv_confirm">Подтвердить</string>
+    <string name="uv_contact_continue_button">Отправить сообщение</string>
+    <string name="uv_contact_hint">Введите вопрос или отзыв</string>
+    <string name="uv_contact_us">Свяжитесь с нами</string>
+    <string name="uv_display_name">Отображаемое имя</string>
+    <string name="uv_email_address">Адрес электронной почты</string>
+    <string name="uv_email_address_hint">ваш@адрес.com (обязательно)</string>
+    <string name="uv_error">Ошибка</string>
+    <string name="uv_failed_signin_error">Неверное имя пользователя или пароль</string>
+    <string name="uv_feedback_forum">Форум для отзывов</string>
+    <string name="uv_forgot_password">Забыли пароль</string>
+    <string name="uv_helpful_article_message_question">Хотите отправить сообщение?</string>
+    <string name="uv_i_want_this">Да!</string>
+    <string name="uv_idea">Идея</string>
+    <string name="uv_idea_description_heading">Опишите подробнее свою идею.</string>
+    <string name="uv_idea_description_hint">(необязательно)</string>
+    <string name="uv_idea_form_help">Когда вы публикуете свою идею на нашем форуме, другие люди смогут подписаться на ее обсуждение и оставлять комментарии. Мы уведомим вас о своем ответе.</string>
+    <string name="uv_idea_form_title">Опубликовать идею</string>
+    <string name="uv_idea_text_heading">Я предлагаю…</string>
+    <string name="uv_idea_text_hint">Опишите свою идею…</string>
+    <string name="uv_ideas_filter">ИДЕИ</string>
+    <string name="uv_knowledge_base">База знаний</string>
+    <string name="uv_loading">Загрузка…</string>
+    <string name="uv_matching_articles">Соответствующие статьи</string>
+    <string name="uv_matching_articles_and_ideas">Соответствующие статьи и идеи</string>
+    <string name="uv_matching_ideas">Соответствующие идеи</string>
+    <string name="uv_menu_search">Поиск</string>
+    <string name="uv_msg_bad_email_format">Введите допустимый адрес электронной почты.</string>
+    <string name="uv_msg_comment_posted">Ваш комментарий опубликован.</string>
+    <string name="uv_msg_confirm_discard_idea">Хотите удалить свою идею?</string>
+    <string name="uv_msg_confirm_discard_message">Хотите удалить свое сообщение?</string>
+    <string name="uv_msg_custom_fields_validation">Заполните все обязательные поля.</string>
+    <string name="uv_msg_forgot_password">Письмо о восстановлении пароля отправлено.</string>
+    <string name="uv_msg_idea_created">Идея создана.</string>
+    <string name="uv_msg_subscribe">Мы сообщим вам о ее продвижении.</string>
+    <string name="uv_msg_subscribe_success">Вы подписались на обсуждение этой идеи.</string>
+    <string name="uv_msg_ticket_created">Сообщение отправлено.</string>
+    <string name="uv_msg_unsubscribe">Вы отменили подписку на обсуждение этой идеи.</string>
+    <string name="uv_msg_user_identity_validation">Введите свой адрес электронной почты</string>
+    <string name="uv_name_hint">\"Аноним\"</string>
+    <string name="uv_network_error">Ошибка при подключении к UserVoice</string>
+    <string name="uv_nevermind">Неважно</string>
+    <string name="uv_new_comment">Новый комментарий</string>
+    <string name="uv_next">Далее</string>
+    <string name="uv_no">Нет</string>
+    <string name="uv_none_of_these_help">Ни одно действие не помогло.</string>
+    <string name="uv_password">Пароль</string>
+    <string name="uv_password_dialog_title">Введите пароль</string>
+    <string name="uv_portal_title">Справка</string>
+    <string name="uv_post_a_comment">Опубликовать комментарий</string>
+    <string name="uv_post_an_idea">Опубликовать идею</string>
+    <string name="uv_post_comment">Опубликовать комментарий</string>
+    <string name="uv_post_idea_continue_button">Я хочу опубликовать идею.</string>
+    <string name="uv_posted_by_format">Опубликовано: %1$s, %2$s</string>
+    <string name="uv_powered_by_uservoice">На платформе UserVoice</string>
+    <string name="uv_ranked">Рейтинг: %1$s</string>
+    <string name="uv_remove_votes">Удалить голоса</string>
+    <string name="uv_select_none">(нет)</string>
+    <string name="uv_select_one">Выберите вариант</string>
+    <string name="uv_send_message">Отправить сообщение</string>
+    <string name="uv_signin_dialog_ok">Вход</string>
+    <string name="uv_signin_dialog_title">Вход</string>
+    <string name="uv_status_format">Статус: %1$s</string>
+    <string name="uv_submit_idea">Отправить идею</string>
+    <string name="uv_subscribe">Подписаться</string>
+    <string name="uv_subscribe_dialog_title">Подписаться на обсуждение этой идеи</string>
+    <string name="uv_suggestion_instant_answer_question">Полезна ли эта идея?</string>
+    <string name="uv_thanks">Спасибо!</string>
+    <string name="uv_title_idea">Идея</string>
+    <string name="uv_unhelpful_article_message_question">Хотите отправить нам сообщение?</string>
+    <string name="uv_value">Значение</string>
+    <string name="uv_very_yes">Да!</string>
+    <string name="uv_yes">Да</string>
+    <string name="uv_your_email_address">Ваш адрес электронной почты</string>
+    <string name="uv_your_name">Ваше имя</string>
+</resources>
