@@ -84,9 +84,9 @@
                 android:value="appcore.AlarmMainActivity"/>
         </activity>
 
-        <activity android:name="net.hockeyapp.android.UpdateActivity"/>
-        <activity android:name="net.hockeyapp.android.FeedbackActivity"/>
-        <activity android:name="net.hockeyapp.android.PaintActivity"/>
+        <!--<activity android:name="net.hockeyapp.android.UpdateActivity"/>-->
+        <!--<activity android:name="net.hockeyapp.android.FeedbackActivity"/>-->
+        <!--<activity android:name="net.hockeyapp.android.PaintActivity"/>-->
 
 
     </application>

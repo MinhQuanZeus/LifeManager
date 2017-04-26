@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.view.KeyEvent;
 
-import net.hockeyapp.android.FeedbackManager;
-
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -82,7 +80,6 @@ public class AlarmMainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FeedbackManager.unregister();
         Logger.flush();
     }
 
