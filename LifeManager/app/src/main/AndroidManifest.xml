@@ -5,8 +5,15 @@
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
+    //record
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    //camera
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
 
     <uses-feature
         android:name="android.hardware.camera.front"
@@ -73,6 +80,7 @@
                 <action android:name="android.intent.action.DATE_CHANGED"/>
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiverAlarm.MyBroadcastReceiver"/>
 
         <activity
             android:name=".globalsettings.AlarmGlobalSettingsActivity"
@@ -84,7 +92,9 @@
                 android:value="appcore.AlarmMainActivity"/>
         </activity>
 
-
+        <activity android:name=".RecordActivity"/>
+        <activity android:name=".controllerRemind.RemindActivity"/>
+        <activity android:name=".controllerRemind.AddRemindActivity"/>
     </application>
 
 </manifest>
