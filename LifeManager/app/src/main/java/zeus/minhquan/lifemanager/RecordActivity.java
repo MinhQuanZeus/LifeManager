@@ -1,16 +1,23 @@
 package zeus.minhquan.lifemanager;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,6 +32,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
+import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -34,6 +42,10 @@ public class RecordActivity extends AppCompatActivity {
     private static final String TAG = "RecordActivity";
     private static final String RANDOM_CHARACTER = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
     private static final int REQUEST_PERMISSION_CODE = 1;
+    private static final int MAX_OF_2_NUMBER = 99;
+    private static final int MAX_OF_SECOND_IN_MIN = 59;
+    private static final int MAX_TIME_RECORD = 5;//min
+    private static final int WAIT_TO_LOAD = 200;
     private ImageView ivRecord;
     private MediaRecorder mediaRecorder;
     private String outputFile = null;
@@ -50,17 +62,87 @@ public class RecordActivity extends AppCompatActivity {
     private ListView records;
     private MediaPlayer mediaRecordPlayer;
     private boolean isChooseRecord;
+    private ImageView ivShowRecord;
+    private ConstraintLayout constraintLayout;
+    private ConstraintSet applyConstraintSet;
+    private ConstraintSet resetConstraintSet;
+    private boolean isSlideUp;
+    private int SCREEN_WIDTH;
+    private int SCREEN_HEIGHT;
+    private Timer timerShow;
+    private ImageView ivPlay;
+    private ImageView ivStop;
+    private FileRecord playRecord;
+    private ImageView ivSave;
+    private boolean isSave;
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
         tvTimeRecord = (TextView) findViewById(R.id.tv_time_record);
         records = (ListView) findViewById(R.id.lv_record);
+        ivShowRecord = (ImageView) findViewById(R.id.iv_show_record);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.constraint_main);
+        ivPlay = (ImageView) findViewById(R.id.iv_play);
+        ivStop = (ImageView) findViewById(R.id.iv_stop);
+        ivSave = (ImageView) findViewById(R.id.iv_save);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        SCREEN_WIDTH = displayMetrics.widthPixels;
+        SCREEN_HEIGHT = displayMetrics.heightPixels;
         random = new Random();
+        applyConstraintSet = new ConstraintSet();
+        resetConstraintSet = new ConstraintSet();
+        applyConstraintSet.clone(constraintLayout);
+        resetConstraintSet.clone(constraintLayout);
+        isSlideUp = false;
         isStartRecording = true;
         isRecording = true;
         isPlayRecord = true;
         isPlaying = false;
         isChooseRecord = false;
+        isSave = false;
+    }
+
+    enum TypeSlide{
+        UP,
+        DOWN
+    }
+
+    public void onSlide(int height, TypeSlide typeSlide) {
+        TransitionManager.beginDelayedTransition(constraintLayout);
+        switch (typeSlide){
+            case UP:
+                applyConstraintSet.constrainHeight(R.id.lv_record, height);
+                applyConstraintSet.constrainHeight(R.id.iv_start_record, 0);
+                applyConstraintSet.constrainWidth(R.id.iv_start_record, 0);
+                applyConstraintSet.constrainHeight(R.id.tv_time_record, 0);
+                applyConstraintSet.constrainWidth(R.id.tv_time_record, 0);
+                applyConstraintSet.constrainHeight(R.id.iv_play, 120);
+                applyConstraintSet.constrainWidth(R.id.iv_play, 120);
+                applyConstraintSet.constrainHeight(R.id.iv_stop, 80);
+                applyConstraintSet.constrainWidth(R.id.iv_stop, 80);
+                break;
+
+            case DOWN:
+                if(height <= 50){
+                    height = 0;
+                }
+                applyConstraintSet.constrainHeight(R.id.lv_record, height);
+                applyConstraintSet.constrainHeight(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainWidth(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainHeight(R.id.tv_time_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainWidth(R.id.tv_time_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainHeight(R.id.iv_play, 0);
+                applyConstraintSet.constrainWidth(R.id.iv_play, 0);
+                applyConstraintSet.constrainHeight(R.id.iv_stop, 0);
+                applyConstraintSet.constrainWidth(R.id.iv_stop, 0);
+                break;
+        }
+        applyConstraintSet.applyTo(constraintLayout);
+    }
+
+    public void onResetClick(View view) {
+
     }
 
     @Override
@@ -68,6 +150,65 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         setDefault();
+        ivShowRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isStartRecording) {
+                    if (ivShowRecord.getY() >= SCREEN_HEIGHT / 2) {
+                        timerShow = new Timer();
+                        timerShow.schedule(new TimerTask() {
+                            private int count = 0;
+
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        if (count < SCREEN_HEIGHT / 2) {
+                                            count += 50;
+                                            onSlide(count, TypeSlide.UP);
+                                        } else {
+                                            timerShow.cancel();
+                                            timerShow.purge();
+                                            ivShowRecord.setImageResource(R.drawable.slide_down);
+                                        }
+                                    }
+                                });
+                            }
+                        }, 0, 5);
+                    } else {
+                        timerShow = new Timer();
+                        timerShow.schedule(new TimerTask() {
+                            private int count = SCREEN_HEIGHT / 2;
+
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (count > 0) {
+                                            count -= 50;
+                                            onSlide(count, TypeSlide.DOWN);
+                                            Log.d(TAG, "FkingCount" + count);
+                                        } else {
+                                            ivSave.setImageResource(R.drawable.save_record_pre);
+                                            isSave = true;
+                                            timerShow.cancel();
+                                            timerShow.purge();
+                                            ivShowRecord.setImageResource(R.drawable.slide_up);
+                                        }
+                                    }
+                                });
+                            }
+                        }, 0, 5);
+                    }
+                } else {
+                    Toast.makeText(RecordActivity.this, "You must stop the record to show list records",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         if(checkPermission()) {
             fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
             loadAllRecord();
@@ -76,74 +217,7 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isStartRecording) {
-                    if (checkPermission()) {
-                        outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-                        outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
-                        outputFile = outputPath + "/" + outputName;
-                        Log.d(TAG,"file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
-                        readyToRecord();
-                        isStartRecording = false;
-                        isRecording = true;
-                        try {
-                            mediaRecorder.prepare();
-                            mediaRecorder.start();
-                            timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                private int count = 0;
-                                private int second = 0;
-                                private int minute = 0;
-                                private String ticks;
-                                private String seconds;
-                                private String minutes;
-
-                                public String defaultDisplay(int number){
-                                    if(number < 10){
-                                        return "0" + number;
-                                    } else return "" + number;
-                                }
-
-                                @Override
-                                public void run() {
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            count++;
-                                            ticks = defaultDisplay(count);
-                                            if(count >= 99){
-                                                count = 0;
-                                                second++;
-                                                if(second > 59){
-                                                    second = 0;
-                                                    minute++;
-                                                    if(minute == 5){
-                                                        cancel();
-                                                    }
-                                                }
-                                            }
-                                            seconds = defaultDisplay(second);
-                                            minutes = defaultDisplay(minute);
-                                            tvTimeRecord.setText(minutes + " : " + seconds + " : " + ticks);
-                                        }
-                                    });
-                                }
-                            },0,10);
-                        } catch (IllegalStateException e) {
-                            // TODO Auto-generated catch block
-                            Toast.makeText(RecordActivity.this, "Recording error",
-                                    Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            // TODO Auto-generated catch block
-                            Toast.makeText(RecordActivity.this, "Recording error",
-                                    Toast.LENGTH_LONG).show();
-                            e.printStackTrace();
-                        }
-                        ivRecord.setImageResource(R.drawable.stop_recording);
-                        Toast.makeText(RecordActivity.this, "Recording started",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        requestPermission();
-                    }
+                    startRecord();
                 } else {
                     if (mediaRecorder != null) {
                         ivRecord.setImageResource(R.drawable.start_recording);
@@ -158,7 +232,7 @@ public class RecordActivity extends AppCompatActivity {
 
                         }
                         Toast.makeText(RecordActivity.this, "Recording Completed",
-                                Toast.LENGTH_LONG).show();
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -166,34 +240,129 @@ public class RecordActivity extends AppCompatActivity {
         records.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!isChooseRecord) {
-                    view.findViewById(R.id.background_infor).setBackgroundColor(0xFF00FF00);
-
-                    isChooseRecord = true;
-                } else {
-
-                    view.findViewById(R.id.background_infor).setBackgroundColor(0xFFFFFFFF);
-                    isChooseRecord = false;
-                }
+                ivSave.setImageResource(R.drawable.save_record);
+                isSave = true;
+                playRecord = (FileRecord) (parent.getItemAtPosition(position));
+                ivPlay.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        playRecord(playRecord.getFilePath());
+                    }
+                });
+                ivStop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(mediaRecordPlayer != null){
+                            mediaRecordPlayer.stop();
+                            mediaRecordPlayer.release();
+                        } else {
+                            return;
+                        }
+                    }
+                });
 //                    FileRecord fileRecord = (FileRecord) (parent.getItemAtPosition(position));
 //                    playRecord(fileRecord.getFilePath());
             }
         });
+        ivSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isSave){
+                    Toast.makeText(RecordActivity.this,"Please choose record", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                    intent.putExtra("record", playRecord.getFilePath());
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    public void startRecord() {
+        if (checkPermission()) {
+            outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+            outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
+            outputFile = outputPath + "/" + outputName;
+            Log.d(TAG, "file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
+            readyToRecord();
+            isStartRecording = false;
+            isRecording = true;
+            try {
+                mediaRecorder.prepare();
+                mediaRecorder.start();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    private int count = 0;
+                    private int second = 0;
+                    private int minute = 0;
+                    private String ticks;
+                    private String seconds;
+                    private String minutes;
+
+                    public String defaultDisplay(int number) {
+                        if (number < 10) {
+                            return "0" + number;
+                        }
+                        else return "" + number;
+                    }
+
+                    @Override
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    count++;
+                                    ticks = defaultDisplay(count);
+                                    if (count >= MAX_OF_2_NUMBER) {
+                                        count = 0;
+                                        second++;
+                                        if (second > MAX_OF_SECOND_IN_MIN) {
+                                            second = 0;
+                                            minute++;
+                                            if (minute == MAX_TIME_RECORD) {
+                                                cancel();
+                                            }
+                                        }
+                                    }
+                                    seconds = defaultDisplay(second);
+                                    minutes = defaultDisplay(minute);
+                                    tvTimeRecord.setText(minutes + " : " + seconds + " : " + ticks);
+                                }
+                            });
+                        }
+                    }, 0, 10);
+                } catch (IllegalStateException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(RecordActivity.this, "Recording error",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    Toast.makeText(RecordActivity.this, "Recording error",
+                            Toast.LENGTH_LONG).show();
+                    e.printStackTrace();
+                }
+                Toast.makeText(RecordActivity.this, "Recording started",
+                        Toast.LENGTH_LONG).show();
+        } else {
+            requestPermission();
+        }
     }
 
     public void loadAllRecord(){
         if(fileRecords != null) {
             RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords);
             records.setAdapter(recordAdapter);
+            records.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
     }
 
     public void playRecord(String recordPath){
-        if (!isRecording) {
-            Toast.makeText(RecordActivity.this, "Please stop recorder to play",
-                    Toast.LENGTH_LONG).show();
-            return;
-        }
+//        if (!isRecording) {
+//            Toast.makeText(RecordActivity.this, "Please stop recorder to play",
+//                    Toast.LENGTH_LONG).show();
+//            return;
+//        }
         if (isPlayRecord) {
             mediaRecordPlayer = new MediaPlayer();
             try {
@@ -204,16 +373,12 @@ public class RecordActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             isPlayRecord = false;
-            isStartRecording = false;
-            isPlaying = true;
             mediaRecordPlayer.start();
             Toast.makeText(RecordActivity.this, "Recording Playing",
                     Toast.LENGTH_LONG).show();
         } else {
             if (mediaRecordPlayer != null) {
                 isPlayRecord = true;
-                isStartRecording = true;
-                isPlaying = false;
                 mediaRecordPlayer.stop();
                 mediaRecordPlayer.release();
                 readyToRecord();

@@ -171,6 +171,14 @@ public class AddRemindActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if(getIntent().hasExtra("record")) {
+            tvRecord.setText(getIntent().getStringExtra("record"));
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_remind);
@@ -235,7 +243,7 @@ public class AddRemindActivity extends AppCompatActivity {
 
     public void showRecordActivity(){
         Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

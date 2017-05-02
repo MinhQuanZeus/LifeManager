@@ -4,12 +4,15 @@ import android.app.Application;
 import android.content.Context;
 
 import zeus.minhquan.lifemanager.database.RemindDatabase;
+import zeus.minhquan.lifemanager.database.ToDoCB;
 
 /**
  * Created by QuanT on 4/22/2017.
  */
 
 public class LifeManagerApplication extends Application {
+    public static final String TAG = "ToDo";
+    private ToDoCB toDoCB;
     private RemindDatabase remindDatabase;
     private static LifeManagerApplication instance;
     private static Context sContext;
@@ -30,6 +33,10 @@ public class LifeManagerApplication extends Application {
         super.onCreate();
         instance = this;
         remindDatabase = new RemindDatabase(this);
+        toDoCB = new ToDoCB(getApplicationContext());
         LifeManagerApplication.sContext = getApplicationContext();
+    }
+    public ToDoCB getToDoCB() {
+        return toDoCB;
     }
 }

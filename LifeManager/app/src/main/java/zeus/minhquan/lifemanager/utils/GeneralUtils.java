@@ -1,6 +1,5 @@
 package zeus.minhquan.lifemanager.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
@@ -16,10 +15,6 @@ import android.text.style.URLSpan;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import net.hockeyapp.android.CrashManager;
-import net.hockeyapp.android.CrashManagerListener;
-import net.hockeyapp.android.UpdateManager;
 
 import zeus.minhquan.lifemanager.BuildConfig;
 import zeus.minhquan.lifemanager.R;
