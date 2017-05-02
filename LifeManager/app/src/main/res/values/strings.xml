@@ -46,4 +46,26 @@
     <string name="notification_alarm_ringing_content_title">LifeManager alarm is ringing</string>
     <string name="game_camera_too_dark">It\'s really dark here</string>
     <string name="game_error_toast">Something went wrong :( play this instead</string>
+
+    <string name="todo_list_title">To do lists</string>
+    <string name="action_create_list">New list</string>
+    <string name="action_login">Log in</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_share">Share</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_show_document">Show Document</string>
+    <string name="action_update">Update</string>
+
+    <string name="button_guest_login">Login as guest (offline only) </string>
+
+    <string name="hint_new_list">List title</string>
+    <string name="hint_create_task">Add new task</string>
+
+    <string name="title_activity_share">Share</string>
+    <string name="title_activity_image_view">ImageViewActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_list">ListActivity</string>
+
+    <string name="title_dialog_new_list">Create new list</string>
+    <string name="title_dialog_update">Update task</string>
 </resources>

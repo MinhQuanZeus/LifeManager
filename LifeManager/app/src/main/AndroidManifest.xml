@@ -15,9 +15,6 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-feature android:name="android.hardware.camera.front" android:required="false" />
 
-    <uses-feature
-        android:name="android.hardware.camera.front"
-        android:required="false"/>
 
     <uses-feature
         android:name="android.hardware.sensor.light"
@@ -35,12 +32,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <activity
             android:name=".appcore.SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -50,10 +57,6 @@
         <activity
             android:name=".appcore.AlarmMainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <activity
@@ -95,6 +98,14 @@
         <activity android:name=".RecordActivity"/>
         <activity android:name=".controllerRemind.RemindActivity"/>
         <activity android:name=".controllerRemind.AddRemindActivity"/>
+
+        <!--todolist-->
+        <activity android:name=".todolist.ListActivity" />
+        <activity android:name=".todolist.TaskActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
+        <activity android:name=".todolist.ImageActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
+
     </application>
 
 </manifest>
