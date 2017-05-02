@@ -1,15 +1,24 @@
 package zeus.minhquan.lifemanager.adapters;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.RecordActivity;
@@ -21,11 +30,11 @@ import zeus.minhquan.lifemanager.RecordActivity;
 public class RecordAdapter extends BaseAdapter{
     private static final String TAG = "RecordAdapter";
     private Context context;
-    private List<RecordActivity.FileRecord> recordList;
     private ImageView ivRecord;
-    private TextView tvRecordName;
-    private TextView tvRecordTime;
+    private List<RecordActivity.FileRecord> recordList;
+    private ImageView ivPlay;
     private LayoutInflater layoutInflater;
+    private TextView tvRecordName;
 
     public RecordAdapter(Context context, List<RecordActivity.FileRecord> recordList) {
         this.context = context;
@@ -53,11 +62,11 @@ public class RecordAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         Log.d(TAG,view + "");
         view = layoutInflater.inflate(R.layout.record_list_layout, null, false);
-        ImageView ivRecord = (ImageView) view.findViewById(R.id.iv_record);
-        TextView tvRecordName = (TextView) view.findViewById(R.id.tv_record_name);
+        ivRecord = (ImageView) view.findViewById(R.id.iv_record);
+        tvRecordName = (TextView) view.findViewById(R.id.tv_record_name);
         if(recordList == null){
             tvRecordName.setText("No record here");
         } else {
