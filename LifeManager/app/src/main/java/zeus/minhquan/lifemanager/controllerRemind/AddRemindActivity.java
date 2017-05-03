@@ -243,7 +243,7 @@ public class AddRemindActivity extends AppCompatActivity {
 
     public void showRecordActivity(){
         Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

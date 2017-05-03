@@ -1,92 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="zeus.minhquan.lifemanager.RemindActivity">
+    >
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/main.appbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/sunrise_header"
+        >
 
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background"
-        android:foregroundGravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="@string/app_name_remind"
 
-            <LinearLayout
+            >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main.toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:title="Test"
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"></View>
+                />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
-                <ImageView
-                    android:id="@+id/iv_add"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    app:srcCompat="@drawable/add_button" />
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4"></View>
-            </LinearLayout>
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true"
 
+        >
+        <com.andexert.expandablelayout.library.ExpandableLayoutListView
+            android:id="@+id/listview1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:nestedScrollingEnabled="true"
+            >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="2dp"
-                    android:layout_weight="8"
-
-                    android:textAlignment="center"
-                    android:text="List of Reminds:"
-
-                    android:textColor="#025602"
-                    android:textSize="40sp" />
-
-                <ImageView
-                    android:id="@+id/btndelete"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-
-                    android:src="@drawable/deletion_icon" />
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/lvRemaind"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8"></ListView>
-
-        </LinearLayout>
+        </com.andexert.expandablelayout.library.ExpandableLayoutListView>
 
 
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-
-</android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_remind"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_gravity="bottom|right|"
+        android:padding="16dp"
+        />
+</android.support.design.widget.CoordinatorLayout>

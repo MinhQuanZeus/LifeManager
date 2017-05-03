@@ -6,12 +6,17 @@ package zeus.minhquan.lifemanager.controllerRemind;
 
 import java.util.ArrayList;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import zeus.minhquan.lifemanager.R;
@@ -21,74 +26,73 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
 {
     Activity context=null;
     ArrayList<Remind>myArray=null;
+    LayoutInflater inflater;
     int layoutId;
+    ViewHolder holder;
+    SharedPreferences.Editor editor;
     /**
-     * Constructor này dùng để khởi tạo các giá trị
-     * từ MainActivity truyền vào
-     * @param context : là Activity từ Main
-     * @param layoutId : Là layout custom do ta tạo (my_item_layout.xml)
-     * @param arr : Danh sách nhân viên truyền từ Main
+     * Constructor này dùng d? kh?i t?o các giá tr?
+     * t? MainActivity truy?n vào
+     * @param context : là Activity t? Main
+     * @param layoutId : Là layout custom do ta t?o (my_item_layout.xml)
+     * @param arr : Danh sách nhân viên truy?n t? Main
      */
     public MyArrayAdapter(Activity context, int layoutId, ArrayList<Remind>arr){
         super(context, layoutId, arr);
         this.context=context;
         this.layoutId=layoutId;
         this.myArray=arr;
+
+        inflater=  context.getLayoutInflater();
     }
-    /**
-     * hàm dùng để custom layout, ta phải override lại hàm này
-     * từ MainActivity truyền vào
-     * @param position : là vị trí của phần tử trong danh sách nhân viên
-     * @param convertView: convertView, dùng nó để xử lý Item
-     * @param parent : Danh sách nhân viên truyền từ Main
-     * @return View: trả về chính convertView
-     */
+    public int getCount() {
+        return myArray.size();
+
+    }
+
+    public Remind getItem(int position) {
+        return myArray.get(position);
+    }
+
+    public long getItemId(int position) {
+        return position;
+    }
 
 
-    @NonNull
+
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        /**
-         * bạn chú ý là ở đây Tôi không làm:
-         * if(convertView==null)
-         * {
-         * LayoutInflater inflater=
-         * context.getLayoutInflater();
-         * convertView=inflater.inflate(layoutId, null);
-         * }
-         * Lý do là ta phải xử lý xóa phần tử Checked, nếu dùng If thì
-         * nó lại checked cho các phần tử khác sau khi xóa vì convertView
-         * lưu lại trạng thái trước đó
-         */
-        LayoutInflater inflater=  context.getLayoutInflater();
-        convertView=inflater.inflate(layoutId, null);
-        //chỉ là test thôi, bạn có thể bỏ If đi
-        if(myArray.size()>0 && position>=0)
-        {
-            //dòng lệnh lấy TextView ra để hiển thị Mã và tên lên
-            final Remind emp = myArray.get(position);
-            final TextView txtdisplay=(TextView) convertView.findViewById(R.id.contentRemind);
-            final TextView desciption=(TextView) convertView.findViewById(R.id.descriptionRemind);
-            final TextView time=(TextView) convertView.findViewById(R.id.timeRemind);
-            final TextView record = (TextView) convertView.findViewById(R.id.record);
+    public View getView(int position,  View convertView,  ViewGroup parent) {
 
-            //lấy ra nhân viên thứ position
+        final Remind emp = myArray.get(position);
+        if (convertView == null) {
+            convertView=inflater.inflate(layoutId, null);
 
-            //đưa thông tin lên TextView
-            //emp.toString() sẽ trả về Id và Name
-            txtdisplay.setText(emp.getTitle());
-            desciption.setText(emp.getDescription());
-            time.setText(emp.getTime() +"   "+ emp.getDate());
-            if(emp.getRecord_name() != null || emp.getRecord_name() != ""){
-                record.setText(emp.getRecord_name());
-            }
-
-
+            holder = new ViewHolder();
+            holder.txtContent = (TextView) convertView.findViewById(R.id.contentRemind1);
+            holder.txtDescription = (TextView) convertView.findViewById(R.id.descriptionRemind1);
+            holder.txtTime = (TextView) convertView.findViewById(R.id.timeRemind1);
+            holder.txtRecord = (TextView) convertView.findViewById(R.id.record1);
+            convertView.setTag(holder);
         }
-        //Vì View là Object là dạng tham chiếu đối tượng, nên
-        //mọi sự thay đổi của các object bên trong convertView
-        //thì nó cũng biết sự thay đổi đó
-        return convertView;//trả về View này, tức là trả luôn
-        //về các thông số mới mà ta vừa thay đổi
+        else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        holder.txtContent.setText(emp.getTitle());
+        holder.txtDescription.setText(emp.getDescription());
+        holder.txtTime.setText(emp.getTime() + "    " + emp.getDate());
+        holder.txtRecord.setText(emp.getRecord_name());
+        Log.d("Content" , emp.getTitle());
+
+        return convertView;
+
+    }
+
+
+    static class ViewHolder {
+        TextView txtContent;
+        TextView txtDescription;
+        TextView txtTime;
+        TextView txtRecord;
+
     }
 }

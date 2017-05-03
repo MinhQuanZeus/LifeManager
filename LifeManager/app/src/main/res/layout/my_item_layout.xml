@@ -10,17 +10,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/contentRemind"
-            android:layout_width="0dp"
-            android:textAlignment="center"
-            android:fontFamily="sans-serif"
-            android:textColor="#57ba5d"
-            android:textSize="25sp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_weight="9"
-            android:contentDescription="here" />
+
 
         <CheckBox  android:id="@+id/chkitem"
             android:layout_width="0dp"
