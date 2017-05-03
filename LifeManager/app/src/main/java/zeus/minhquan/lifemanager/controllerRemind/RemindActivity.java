@@ -27,6 +27,11 @@ public class RemindActivity extends AppCompatActivity {
     ImageView btnRemoveAll;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remind);
