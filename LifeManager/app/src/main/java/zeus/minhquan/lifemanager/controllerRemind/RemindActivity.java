@@ -35,12 +35,6 @@ public class RemindActivity extends AppCompatActivity {
 
     ExpandableLayoutListView expandableLayoutListView;
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

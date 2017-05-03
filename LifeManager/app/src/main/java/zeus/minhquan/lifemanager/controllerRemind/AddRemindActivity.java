@@ -27,6 +27,7 @@ import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.models.Remind;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver2;
+import zeus.minhquan.lifemanager.utils.DateTimeUtils;
 
 public class AddRemindActivity extends AppCompatActivity {
 
@@ -41,15 +42,12 @@ public class AddRemindActivity extends AppCompatActivity {
     private ImageView ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
-    int yearChoose;
-    int monthChoose;
-    int dayChoose;
-    int houseChoose;
-    int minuteChoose;
-
-
-
-
+    private boolean isSave;
+    private int yearChoose;
+    private int monthChoose;
+    private int dayChoose;
+    private int hourChoose;
+    private int minuteChoose;
 
     public enum HalfTime{
         AM,
@@ -67,7 +65,10 @@ public class AddRemindActivity extends AppCompatActivity {
         }
 
         public int getHour() {
-            return hour;
+            if (halfTime == HalfTime.AM && hour <= 12){
+                return hour;
+            }
+            else return hour + 12;
         }
 
         public int getMin() {
@@ -143,11 +144,12 @@ public class AddRemindActivity extends AppCompatActivity {
         txtTime.setText(getCurrentDate(TimeType.TIME));
 
         Calendar c = Calendar.getInstance();
-         yearChoose = c.get(Calendar.YEAR);
-         monthChoose = c.get(Calendar.MONTH);
-         dayChoose = c.get(Calendar.DAY_OF_MONTH);
-         houseChoose = c.get(Calendar.HOUR_OF_DAY);
-         minuteChoose = c.get(Calendar.MINUTE);
+        yearChoose = c.get(Calendar.YEAR);
+        monthChoose = c.get(Calendar.MONTH) + 1;
+        dayChoose = c.get(Calendar.DAY_OF_MONTH);
+        hourChoose = c.get(Calendar.HOUR_OF_DAY);
+        minuteChoose = c.get(Calendar.MINUTE);
+        isSave = false;
     }
 
     public enum TimeType{
@@ -173,9 +175,27 @@ public class AddRemindActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(getIntent().hasExtra("record")) {
-            tvRecord.setText(getIntent().getStringExtra("record"));
+        etTitle.setText(getDataToResume("title"));
+        etDescription.setText(getDataToResume("description"));
+        String date = getDataToResume("date");
+        String time = getDataToResume("time");
+        if(date.equals("")){
+            txtDate.setText(getCurrentDate(TimeType.DATE));
+        } else {
+            txtDate.setText(getDataToResume("date"));
         }
+        if(time.equals("")){
+            txtTime.setText(getCurrentDate(TimeType.TIME));
+        } else {
+            txtTime.setText(getDataToResume("time"));
+        }
+        tvRecord.setText(getDataToResume("record"));
+    }
+
+    public String getDataToResume(String data){
+        if(getIntent().hasExtra(data)){
+            return getIntent().getStringExtra(data);
+        } else return "";
     }
 
     @Override
@@ -200,30 +220,35 @@ public class AddRemindActivity extends AppCompatActivity {
             public void onClick(View view) {
                // Log.d("hello" , "ABC");
                 //TODO : valid input
-                Date dateNow = new Date();
-                Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,houseChoose,minuteChoose).getTime();
-                Log.d("Date Now " , dateNow.toString());
-                Log.d( " thoi gian" , yearChoose + "," + monthChoose + "," + dayChoose + " , " +minuteChoose);
-                Log.d("date Future" , dateFuture.toString() );
+                isSave = true;
 
-                int second = (int)((dateFuture.getTime() - dateNow.getTime())/1000) ;
+//                Log.d(TAG,"Date Now " + dateNow.toString());
+//                Log.d( " thoi gian" , yearChoose + "," + monthChoose + "," + dayChoose + " , " +minuteChoose);
+//                Log.d("date Future" , dateFuture.toString() );
 
-                Log.d("Second" , second + "");
-                if(second > 0){
-                    Log.d("hello" , "ABC");
-                    RemindDatabase db = LifeManagerApplication.getInstance().getRemindDatabase();
-                    db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
-                            ,txtDate.getText().toString(), txtTime.getText().toString()));
-                    Log.d("so giay hen là ", " " + second);
-                    startEvent(second);
+                if(etTitle.getText().toString().equals("") || etTitle == null){
+                    Toast.makeText(AddRemindActivity.this, "You must enter title", Toast.LENGTH_SHORT).show();
+                    isSave = false;
                 }
-                else {
-                    Log.d("hello" , "DEF");
-
+                if(isSave) {
+                    Date dateNow = new Date();
+                    Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,hourChoose,minuteChoose).getTime();
+                    Log.d(TAG,"year " + yearChoose + "month " + monthChoose + "date " + dayChoose + " hour "+hourChoose + " min "+minuteChoose);
+                    Log.d(TAG,"year " + dateNow.getYear() + "month " + dateNow.getMonth() + "date " + dateNow.getDate() + " hour "+dateNow.getHours() + " min "+dateNow.getMinutes());
+                    long second = ((dateFuture.getTime() - dateNow.getTime())/1000) ;
+                    Log.d(TAG,"time Check"+ second);
+                    if (second > 0) {
+                        RemindDatabase db = LifeManagerApplication.getInstance().getRemindDatabase();
+                        boolean check = db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
+                                , txtDate.getText().toString(), txtTime.getText().toString()));
+                        Log.d(TAG, "CHECK ADDING " + check);
+                        startEvent(second);
+                        Intent intent = new Intent(AddRemindActivity.this, RemindActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(AddRemindActivity.this, "You must choose future time", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
-
             }
         });
 
@@ -243,22 +268,38 @@ public class AddRemindActivity extends AppCompatActivity {
 
     public void showRecordActivity(){
         Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
+        String title = getData(etTitle);
+        String description = getData(etDescription);
+        String date = getData(txtDate);
+        String time = getData(txtTime);
+        intent.putExtra("title",title);
+        intent.putExtra("description",description);
+        intent.putExtra("date",date);
+        intent.putExtra("time",time);
         intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    public String getData(TextView evText){
+        if(evText == null){
+            return "";
+        } else {
+            return evText.getText().toString();
+        }
+    }
+
     // doan code tao su kien dem
-    public void startEvent(int second){
+    public void startEvent(long second){
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
-        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Alarm set in "  + DateTimeUtils.getTimeCountFromNow(second),Toast.LENGTH_LONG).show();
 
         // alarmManager.cancel(pendingIntent);
 
     }
-    public void startEvent2(int second){
+    public void startEvent2(long second){
         Intent intent = new Intent(this, MyBroadcastReceiver2.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -298,7 +339,7 @@ public class AddRemindActivity extends AppCompatActivity {
                 txtTime.setText(myTimePicker.getTime());
 
                 // lay thoi gian hien tai chut nua tinh thoi gian con lai de dem
-                houseChoose = hour;
+                hourChoose = hour;
                 minuteChoose = minute;
                // Log.d("gio , phut" , houseChoose+" , "+minuteChoose);
             }

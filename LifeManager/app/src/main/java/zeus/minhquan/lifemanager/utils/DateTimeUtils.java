@@ -23,6 +23,9 @@ import zeus.minhquan.lifemanager.R;
 public final class DateTimeUtils {
     private final static String TWO_CHARACTER_SHORT_DAY_PATTERN = "EEEEEE";
     private DateTimeUtils() {}
+    private final static int SECOND_OF_DATE = 86400;
+    private final static int SECOND_OF_HOUR = 3600;
+    private final static int SECOND_OF_MIN = 60;
 
     public static String getUserTimeString(Context context, int hour, int minute) {
         Format formatter = android.text.format.DateFormat.getTimeFormat(context);
@@ -133,5 +136,13 @@ public final class DateTimeUtils {
     public static String getDayAndTimeAlarmDisplayString(Context context, long timeUntilAlarm) {
         return DateUtils.formatDateTime(context, timeUntilAlarm, DateUtils.FORMAT_SHOW_TIME |
                 DateUtils.FORMAT_SHOW_WEEKDAY);
+    }
+
+    public static String getTimeCountFromNow(long second){
+        second -= 31*SECOND_OF_DATE;
+        long date = second / SECOND_OF_DATE;
+        long hour = (second - date*SECOND_OF_DATE) / SECOND_OF_HOUR;
+        long min = (second - date*SECOND_OF_DATE - hour*SECOND_OF_HOUR) / SECOND_OF_MIN;
+        return date + " day " + hour + " hour " + min + " min";
     }
 }

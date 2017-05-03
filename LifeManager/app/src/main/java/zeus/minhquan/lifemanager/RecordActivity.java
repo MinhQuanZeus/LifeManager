@@ -271,11 +271,23 @@ public class RecordActivity extends AppCompatActivity {
                     Toast.makeText(RecordActivity.this,"Please choose record", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                    intent.putExtra("title",sendDataToResume("title"));
+                    intent.putExtra("description",sendDataToResume("description"));
+                    String date = sendDataToResume("date");
+                    Log.d(TAG,""+date);
+                    intent.putExtra("date",sendDataToResume("date"));
+                    intent.putExtra("time",sendDataToResume("time"));
                     intent.putExtra("record", playRecord.getFilePath());
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    public String sendDataToResume(String data){
+        if(getIntent().hasExtra(data)){
+            return getIntent().getStringExtra(data);
+        } else return "";
     }
 
     public void startRecord() {
