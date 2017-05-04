@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.transition.TransitionManager;
@@ -16,8 +16,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,12 +24,15 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
+import zeus.minhquan.lifemanager.animation.GifImageView;
+import zeus.minhquan.lifemanager.animation.GifWebView;
 import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
 
 import static android.Manifest.permission.RECORD_AUDIO;
@@ -75,16 +76,28 @@ public class RecordActivity extends AppCompatActivity {
     private FileRecord playRecord;
     private ImageView ivSave;
     private boolean isSave;
+    private RecordAdapter recordAdapter;
+    private ImageView ivRecordDisk;
+    private boolean isRotate;
+    private Timer animationDisk;
+    private TextView tvText;
+    private ImageView ivGuide;
+    private GifImageView ivAnim;
+    private ImageView ivBack;
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
         tvTimeRecord = (TextView) findViewById(R.id.tv_time_record);
         records = (ListView) findViewById(R.id.lv_record);
+        ivBack = (ImageView) findViewById(R.id.iv_back);
         ivShowRecord = (ImageView) findViewById(R.id.iv_show_record);
         constraintLayout = (ConstraintLayout) findViewById(R.id.constraint_main);
         ivPlay = (ImageView) findViewById(R.id.iv_play);
         ivStop = (ImageView) findViewById(R.id.iv_stop);
         ivSave = (ImageView) findViewById(R.id.iv_save);
+        tvText = (TextView) findViewById(R.id.tv_text);
+        ivGuide = (ImageView) findViewById(R.id.iv_guide);
+        ivAnim = (GifImageView) findViewById(R.id.iv_anim);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         SCREEN_WIDTH = displayMetrics.widthPixels;
@@ -101,6 +114,7 @@ public class RecordActivity extends AppCompatActivity {
         isPlaying = false;
         isChooseRecord = false;
         isSave = false;
+        isRotate = true;
     }
 
     enum TypeSlide{
@@ -117,6 +131,10 @@ public class RecordActivity extends AppCompatActivity {
                 applyConstraintSet.constrainWidth(R.id.iv_start_record, 0);
                 applyConstraintSet.constrainHeight(R.id.tv_time_record, 0);
                 applyConstraintSet.constrainWidth(R.id.tv_time_record, 0);
+                applyConstraintSet.constrainHeight(R.id.iv_guide, 0);
+                applyConstraintSet.constrainWidth(R.id.iv_guide, 0);
+                applyConstraintSet.constrainHeight(R.id.tv_text, 0);
+                applyConstraintSet.constrainWidth(R.id.tv_text, 0);
                 applyConstraintSet.constrainHeight(R.id.iv_play, 120);
                 applyConstraintSet.constrainWidth(R.id.iv_play, 120);
                 applyConstraintSet.constrainHeight(R.id.iv_stop, 80);
@@ -131,7 +149,9 @@ public class RecordActivity extends AppCompatActivity {
                 applyConstraintSet.constrainHeight(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainWidth(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainHeight(R.id.tv_time_record, ConstraintSet.WRAP_CONTENT);
-                applyConstraintSet.constrainWidth(R.id.tv_time_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainWidth(R.id.tv_time_record, 0);
+                applyConstraintSet.constrainWidth(R.id.iv_guide, 37);
+                applyConstraintSet.constrainHeight(R.id.tv_text, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainHeight(R.id.iv_play, 0);
                 applyConstraintSet.constrainWidth(R.id.iv_play, 0);
                 applyConstraintSet.constrainHeight(R.id.iv_stop, 0);
@@ -150,6 +170,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         setDefault();
+        ivStop.setEnabled(false);
         ivShowRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -221,6 +242,7 @@ public class RecordActivity extends AppCompatActivity {
                 } else {
                     if (mediaRecorder != null) {
                         ivRecord.setImageResource(R.drawable.start_recording);
+                        ivAnim.setStop();
                         isStartRecording = true;
                         isRecording = false;
                         try {
@@ -243,16 +265,50 @@ public class RecordActivity extends AppCompatActivity {
                 ivSave.setImageResource(R.drawable.save_record);
                 isSave = true;
                 playRecord = (FileRecord) (parent.getItemAtPosition(position));
+                ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record);
                 ivPlay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        ivStop.setEnabled(true);
+                        ivPlay.setImageResource(R.drawable.pre_play);
+                        ivPlay.setEnabled(false);
+                        ivStop.setImageResource(R.drawable.stop_record);
                         playRecord(playRecord.getFilePath());
+//                        animationDisk = new Timer();
+//                        animationDisk.schedule(new TimerTask() {
+//                            @Override
+//                            public void run() {
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        RotateAnimation rotate = new RotateAnimation(0, 360,
+//                                                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+//                                                0.5f);
+//                                        rotate.setDuration(4000);
+//                                        rotate.setRepeatCount(Animation.INFINITE);
+//                                        if(isRotate) {
+//                                            ivRecordDisk.setAnimation(rotate);
+//                                        } else {
+//                                            animationDisk.cancel();
+//                                            animationDisk.purge();
+//                                            isRotate = true;
+//                                        }
+//                                    }
+//                                });
+//                            }
+//                        },0,10);
                     }
                 });
                 ivStop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(mediaRecordPlayer != null){
+                            ivPlay.setEnabled(true);
+                            ivStop.setEnabled(false);
+                            ivPlay.setImageResource(R.drawable.play_record);
+                            ivStop.setImageResource(R.drawable.pre_stop);
+                            isRotate = false;
+                            isPlayRecord = false;
                             mediaRecordPlayer.stop();
                             mediaRecordPlayer.release();
                         } else {
@@ -273,13 +329,23 @@ public class RecordActivity extends AppCompatActivity {
                     Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
                     intent.putExtra("title",sendDataToResume("title"));
                     intent.putExtra("description",sendDataToResume("description"));
-                    String date = sendDataToResume("date");
-                    Log.d(TAG,""+date);
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
                     intent.putExtra("record", playRecord.getFilePath());
                     startActivity(intent);
                 }
+            }
+        });
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                intent.putExtra("title",sendDataToResume("title"));
+                intent.putExtra("description",sendDataToResume("description"));
+                intent.putExtra("date",sendDataToResume("date"));
+                intent.putExtra("time",sendDataToResume("time"));
+                startActivity(intent);
             }
         });
     }
@@ -302,6 +368,9 @@ public class RecordActivity extends AppCompatActivity {
             try {
                 mediaRecorder.prepare();
                 mediaRecorder.start();
+                ivAnim.setStart();
+                ivAnim.setGifImageResource(R.drawable.anim_record);
+                Log.d(TAG,"StartStop" + ivAnim.isStop());
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
                     private int count = 0;
@@ -375,7 +444,6 @@ public class RecordActivity extends AppCompatActivity {
 //                    Toast.LENGTH_LONG).show();
 //            return;
 //        }
-        if (isPlayRecord) {
             mediaRecordPlayer = new MediaPlayer();
             try {
 
@@ -384,18 +452,10 @@ public class RecordActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            isPlayRecord = false;
+
             mediaRecordPlayer.start();
             Toast.makeText(RecordActivity.this, "Recording Playing",
                     Toast.LENGTH_LONG).show();
-        } else {
-            if (mediaRecordPlayer != null) {
-                isPlayRecord = true;
-                mediaRecordPlayer.stop();
-                mediaRecordPlayer.release();
-                readyToRecord();
-            }
-        }
     }
 
     @Override
@@ -481,7 +541,7 @@ public class RecordActivity extends AppCompatActivity {
         } else {
             for (File file : files) {
                 Log.d(TAG, "FKING FILE : " + file.getAbsolutePath());
-                if(file.getAbsolutePath().endsWith(".3gp")) {
+                if(file.getAbsolutePath().endsWith("Banana.3gp")) {
                     myRecords.add(new FileRecord(file.getAbsolutePath(), file.getName()));
                 }
             }

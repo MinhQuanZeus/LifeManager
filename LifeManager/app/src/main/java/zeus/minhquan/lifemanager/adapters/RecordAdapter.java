@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +45,15 @@ public class RecordAdapter extends BaseAdapter{
 
     public List<RecordActivity.FileRecord> getRecordList() {
         return recordList;
+    }
+
+    public void rotateDisk(TextView textView){
+        RotateAnimation rotate = new RotateAnimation(0, 360,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        rotate.setDuration(4000);
+        rotate.setRepeatCount(Animation.INFINITE);
+        textView.setAnimation(rotate);
     }
 
     @Override

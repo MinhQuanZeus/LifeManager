@@ -73,7 +73,6 @@ public class RemindActivity extends AppCompatActivity {
         }
         adapter=new MyArrayAdapter(this,R.layout.view_row, arrRemind);
         expandableLayoutListView.setAdapter(adapter);
-
     }
 
     @Override

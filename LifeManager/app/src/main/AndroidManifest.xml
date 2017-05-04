@@ -95,7 +95,16 @@
                 android:value="appcore.AlarmMainActivity"/>
         </activity>
 
-        <activity android:name=".RecordActivity"/>
+        <activity
+            android:name=".RecordActivity"
+            android:hardwareAccelerated="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".controllerRemind.RemindActivity"/>
         <activity android:name=".controllerRemind.AddRemindActivity"/>
 
