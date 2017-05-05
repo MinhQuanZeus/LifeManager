@@ -213,7 +213,7 @@ public class RecordActivity extends AppCompatActivity {
                                             onSlide(count, TypeSlide.DOWN);
                                             Log.d(TAG, "FkingCount" + count);
                                         } else {
-                                            ivSave.setImageResource(R.drawable.save_record_pre);
+                                            ivSave.setImageResource(R.drawable.ic_pre_black_24dp);
                                             isSave = true;
                                             timerShow.cancel();
                                             timerShow.purge();
@@ -262,7 +262,7 @@ public class RecordActivity extends AppCompatActivity {
         records.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ivSave.setImageResource(R.drawable.save_record);
+                ivSave.setImageResource(R.drawable.ic_done_black_24dp);
                 isSave = true;
                 playRecord = (FileRecord) (parent.getItemAtPosition(position));
                 ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record);
@@ -302,18 +302,7 @@ public class RecordActivity extends AppCompatActivity {
                 ivStop.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(mediaRecordPlayer != null){
-                            ivPlay.setEnabled(true);
-                            ivStop.setEnabled(false);
-                            ivPlay.setImageResource(R.drawable.play_record);
-                            ivStop.setImageResource(R.drawable.pre_stop);
-                            isRotate = false;
-                            isPlayRecord = false;
-                            mediaRecordPlayer.stop();
-                            mediaRecordPlayer.release();
-                        } else {
-                            return;
-                        }
+                        stopRecord();
                     }
                 });
 //                    FileRecord fileRecord = (FileRecord) (parent.getItemAtPosition(position));
@@ -326,12 +315,14 @@ public class RecordActivity extends AppCompatActivity {
                 if(!isSave){
                     Toast.makeText(RecordActivity.this,"Please choose record", Toast.LENGTH_SHORT).show();
                 } else {
+                    if(isPlayRecord) stopRecord();
                     Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
                     intent.putExtra("title",sendDataToResume("title"));
                     intent.putExtra("description",sendDataToResume("description"));
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record", playRecord.getFilePath());
+                    intent.putExtra("record_path", playRecord.getFilePath());
+                    intent.putExtra("record_name", playRecord.getFileName());
                     startActivity(intent);
                 }
             }
@@ -348,6 +339,21 @@ public class RecordActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void stopRecord(){
+        if(mediaRecordPlayer != null){
+            ivPlay.setEnabled(true);
+            ivStop.setEnabled(false);
+            ivPlay.setImageResource(R.drawable.play_record);
+            ivStop.setImageResource(R.drawable.pre_stop);
+            isRotate = false;
+            isPlayRecord = false;
+            mediaRecordPlayer.stop();
+            mediaRecordPlayer.release();
+        } else {
+            return;
+        }
     }
 
     public String sendDataToResume(String data){
@@ -444,9 +450,9 @@ public class RecordActivity extends AppCompatActivity {
 //                    Toast.LENGTH_LONG).show();
 //            return;
 //        }
+            isPlayRecord = true;
             mediaRecordPlayer = new MediaPlayer();
             try {
-
                 mediaRecordPlayer.setDataSource(recordPath);
                 mediaRecordPlayer.prepare();
             } catch (IOException e) {

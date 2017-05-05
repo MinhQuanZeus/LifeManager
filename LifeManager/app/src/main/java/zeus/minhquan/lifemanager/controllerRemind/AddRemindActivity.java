@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -50,7 +51,7 @@ public class AddRemindActivity extends AppCompatActivity {
     private int dayChoose;
     private int hourChoose;
     private int minuteChoose;
-
+    private String mainRecordPath;
     public enum HalfTime{
         AM,
         PM
@@ -191,7 +192,8 @@ public class AddRemindActivity extends AppCompatActivity {
         } else {
             txtTime.setText(getDataToResume("time"));
         }
-        tvRecord.setText(getDataToResume("record"));
+        tvRecord.setText(getDataToResume("record_name"));
+        mainRecordPath = getDataToResume("record_path");
     }
 
     public String getDataToResume(String data){
@@ -208,11 +210,15 @@ public class AddRemindActivity extends AppCompatActivity {
         etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                InputMethodManager imm = (InputMethodManager)getWindow().getContext().getSystemService(AddRemindActivity.this.INPUT_METHOD_SERVICE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-                if(hasFocus) {
-                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                }
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etTitle, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        etTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etTitle, InputMethodManager.SHOW_IMPLICIT);
             }
         });
         txtDate.setOnClickListener(new View.OnClickListener() {
