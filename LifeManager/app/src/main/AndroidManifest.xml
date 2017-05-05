@@ -101,7 +101,10 @@
         </activity>
 
         <activity android:name=".controllerRemind.RemindActivity"/>
-        <activity android:name=".controllerRemind.AddRemindActivity"/>
+        <activity
+            android:name=".controllerRemind.AddRemindActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
 
         <!--todolist-->
         <activity android:name=".todolist.ListActivity" />
