@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -318,6 +319,7 @@ public class AlarmListFragment extends Fragment implements
                 holder.setFirstItemDimensions();
             }
             holder.bindAlarm(alarm);
+            Log.d("Bind Alarm","Alarm");
         }
 
         @Override

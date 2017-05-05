@@ -75,27 +75,22 @@
 
     <string-array name="pref_game_labels">
         <item>@string/pref_game_freaking_math_label</item>
-        <item>@string/pref_game_express_yourself_label</item>
-        <item>@string/pref_game_tongue_twister_label</item>
+        <item>@string/pref_game_catch_a_snooze_label</item>
     </string-array>
 
-    <string name="pref_game_tongue_twister_id">tongue_twister</string>
+    <string name="pref_game_catch_a_snooze_id">catch_a_snooze</string>
     <string name="pref_game_freaking_math_id">freaking_math</string>
-    <string name="pref_game_express_yourself_id">express_yourself</string>
 
     <string-array name="pref_game_values">
         <item>@string/pref_game_freaking_math_id</item>
-        <!--<item>@string/pref_game_express_yourself_id</item>-->
-        <!--<item>@string/pref_game_tongue_twister_id</item>-->
+        <item>@string/pref_game_catch_a_snooze_id</item>
     </string-array>
 
-    <string name="pref_game_freaking_math_label">Freaking Math</string>
-    <string name="pref_game_express_yourself_label">Express yourself</string>
-    <string name="pref_game_tongue_twister_label">Tongue twister</string>
+    <string name="pref_game_catch_a_snooze_label">Catch a snooze</string>
+    <string name="pref_game_freaking_math_label">Freaking math</string>
 
-    <string name="pref_game_freaking_math_summary">Calculate exactly 15 sentences calculation</string>
-    <string name="pref_game_express_yourself_summary">Game the emotion by taking a selfie</string>
-    <string name="pref_game_tongue_twister_summary">Repeat the phrase by speaking out loud</string>
+    <string name="pref_game_freaking_math_summary">Calculate exactly 15 sentences calculation, Not wrong than three times</string>
+    <string name="pref_game_catch_a_snooze_summary">Catch a snooze five times</string>
 
     <string name="pref_game_not_supported">Your phone does not support this game</string>
 

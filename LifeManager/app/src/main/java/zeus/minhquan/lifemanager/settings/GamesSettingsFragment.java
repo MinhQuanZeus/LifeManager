@@ -114,11 +114,6 @@ public class GamesSettingsFragment extends PreferenceFragmentCompat {
             ((CheckBoxPreference)preferenceScreen.getPreference(i)).setChecked(false);
         }
 
-        if (!GeneralUtils.deviceHasFrontFacingCamera()) {
-            Preference preference = findPreference(getString(R.string.pref_game_express_yourself_id));
-            preference.setEnabled(false);
-            preference.setSummary(R.string.pref_game_not_supported);
-        }
     }
 
     private ArrayList<String> getEnabledGames() {

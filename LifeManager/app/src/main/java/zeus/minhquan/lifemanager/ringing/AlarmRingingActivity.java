@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.games.GameFactory;
-import zeus.minhquan.lifemanager.games.GameFreakingMathFragment;
+import zeus.minhquan.lifemanager.games.GameCatchSnoozeFragment;
 import zeus.minhquan.lifemanager.models.Alarm;
 import zeus.minhquan.lifemanager.models.AlarmList;
 import zeus.minhquan.lifemanager.scheduling.AlarmScheduler;
@@ -166,7 +166,7 @@ public class AlarmRingingActivity extends AppCompatActivity
         Toast.makeText(this, getString(R.string.game_error_toast), Toast.LENGTH_SHORT).show();
         GeneralUtils.showFragmentFromRight(getSupportFragmentManager(),
                 GameFactory.getNoNetworkGame(this),
-                GameFreakingMathFragment.NO_NETWORK_FRAGMENT_TAG);
+                GameCatchSnoozeFragment.NO_NETWORK_FRAGMENT_TAG);
     }
 
 //    @Override

@@ -265,7 +265,7 @@ public class ListActivity extends AppCompatActivity {
             }
 
             final Document list = (Document) getItem(position);
-            TextView text = (TextView) convertView.findViewById(R.id.text);
+            TextView text = (TextView) convertView.findViewById(R.id.text_task);
             text.setText((String) list.getProperty("title"));
             return convertView;
         }

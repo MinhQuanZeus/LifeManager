@@ -310,9 +310,8 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
 
     private void updateGamesSetting() {
         if (mGamesPreference.hasChanged()) {
-            mAlarm.setTongueTwisterEnabled(mGamesPreference.isTongueTwisterEnabled());
-            mAlarm.setColorCaptureEnabled(mGamesPreference.isColorCaptureEnabled());
-            mAlarm.setExpressYourselfEnabled(mGamesPreference.isExpressYourselfEnabled());
+            mAlarm.setCatchASnoozeEnabled(mGamesPreference.isCatchASnoozeEnabled());
+            mAlarm.setFreakingMathEnabled(mGamesPreference.isFreakingMathEnabled());
         }
     }
 

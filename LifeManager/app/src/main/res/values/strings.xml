@@ -16,22 +16,21 @@
     <string name="alarm_no_games_tap_to_add">Tap to add!</string>
 
 
-    <string name="game_vision_prompt">Find something %s</string>
-    <string name="game_emotion_prompt">Make a %s face</string>
-    <string name="action_feedback_UserVoice">Feedback</string>
-    <string name="action_tutorial">Tutorial</string>
     <string name="game_time_up_message">Time\'s Up!</string>
+    <string name="game_lose_message">You lose!</string>
     <string name="game_failure_message">That does not look quite right</string>
     <string name="game_success_message">You did it!</string>
-    <string name="game_emotion_failure">You look too %s, try again</string>
-    <string name="game_emotion_failure_not_enough">You don\'t look %s enough, try again</string>
-    <string name="game_twister_perfect_message">Perfect!</string>
 
     <string name="accept">accept</string>
     <string name="game_nonetwork_prompt">catch the sleepyhead!</string>
     <string name="game_nonetwork_prompt2">keep going</string>
     <string name="game_nonetwork_prompt3">almost there</string>
     <string name="default_ringtone_name">Wake Up</string>
+    <string name="game_freaking_math_prompt">Calculate exactly 15 sentences calculation</string>
+    <string name="game_freaking_math_prompt2">keep going</string>
+    <string name="game_freaking_math_prompt3">almost there</string>
+    <string name="game_freaking_math_failed2">Two more false you will lose</string>
+    <string name="game_freaking_math_failed1">One more false you will lose</string>
 
     <string name="alarm_set_day_hour_minute">Alarm will ring in {days, plural, =1{# day} other{# days}}, {hours, plural, =1{# hour} other{# hours}} and {minutes, plural, =1 {# minute} other {# minutes}}</string>
     <string name="alarm_set_day_hour">Alarm will ring in {days, plural, =1{# day} other{# days}} and {hours, plural, =1{# hour} other{# hours}}</string>
@@ -68,4 +67,7 @@
 
     <string name="title_dialog_new_list">Create new list</string>
     <string name="title_dialog_update">Update task</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

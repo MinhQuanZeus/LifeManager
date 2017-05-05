@@ -31,9 +31,8 @@ public class Alarm {
     private Uri mAlarmTone;
     private boolean mIsEnabled;
     private boolean mVibrate;
-    private boolean mTongueTwisterEnabled;
-    private boolean mColorCaptureEnabled;
-    private boolean mExpressYourselfEnabled;
+    private boolean mCatchASnoozeEnabled;
+    private boolean mFreakingMathEnabled;
     private boolean mNew;
     private boolean mSnoozed;
     private int mSnoozeHour;
@@ -53,9 +52,8 @@ public class Alarm {
         mAlarmTone = GeneralUtils.defaultRingtone();
         mIsEnabled = true;
         mVibrate = true;
-        mTongueTwisterEnabled = true;
-        mColorCaptureEnabled = GeneralUtils.deviceHasRearFacingCamera();
-        mExpressYourselfEnabled = GeneralUtils.deviceHasFrontFacingCamera();
+        mCatchASnoozeEnabled = true;
+        mFreakingMathEnabled = true;
         mNew = false;
         mSnoozed = false;
         mSnoozeHour = 0;
@@ -198,28 +196,21 @@ public class Alarm {
         mVibrate = vibrate;
     }
 
-    public boolean isExpressYourselfEnabled() {
-        return mExpressYourselfEnabled;
+
+    public boolean isFreakingMathEnabled() {
+        return mFreakingMathEnabled;
     }
 
-    public void setExpressYourselfEnabled(boolean expressYourselfEnabled) {
-        mExpressYourselfEnabled = expressYourselfEnabled;
+    public void setFreakingMathEnabled(boolean freakingMathEnabled) {
+        mFreakingMathEnabled = freakingMathEnabled;
     }
 
-    public boolean isColorCaptureEnabled() {
-        return mColorCaptureEnabled;
+    public boolean isCatchASnoozeEnabled() {
+        return mCatchASnoozeEnabled;
     }
 
-    public void setColorCaptureEnabled(boolean colorCaptureEnabled) {
-        mColorCaptureEnabled = colorCaptureEnabled;
-    }
-
-    public boolean isTongueTwisterEnabled() {
-        return mTongueTwisterEnabled;
-    }
-
-    public void setTongueTwisterEnabled(boolean tongueTwister) {
-        mTongueTwisterEnabled = tongueTwister;
+    public void setCatchASnoozeEnabled(boolean catASnooze) {
+        mCatchASnoozeEnabled = catASnooze;
     }
 
     public boolean isNew() {

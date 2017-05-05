@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".todolist.ListActivity">
+    tools:context=".appcore.AlarmMainActivity">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
@@ -28,24 +29,53 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-    <ListView
-        android:id="@+id/list"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/task_recycler_view"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="#ffffff"
-        tools:context=".todolist.ListActivity"/>
+        tools:context=".AlarmMainActivity"/>
+
     <zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add_black_24dp"
-        app:layout_anchor="@id/list"
-        app:layout_anchorGravity="bottom|center|end"
+        android:layout_gravity="bottom|right"
         />
+
+
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/app_bar_height"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/empty_view_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="100dp"
+            android:text="@string/empty_alarm_list_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empty_view_text"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="30dp"
+            android:src="@drawable/no_alarm_clock" />
+
+    </RelativeLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

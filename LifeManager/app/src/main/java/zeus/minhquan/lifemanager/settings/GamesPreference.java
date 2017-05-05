@@ -21,8 +21,11 @@ public class GamesPreference extends Preference {
 
     public static ArrayList<String> getEnabledGames(Context context, Alarm alarm) {
         ArrayList<String> enabledGames = new ArrayList<>();
-        if (alarm.isColorCaptureEnabled()) {
+        if (alarm.isFreakingMathEnabled()) {
             enabledGames.add(context.getString(R.string.pref_game_freaking_math_id));
+        }
+        if(alarm.isCatchASnoozeEnabled()){
+            enabledGames.add(context.getString(R.string.pref_game_catch_a_snooze_id));
         }
         return enabledGames;
     }
@@ -35,17 +38,14 @@ public class GamesPreference extends Preference {
         return !mInitialValues.equals(mEnabledValues);
     }
 
-    public boolean isTongueTwisterEnabled() {
-        return mEnabledValues.contains(getContext().getString(R.string.pref_game_tongue_twister_id));
+    public boolean isCatchASnoozeEnabled() {
+        return mEnabledValues.contains(getContext().getString(R.string.pref_game_catch_a_snooze_id));
     }
 
-    public boolean isColorCaptureEnabled() {
+    public boolean isFreakingMathEnabled() {
         return mEnabledValues.contains(getContext().getString(R.string.pref_game_freaking_math_id));
     }
 
-    public boolean isExpressYourselfEnabled() {
-        return mEnabledValues.contains(getContext().getString(R.string.pref_game_express_yourself_id));
-    }
 
     public void setGameValuesAndSummary(ArrayList<String> enabledGames) {
         mEnabledValues = enabledGames;
