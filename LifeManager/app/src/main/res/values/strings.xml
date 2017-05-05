@@ -4,6 +4,8 @@
     <string name="app_short_name">LifeManager</string>
     <string name="alarm_list_title">Alarms</string>
     <string name="action_settings">Settings</string>
+    <string name="remind_toolbar">Add remind</string>
+    <string name="record_toolbar">Add record</string>
     <string name="action_learn_more">Learn more</string>
     <string name="action_add_alarm">Add alarm</string>
     <string name="title_activity_alarm_settings">Settings</string>

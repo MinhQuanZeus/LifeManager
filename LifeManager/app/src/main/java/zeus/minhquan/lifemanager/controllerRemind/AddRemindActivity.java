@@ -324,7 +324,7 @@ public class AddRemindActivity extends AppCompatActivity {
                // Log.d("Nam thang ngay" , yearChoose+" , "+monthChoose+" , "+dayChoose );
             }
         };
-        DatePickerDialog datePicker = new DatePickerDialog(AddRemindActivity.this, callback, myDatePicker.getYear(), myDatePicker.getMonth(), myDatePicker.getMyDate());
+        DatePickerDialog datePicker = new DatePickerDialog(AddRemindActivity.this, callback, myDatePicker.getYear(), myDatePicker.getMonth() - 1, myDatePicker.getMyDate());
 
         datePicker.setTitle("Choose your date");
         datePicker.show();
