@@ -39,7 +39,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".AlarmMainActivity"/>
+        tools:context=".appcore.ToDoMainActivity"/>
 
     <zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton
         android:id="@+id/fab"
