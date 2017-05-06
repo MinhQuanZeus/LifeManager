@@ -29,9 +29,6 @@
     <string name="alarm_no_games_tap_to_add">Tap to add!</string>
 
 
-
-
-
     <string name="game_vision_prompt">Find something %s</string>
     <string name="game_emotion_prompt">Make a %s face</string>
     <string name="action_feedback_UserVoice">Feedback</string>

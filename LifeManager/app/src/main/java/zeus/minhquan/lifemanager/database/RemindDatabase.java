@@ -40,7 +40,6 @@ public class RemindDatabase extends SQLiteAssetHelper {
             DATE,
             TIME,
             RECORD_NAME
-
     };
 
     public RemindDatabase(Context context) {
@@ -101,5 +100,22 @@ public class RemindDatabase extends SQLiteAssetHelper {
         cursor.close();
         db.close();
         return reminds;
+    }
+
+
+    public int getIDMax(){
+       int id = 0;
+        db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME,REMIND_ALL_COLUMNS, null, null, null,null, null);
+        while(cursor.moveToNext()){
+             if( cursor.getInt(cursor.getColumnIndex(ID)) > id){
+                 id = cursor.getInt(cursor.getColumnIndex(ID));
+             }
+
+        }
+        cursor.close();
+        db.close();
+
+        return id;
     }
 }
