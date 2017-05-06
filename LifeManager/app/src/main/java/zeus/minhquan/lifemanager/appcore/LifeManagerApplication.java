@@ -15,6 +15,8 @@ public class LifeManagerApplication extends Application {
     private ToDoCB toDoCB;
     private RemindDatabase remindDatabase;
     private static LifeManagerApplication instance;
+
+
     private static Context sContext;
     public static Context getAppContext() {
         return LifeManagerApplication.sContext;

@@ -1,5 +1,7 @@
 package zeus.minhquan.lifemanager.controllerRemind;
 
+import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
@@ -11,13 +13,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.andexert.expandablelayout.library.ExpandableLayoutListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
@@ -27,14 +33,14 @@ import zeus.minhquan.lifemanager.database.models.Remind;
 
 public class RemindActivity extends AppCompatActivity {
 
-
+    public static HashMap<String ,PendingIntent> listPendingAlarm = new HashMap<>();
     private FloatingActionButton ivAdd;
 
     ArrayList<Remind> arrRemind;
     MyArrayAdapter adapter=null;
 
-    ExpandableLayoutListView expandableLayoutListView;
 
+    ExpandableLayoutListView expandableLayoutListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +54,12 @@ public class RemindActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(RemindActivity.this, AddRemindActivity.class);
                 intent.setFlags(  Intent.FLAG_ACTIVITY_NEW_TASK);
-
                 startActivity(intent);
             }
         });
-
     }
+
+
 
     @Override
     protected void onResume() {
@@ -73,10 +79,14 @@ public class RemindActivity extends AppCompatActivity {
         arrRemind = (ArrayList<Remind>) remindDatabase.loadAllReminds();
         Log.d("Size is", arrRemind.size() + "");
         for(Remind remind : arrRemind){
-            Log.d("Content is", remind.getTitle() + "");
+            Log.d("Content is ", remind.getTitle() + "");
         }
-        adapter=new MyArrayAdapter(this,R.layout.view_row, arrRemind);
+        Log.d("", arrRemind.size() + "------------------------------------");
+        adapter=new MyArrayAdapter(this,R.layout.view_row, arrRemind,expandableLayoutListView);
         expandableLayoutListView.setAdapter(adapter);
+
+
+
 
     }
 
@@ -89,9 +99,7 @@ public class RemindActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
