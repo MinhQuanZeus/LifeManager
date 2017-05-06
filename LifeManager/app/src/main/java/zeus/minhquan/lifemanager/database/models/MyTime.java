@@ -18,7 +18,10 @@ public class MyTime {
     }
 
     public int getHour() {
-        return hour;
+        if (halfTime == HalfTime.AM && hour <= 12){
+            return hour;
+        }
+        else return hour + 12;
     }
 
     public int getMin() {
@@ -41,7 +44,7 @@ public class MyTime {
         }
         return hourFormat + " : " + minFormat + " " + halfTime;}
     public HalfTime getHalfTime(int hour){
-        if(hour >= HOUR_OF_TIME){
+        if(hour > HOUR_OF_TIME){
             this.hour -= HOUR_OF_TIME;
             return HalfTime.PM;
         } else return HalfTime.AM;

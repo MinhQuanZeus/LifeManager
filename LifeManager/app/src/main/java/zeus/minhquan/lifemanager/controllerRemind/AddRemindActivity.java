@@ -4,11 +4,13 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,17 +48,18 @@ public class AddRemindActivity extends AppCompatActivity {
     private ImageView ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
-    int yearChoose;
-    int monthChoose;
-    int dayChoose;
-    int houseChoose;
-    int minuteChoose;
-
+    private boolean isSave;
+    private int yearChoose;
+    private int monthChoose;
+    private int dayChoose;
+    private int houseChoose;
+    private int minuteChoose;
+    private String mainRecordPath;
 
 
     public void setDefault(){
         etTitle = (EditText) findViewById(R.id.et_title);
-        etDescription = (EditText) findViewById(R.id.description1);
+        etDescription = (EditText) findViewById(R.id.et_description);
         txtDate = (TextView) findViewById(R.id.et_date);
         txtTime = (TextView) findViewById(R.id.et_time);
         ivSave = (ImageView) findViewById(R.id.iv_save);
@@ -74,8 +77,6 @@ public class AddRemindActivity extends AppCompatActivity {
          houseChoose = c.get(Calendar.HOUR_OF_DAY);
          minuteChoose = c.get(Calendar.MINUTE);
     }
-
-
 
     public String getCurrentDate(TimeType timeType){
         Calendar now = Calendar.getInstance();
@@ -95,16 +96,51 @@ public class AddRemindActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(getIntent().hasExtra("record")) {
-            tvRecord.setText(getIntent().getStringExtra("record"));
+
+        etTitle.setText(getDataToResume("title"));
+        etDescription.setText(getDataToResume("description"));
+        String date = getDataToResume("date");
+        String time = getDataToResume("time");
+        if(date.equals("")){
+            txtDate.setText(getCurrentDate(TimeType.DATE));
+        } else {
+            txtDate.setText(getDataToResume("date"));
         }
+        if(time.equals("")){
+            txtTime.setText(getCurrentDate(TimeType.TIME));
+        } else {
+            txtTime.setText(getDataToResume("time"));
+        }
+        tvRecord.setText(getDataToResume("record_name"));
+        mainRecordPath = getDataToResume("record_path");
+    }
+
+    public String getDataToResume(String data){
+        if(getIntent().hasExtra(data)){
+            return getIntent().getStringExtra(data);
+        } else return "";
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_remind);
+        Log.d(TAG,"onResume gaygaygay");
         setDefault();
+        etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etTitle, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+        etTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etTitle, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
         txtDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,30 +158,30 @@ public class AddRemindActivity extends AppCompatActivity {
             public void onClick(View view) {
                // Log.d("hello" , "ABC");
                 //TODO : valid input
-                Date dateNow = new Date();
-                Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,houseChoose,minuteChoose).getTime();
-                Log.d("Date Now " , dateNow.toString());
-                Log.d( " thoi gian" , yearChoose + "," + monthChoose + "," + dayChoose + " , " +minuteChoose);
-                Log.d("date Future" , dateFuture.toString() );
 
-                int second = (int)((dateFuture.getTime() - dateNow.getTime())/1000) ;
-
-                Log.d("Second" , second + "");
-                if(second > 0){
-                    Log.d("hello" , "ABC");
-
-                    db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
-                            ,txtDate.getText().toString(), txtTime.getText().toString()));
-
-                    Log.d("so giay hen là ", " " + second);
-                    //Log.d("  ID MAX " , db.getIDMax() + "");
-                 startEvent(second ,etTitle.getText().toString(), db.getIDMax());
+                isSave = true;
+                if(etTitle.getText().toString().equals("") || etTitle == null){
+                    Toast.makeText(AddRemindActivity.this, R.string.no_title, Toast.LENGTH_SHORT).show();
+                    isSave = false;
                 }
-                else {
-                  //  cancelAlarm();
-
+                if(isSave) {
+                    Date dateNow = new Date();
+                    Date dateFuture = new GregorianCalendar(yearChoose, monthChoose, dayChoose, houseChoose, minuteChoose).getTime();
+                    int second = (int) ((dateFuture.getTime() - dateNow.getTime()) / 1000);
+                    if (second > 0) {
+                        //TODO: import record path to database
+                        //mainRecordPath
+                        db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
+                                , txtDate.getText().toString(), txtTime.getText().toString()));
+                        //Log.d("  ID MAX " , db.getIDMax() + "");
+                        startEvent(second, etTitle.getText().toString(), db.getIDMax());
+                        Intent intent = new Intent(AddRemindActivity.this, RemindActivity.class);
+                        startActivity(intent);
+                    } else {
+                        //  cancelAlarm();
+                        Toast.makeText(AddRemindActivity.this,R.string.past_input_time, Toast.LENGTH_SHORT).show();
+                    }
                 }
-
 
 
             }
@@ -162,8 +198,24 @@ public class AddRemindActivity extends AppCompatActivity {
 
     public void showRecordActivity(){
         Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
+        String title = getData(etTitle);
+        String description = getData(etDescription);
+        String date = getData(txtDate);
+        String time = getData(txtTime);
+        intent.putExtra("title",title);
+        intent.putExtra("description",description);
+        intent.putExtra("date",date);
+        intent.putExtra("time",time);
         intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    public String getData(TextView evText){
+        if(evText == null){
+            return "";
+        } else {
+            return evText.getText().toString();
+        }
     }
 
     // cancel alarm
@@ -210,14 +262,6 @@ public class AddRemindActivity extends AppCompatActivity {
         datePicker.setTitle("Choose your date");
         datePicker.show();
     }
-
-
-
-
-
-
-
-
 
     public void showTimePickerDialog() {
         final TimePickerDialog.OnTimeSetListener callback = new TimePickerDialog.OnTimeSetListener() {

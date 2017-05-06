@@ -7,6 +7,7 @@
     <string name="remind_toolbar">Add remind</string>
     <string name="record_app">Add record</string>
     <string name="click_to_record">Click mic to record</string>
+    <string name="past_input_time">You must input future time</string>
     <string name="no_record">You has no record here</string>
     <string name="duplicate_record_name">Record name is duplicated, please try another name</string>
     <string name="record_complete">Record completed</string>
@@ -41,6 +42,7 @@
     <string name="game_twister_perfect_message">Perfect!</string>
 
     <string name="accept">accept</string>
+    <string name="no_title"> "You must enter title"</string>
     <string name="game_nonetwork_prompt">catch the sleepyhead!</string>
     <string name="game_nonetwork_prompt2">keep going</string>
     <string name="game_nonetwork_prompt3">almost there</string>
