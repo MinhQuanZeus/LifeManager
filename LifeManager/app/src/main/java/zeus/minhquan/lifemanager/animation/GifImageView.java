@@ -73,7 +73,6 @@ public class GifImageView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Log.d(TAG,isStop + "startStop");
         if(!isStop) {
             long now = SystemClock.uptimeMillis();
 

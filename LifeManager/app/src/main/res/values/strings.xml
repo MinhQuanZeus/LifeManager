@@ -7,6 +7,14 @@
     <string name="remind_toolbar">Add remind</string>
     <string name="record_app">Add record</string>
     <string name="click_to_record">Click mic to record</string>
+    <string name="no_record">You has no record here</string>
+    <string name="duplicate_record_name">Record name is duplicated, please try another name</string>
+    <string name="record_complete">Record completed</string>
+    <string name="start_record">Record completed</string>
+    <string name="no_name_record">Please enter your record name from 4-10 characters</string>
+    <string name="too_long_name_record">Your record name too long, please input less than 10 characters</string>
+    <string name="too_short_name_record">Your record name too long, please input more than 4 characters</string>
+    <string name="click_to_stop">Click mic to stop</string>
     <string name="record_toolbar">Add record</string>
     <string name="action_learn_more">Learn more</string>
     <string name="action_add_alarm">Add alarm</string>

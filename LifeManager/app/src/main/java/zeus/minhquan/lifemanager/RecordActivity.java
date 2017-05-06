@@ -1,5 +1,6 @@
 package zeus.minhquan.lifemanager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -16,7 +17,9 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +37,9 @@ import zeus.minhquan.lifemanager.adapters.RecordAdapter;
 import zeus.minhquan.lifemanager.animation.GifImageView;
 import zeus.minhquan.lifemanager.animation.GifWebView;
 import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
+import zeus.minhquan.lifemanager.controllerRemind.RemindActivity;
+import zeus.minhquan.lifemanager.database.models.Remind;
+import zeus.minhquan.lifemanager.utils.StringUtil;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -84,6 +90,9 @@ public class RecordActivity extends AppCompatActivity {
     private ImageView ivGuide;
     private GifImageView ivAnim;
     private ImageView ivBack;
+    private TextView tvRecordHide;
+    private EditText tvInputRecord;
+    private boolean isDuplicate;
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
@@ -96,8 +105,10 @@ public class RecordActivity extends AppCompatActivity {
         ivStop = (ImageView) findViewById(R.id.iv_stop);
         ivSave = (ImageView) findViewById(R.id.iv_save);
         tvText = (TextView) findViewById(R.id.tv_text);
+        tvInputRecord = (EditText) findViewById(R.id.et_input_rc);
         ivGuide = (ImageView) findViewById(R.id.iv_guide);
         ivAnim = (GifImageView) findViewById(R.id.iv_anim);
+        tvRecordHide = (TextView) findViewById(R.id.tv_text);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         SCREEN_WIDTH = displayMetrics.widthPixels;
@@ -115,6 +126,7 @@ public class RecordActivity extends AppCompatActivity {
         isChooseRecord = false;
         isSave = false;
         isRotate = true;
+        isDuplicate = false;
     }
 
     enum TypeSlide{
@@ -131,6 +143,8 @@ public class RecordActivity extends AppCompatActivity {
                 applyConstraintSet.constrainWidth(R.id.iv_start_record, 0);
                 applyConstraintSet.constrainHeight(R.id.tv_time_record, 0);
                 applyConstraintSet.constrainWidth(R.id.tv_time_record, 0);
+                applyConstraintSet.constrainHeight(R.id.et_input_rc, 0);
+                applyConstraintSet.constrainWidth(R.id.et_input_rc, 0);
                 applyConstraintSet.constrainHeight(R.id.iv_guide, 0);
                 applyConstraintSet.constrainWidth(R.id.iv_guide, 0);
                 applyConstraintSet.constrainHeight(R.id.tv_text, 0);
@@ -139,6 +153,11 @@ public class RecordActivity extends AppCompatActivity {
                 applyConstraintSet.constrainWidth(R.id.iv_play, 120);
                 applyConstraintSet.constrainHeight(R.id.iv_stop, 80);
                 applyConstraintSet.constrainWidth(R.id.iv_stop, 80);
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager) RecordActivity.this.getSystemService(
+                                Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(
+                        RecordActivity.this.getCurrentFocus().getWindowToken(), 0);
                 break;
 
             case DOWN:
@@ -149,6 +168,8 @@ public class RecordActivity extends AppCompatActivity {
                 applyConstraintSet.constrainHeight(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainWidth(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainHeight(R.id.tv_time_record, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainWidth(R.id.et_input_rc, ConstraintSet.WRAP_CONTENT);
+                applyConstraintSet.constrainHeight(R.id.et_input_rc, ConstraintSet.WRAP_CONTENT);
                 applyConstraintSet.constrainWidth(R.id.tv_time_record, 0);
                 applyConstraintSet.constrainWidth(R.id.iv_guide, 37);
                 applyConstraintSet.constrainHeight(R.id.tv_text, ConstraintSet.WRAP_CONTENT);
@@ -170,6 +191,7 @@ public class RecordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
         setDefault();
+        ivSave.setEnabled(false);
         ivStop.setEnabled(false);
         ivShowRecord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +233,13 @@ public class RecordActivity extends AppCompatActivity {
                                         if (count > 0) {
                                             count -= 50;
                                             onSlide(count, TypeSlide.DOWN);
-                                            Log.d(TAG, "FkingCount" + count);
                                         } else {
                                             ivSave.setImageResource(R.drawable.ic_pre_black_24dp);
                                             isSave = true;
                                             timerShow.cancel();
                                             timerShow.purge();
                                             ivShowRecord.setImageResource(R.drawable.slide_up);
+                                            ivSave.setEnabled(false);
                                         }
                                     }
                                 });
@@ -237,24 +259,52 @@ public class RecordActivity extends AppCompatActivity {
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isStartRecording) {
-                    startRecord();
+                if (tvInputRecord.getText().toString().equals("")) {
+                    Toast.makeText(RecordActivity.this,R.string.no_name_record,Toast.LENGTH_SHORT).show();
+                }else if(tvInputRecord.getText().toString().length() < 4){
+                    Toast.makeText(RecordActivity.this,R.string.too_short_name_record,Toast.LENGTH_SHORT).show();
+                } else if(tvInputRecord.getText().toString().length() >= 10){
+                    Toast.makeText(RecordActivity.this,R.string.too_long_name_record,Toast.LENGTH_SHORT).show();
                 } else {
-                    if (mediaRecorder != null) {
-                        ivRecord.setImageResource(R.drawable.start_recording);
-                        ivAnim.setStop();
-                        isStartRecording = true;
-                        isRecording = false;
-                        try {
-                            mediaRecorder.stop();
-                            fileRecords.add(new FileRecord(outputPath, outputName));
-                            timer.cancel();
-                            loadAllRecord();
-                        }catch (Exception e){
-
+                    isDuplicate = false;
+                    if (isStartRecording) {
+                        for (FileRecord fileRecord : fileRecords){
+                            if(fileRecord.getFileName().equals(tvInputRecord.getText().toString()+"BNN.3gp")){
+                                isDuplicate = true;
+                                break;
+                            }
                         }
-                        Toast.makeText(RecordActivity.this, "Recording Completed",
-                                Toast.LENGTH_SHORT).show();
+                        if(isDuplicate){
+                            Toast.makeText(RecordActivity.this,R.string.duplicate_record_name,Toast.LENGTH_SHORT).show();
+                        } else {
+                            InputMethodManager inputMethodManager =
+                                    (InputMethodManager) RecordActivity.this.getSystemService(
+                                            Activity.INPUT_METHOD_SERVICE);
+                            inputMethodManager.hideSoftInputFromWindow(
+                                    RecordActivity.this.getCurrentFocus().getWindowToken(), 0);
+                            tvRecordHide.setText(R.string.click_to_stop);
+                            startRecord();
+                            tvInputRecord.setEnabled(false);
+                        }
+                    } else {
+                        if (mediaRecorder != null) {
+                            ivRecord.setImageResource(R.drawable.start_recording);
+                            ivAnim.setWillNotDraw(true);
+                            isStartRecording = true;
+                            isRecording = false;
+                            try {
+                                mediaRecorder.stop();
+                                tvInputRecord.setEnabled(true);
+                                tvRecordHide.setText(R.string.click_to_record);
+                                fileRecords.add(new FileRecord(outputPath, outputName));
+                                timer.cancel();
+                                loadAllRecord();
+                            } catch (Exception e) {
+
+                            }
+                            Toast.makeText(RecordActivity.this, R.string.record_complete,
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -263,6 +313,7 @@ public class RecordActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ivSave.setImageResource(R.drawable.ic_done_black_24dp);
+                ivSave.setEnabled(true);
                 isSave = true;
                 playRecord = (FileRecord) (parent.getItemAtPosition(position));
                 ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record);
@@ -365,7 +416,8 @@ public class RecordActivity extends AppCompatActivity {
     public void startRecord() {
         if (checkPermission()) {
             outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
+            fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
+            outputName = tvInputRecord.getText().toString() + "BNN.3gp";
             outputFile = outputPath + "/" + outputName;
             Log.d(TAG, "file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
             readyToRecord();
@@ -374,9 +426,8 @@ public class RecordActivity extends AppCompatActivity {
             try {
                 mediaRecorder.prepare();
                 mediaRecorder.start();
-                ivAnim.setStart();
+                ivAnim.setWillNotDraw(false);
                 ivAnim.setGifImageResource(R.drawable.anim_record);
-                Log.d(TAG,"StartStop" + ivAnim.isStop());
                 timer = new Timer();
                 timer.schedule(new TimerTask() {
                     private int count = 0;
@@ -421,16 +472,16 @@ public class RecordActivity extends AppCompatActivity {
                 } catch (IllegalStateException e) {
                     // TODO Auto-generated catch block
                     Toast.makeText(RecordActivity.this, "Recording error",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     Toast.makeText(RecordActivity.this, "Recording error",
-                            Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
-                Toast.makeText(RecordActivity.this, "Recording started",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(RecordActivity.this, R.string.start_record,
+                        Toast.LENGTH_SHORT).show();
         } else {
             requestPermission();
         }
@@ -441,6 +492,9 @@ public class RecordActivity extends AppCompatActivity {
             RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords);
             records.setAdapter(recordAdapter);
             records.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        } else if(fileRecords.size() == 0 || fileRecords == null){
+            Toast.makeText(RecordActivity.this,R.string.no_record,Toast.LENGTH_SHORT).show();
+            records.setBackgroundResource(R.drawable.no_record);
         }
     }
 
@@ -546,8 +600,7 @@ public class RecordActivity extends AppCompatActivity {
             return null;
         } else {
             for (File file : files) {
-                Log.d(TAG, "FKING FILE : " + file.getAbsolutePath());
-                if(file.getAbsolutePath().endsWith("Banana.3gp")) {
+                if(file.getAbsolutePath().endsWith("BNN.3gp")) {
                     myRecords.add(new FileRecord(file.getAbsolutePath(), file.getName()));
                 }
             }

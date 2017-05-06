@@ -28,4 +28,22 @@ public class StringUtil {
             sb.append(String.format("%02x", b & 0xff));
         return sb.toString();
     }
+
+    public static String getDuplicateRecordName(String recordName){
+        int index = 0;
+        String a = "";
+        for (int i = 0; i < recordName.length(); i++){
+            if(recordName.charAt(i) == '.'){
+                String sub = recordName.substring(i - 6,i);
+                if(sub.charAt(0) == '(' && sub.charAt(2) == ')'){
+                    index = Integer.parseInt(String.valueOf(sub.charAt(1))) + 1;
+                    a = recordName.substring(0,i-6) + "(" +index +")BNN.3gp";
+                    break;
+                } else {
+                    a = recordName.substring(0,i-3) + "(1)BNN.3gp";
+                }
+            }
+        }
+        return a;
+    }
 }
