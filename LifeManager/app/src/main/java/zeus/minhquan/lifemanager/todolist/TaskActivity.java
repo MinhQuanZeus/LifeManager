@@ -1,6 +1,5 @@
 package zeus.minhquan.lifemanager.todolist;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -72,14 +71,12 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class TaskActivity extends AppCompatActivity {
     public static final String INTENT_LIST_ID = "list_id";
     public static final String INTENT_LIST_TITLE = "list_TITLE";
-
+    public static final int RequestPermissionCode = 1;
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_CHOOSE_PHOTO = 2;
     private static final int THUMBNAIL_SIZE = 150;
-
     private static SimpleDateFormat mDateFormatter =
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
     private String mListId;
     private String mListTitle;
     private Database mDatabase;
@@ -87,8 +84,6 @@ public class TaskActivity extends AppCompatActivity {
     private String mImagePathToBeAttached;
     private Document mCurrentTaskToAttachImage;
     private Bitmap mImageToBeAttached;
-
-    public static final int RequestPermissionCode = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +98,7 @@ public class TaskActivity extends AppCompatActivity {
         if (savedInstanceState != null) {
             mListId = savedInstanceState.getString(INTENT_LIST_ID);
             mListTitle = savedInstanceState.getString(INTENT_LIST_TITLE);
-        }
-        else {
+        } else {
             mListId = getIntent().getStringExtra(INTENT_LIST_ID);
             mListTitle = getIntent().getStringExtra(INTENT_LIST_TITLE);
         }
@@ -165,6 +159,18 @@ public class TaskActivity extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+        final ImageView save = (ImageView) header.findViewById(R.id.iv_save);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String inputText = text.getText().toString();
+                if (inputText.length() > 0)
+                    createTask(inputText, mImageToBeAttached, mListId);
+
+                text.setText("");
+                deleteCurrentPhoto();
             }
         });
 
@@ -327,9 +333,9 @@ public class TaskActivity extends AppCompatActivity {
             if (photoFile != null) {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(TaskActivity.this,
                         BuildConfig.APPLICATION_ID + ".provider", photoFile));
-                if(checkPermission()) {
+                if (checkPermission()) {
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                }else{
+                } else {
                     requestPermission();
                 }
             }
@@ -366,9 +372,9 @@ public class TaskActivity extends AppCompatActivity {
     private void displayAttachImageDialog(final Document task) {
         CharSequence[] items;
         if (mImageToBeAttached != null)
-            items = new CharSequence[] { "Take photo", "Choose photo", "Delete photo" };
+            items = new CharSequence[]{"Take photo", "Choose photo", "Delete photo"};
         else
-            items = new CharSequence[] { "Take photo", "Choose photo" };
+            items = new CharSequence[]{"Take photo", "Choose photo"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add picture");
@@ -448,6 +454,41 @@ public class TaskActivity extends AppCompatActivity {
             mCurrentTaskToAttachImage = null;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case RequestPermissionCode:
+                if (grantResults.length > 0) {
+                    boolean StoragePermission = grantResults[0] ==
+                            PackageManager.PERMISSION_GRANTED;
+                    boolean RecordPermission = grantResults[1] ==
+                            PackageManager.PERMISSION_GRANTED;
+
+                    if (StoragePermission && RecordPermission) {
+                        Toast.makeText(TaskActivity.this, "Permission Granted",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(TaskActivity.this, "Permission Denied", Toast.LENGTH_LONG).show();
+                    }
+                }
+                break;
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(TaskActivity.this, new
+                String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, RequestPermissionCode);
+    }
+
+    public boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(),
+                WRITE_EXTERNAL_STORAGE);
+        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(),
+                CAMERA);
+        return result == PackageManager.PERMISSION_GRANTED &&
+                result1 == PackageManager.PERMISSION_GRANTED;
+    }
 
     private class TaskAdapter extends LiveQueryAdapter {
         public TaskAdapter(Context context, LiveQuery query) {
@@ -526,43 +567,12 @@ public class TaskActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e(LifeManagerApplication.TAG, "Cannot decode the attached image", e);
             } finally {
-                try { if (is != null) is.close(); } catch (IOException e) { }
+                try {
+                    if (is != null) is.close();
+                } catch (IOException e) {
+                }
             }
             return bitmap;
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case RequestPermissionCode:
-                if (grantResults.length> 0) {
-                    boolean StoragePermission = grantResults[0] ==
-                            PackageManager.PERMISSION_GRANTED;
-                    boolean RecordPermission = grantResults[1] ==
-                            PackageManager.PERMISSION_GRANTED;
-
-                    if (StoragePermission && RecordPermission) {
-                        Toast.makeText(TaskActivity.this, "Permission Granted",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(TaskActivity.this,"Permission Denied",Toast.LENGTH_LONG).show();
-                    }
-                }
-                break;
-        }
-    }
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(TaskActivity.this, new
-                String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, RequestPermissionCode);
-    }
-    public boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(),
-                WRITE_EXTERNAL_STORAGE);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(),
-                CAMERA);
-        return result == PackageManager.PERMISSION_GRANTED &&
-                result1 == PackageManager.PERMISSION_GRANTED;
     }
 }

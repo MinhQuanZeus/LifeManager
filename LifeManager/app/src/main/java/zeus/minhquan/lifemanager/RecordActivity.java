@@ -3,12 +3,10 @@ package zeus.minhquan.lifemanager;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,11 +23,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
+import zeus.minhquan.lifemanager.appcore.BaseActivity;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends BaseActivity {
 
     private static final String TAG = "RecordActivity";
     private static final String RANDOM_CHARACTER = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -51,7 +50,7 @@ public class RecordActivity extends AppCompatActivity {
     private MediaPlayer mediaRecordPlayer;
     private boolean isChooseRecord;
 
-    public void setDefault(){
+    public void setDefault() {
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
         tvTimeRecord = (TextView) findViewById(R.id.tv_time_record);
         records = (ListView) findViewById(R.id.lv_record);
@@ -67,8 +66,9 @@ public class RecordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record);
+        //     getLayoutInflater().inflate(R.layout.activity_remind,frameLayout);
         setDefault();
-        if(checkPermission()) {
+        if (checkPermission()) {
             fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
             loadAllRecord();
         }
@@ -80,7 +80,7 @@ public class RecordActivity extends AppCompatActivity {
                         outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
                         outputName = CreateRandomAudioFileName(5) + "Banana.3gp";
                         outputFile = outputPath + "/" + outputName;
-                        Log.d(TAG,"file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
+                        Log.d(TAG, "file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
                         readyToRecord();
                         isStartRecording = false;
                         isRecording = true;
@@ -96,8 +96,8 @@ public class RecordActivity extends AppCompatActivity {
                                 private String seconds;
                                 private String minutes;
 
-                                public String defaultDisplay(int number){
-                                    if(number < 10){
+                                public String defaultDisplay(int number) {
+                                    if (number < 10) {
                                         return "0" + number;
                                     } else return "" + number;
                                 }
@@ -109,13 +109,13 @@ public class RecordActivity extends AppCompatActivity {
                                         public void run() {
                                             count++;
                                             ticks = defaultDisplay(count);
-                                            if(count >= 99){
+                                            if (count >= 99) {
                                                 count = 0;
                                                 second++;
-                                                if(second > 59){
+                                                if (second > 59) {
                                                     second = 0;
                                                     minute++;
-                                                    if(minute == 5){
+                                                    if (minute == 5) {
                                                         cancel();
                                                     }
                                                 }
@@ -126,7 +126,7 @@ public class RecordActivity extends AppCompatActivity {
                                         }
                                     });
                                 }
-                            },0,10);
+                            }, 0, 10);
                         } catch (IllegalStateException e) {
                             // TODO Auto-generated catch block
                             Toast.makeText(RecordActivity.this, "Recording error",
@@ -154,7 +154,7 @@ public class RecordActivity extends AppCompatActivity {
                             fileRecords.add(new FileRecord(outputPath, outputName));
                             timer.cancel();
                             loadAllRecord();
-                        }catch (Exception e){
+                        } catch (Exception e) {
 
                         }
                         Toast.makeText(RecordActivity.this, "Recording Completed",
@@ -166,7 +166,7 @@ public class RecordActivity extends AppCompatActivity {
         records.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(!isChooseRecord) {
+                if (!isChooseRecord) {
                     view.findViewById(R.id.background_infor).setBackgroundColor(0xFF00FF00);
 
                     isChooseRecord = true;
@@ -181,14 +181,14 @@ public class RecordActivity extends AppCompatActivity {
         });
     }
 
-    public void loadAllRecord(){
-        if(fileRecords != null) {
+    public void loadAllRecord() {
+        if (fileRecords != null) {
             RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords);
             records.setAdapter(recordAdapter);
         }
     }
 
-    public void playRecord(String recordPath){
+    public void playRecord(String recordPath) {
         if (!isRecording) {
             Toast.makeText(RecordActivity.this, "Please stop recorder to play",
                     Toast.LENGTH_LONG).show();
@@ -247,7 +247,7 @@ public class RecordActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(RecordActivity.this, new
                 String[]{WRITE_EXTERNAL_STORAGE, RECORD_AUDIO}, REQUEST_PERMISSION_CODE);
     }
-    
+
     public boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(),
                 WRITE_EXTERNAL_STORAGE);
@@ -268,7 +268,7 @@ public class RecordActivity extends AppCompatActivity {
         return stringBuilder.toString();
     }
 
-    public void readyToRecord(){
+    public void readyToRecord() {
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -276,7 +276,25 @@ public class RecordActivity extends AppCompatActivity {
         mediaRecorder.setOutputFile(outputFile);
     }
 
-    public class FileRecord{
+    public ArrayList<FileRecord> getFiles(String direct) {
+        ArrayList<FileRecord> myRecords = new ArrayList<>();
+        File f = new File(direct);
+        f.mkdirs();
+        File[] files = f.listFiles();
+        if (files.length == 0) {
+            return null;
+        } else {
+            for (File file : files) {
+                Log.d(TAG, "FKING FILE : " + file.getAbsolutePath());
+                if (file.getAbsolutePath().endsWith(".3gp")) {
+                    myRecords.add(new FileRecord(file.getAbsolutePath(), file.getName()));
+                }
+            }
+        }
+        return myRecords;
+    }
+
+    public class FileRecord {
         private String filePath;
         private String fileName;
 
@@ -292,23 +310,5 @@ public class RecordActivity extends AppCompatActivity {
         public String getFileName() {
             return fileName;
         }
-    }
-
-    public ArrayList<FileRecord> getFiles(String direct){
-        ArrayList<FileRecord> myRecords = new ArrayList<>();
-        File f = new File(direct);
-        f.mkdirs();
-        File[] files = f.listFiles();
-        if (files.length == 0) {
-            return null;
-        } else {
-            for (File file : files) {
-                Log.d(TAG, "FKING FILE : " + file.getAbsolutePath());
-                if(file.getAbsolutePath().endsWith(".3gp")) {
-                    myRecords.add(new FileRecord(file.getAbsolutePath(), file.getName()));
-                }
-            }
-        }
-        return myRecords;
     }
 }

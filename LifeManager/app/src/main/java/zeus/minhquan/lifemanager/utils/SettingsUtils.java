@@ -14,15 +14,16 @@ import zeus.minhquan.lifemanager.settings.GamesSettingsFragment;
  */
 
 public class SettingsUtils {
-    private SettingsUtils() {}
+    private SettingsUtils() {
+    }
 
     public static AlarmSettingsFragment getAlarmSettingsFragment(FragmentManager fragmentManager) {
-        return (AlarmSettingsFragment)fragmentManager
+        return (AlarmSettingsFragment) fragmentManager
                 .findFragmentByTag(AlarmSettingsFragment.SETTINGS_FRAGMENT_TAG);
     }
 
     public static GamesSettingsFragment getGamesSettingsFragment(FragmentManager fragmentManager) {
-        return (GamesSettingsFragment)fragmentManager
+        return (GamesSettingsFragment) fragmentManager
                 .findFragmentByTag(GamesSettingsFragment.GAMES_SETTINGS_FRAGMENT_TAG);
     }
 

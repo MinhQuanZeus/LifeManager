@@ -62,8 +62,8 @@
                     android:layout_marginTop="2dp"
                     android:layout_weight="8"
 
-                    android:textAlignment="center"
                     android:text="List of Reminds:"
+                    android:textAlignment="center"
 
                     android:textColor="#025602"
                     android:textSize="40sp" />

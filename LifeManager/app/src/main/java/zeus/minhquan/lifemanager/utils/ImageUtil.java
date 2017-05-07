@@ -17,8 +17,8 @@ public class ImageUtil {
      * currently work with a FileInputStream as the FileInputStream doesn't
      * support mark and reset.
      *
-     * @param is The input stream to read from
-     * @param width width
+     * @param is     The input stream to read from
+     * @param width  width
      * @param height height
      * @return a result thumbnail bitmap
      */
@@ -29,9 +29,10 @@ public class ImageUtil {
 
     /**
      * Create a thumbnail bitmap from a filename
+     *
      * @param filename The full path of the file
-     * @param width width
-     * @param height height
+     * @param width    width
+     * @param height   height
      * @return a result thumbnail bitmap
      */
     public static Bitmap thumbnailFromFile(String filename, int width, int height) {
@@ -41,9 +42,10 @@ public class ImageUtil {
 
     /**
      * Create a thumbnail bitmap from a descriptor
+     *
      * @param descriptor The file descriptor to read from
-     * @param width width
-     * @param height height
+     * @param width      width
+     * @param height     height
      * @return a result thumbnail bitmap
      */
     public static Bitmap thumbnailFromDescriptor(FileDescriptor descriptor, int width, int height) {
@@ -54,11 +56,11 @@ public class ImageUtil {
     /**
      * Decode and sample down a bitmap from an input stream to the requested width and height.
      *
-     * @param is The input stream to read from
-     * @param reqWidth The requested width of the resulting bitmap
+     * @param is        The input stream to read from
+     * @param reqWidth  The requested width of the resulting bitmap
      * @param reqHeight The requested height of the resulting bitmap
      * @return A bitmap sampled down from the original with the same aspect ratio and dimensions
-     *         that are equal to or greater than the requested width and height
+     * that are equal to or greater than the requested width and height
      */
     public static Bitmap decodeBitmapFromInputStream(InputStream is, int reqWidth, int reqHeight) {
         // Bitmap m = BitmapFactory.decodeStream(is);
@@ -81,11 +83,11 @@ public class ImageUtil {
     /**
      * Decode and sample down a bitmap from a file to the requested width and height.
      *
-     * @param filename The full path of the file to decode
-     * @param reqWidth The requested width of the resulting bitmap
+     * @param filename  The full path of the file to decode
+     * @param reqWidth  The requested width of the resulting bitmap
      * @param reqHeight The requested height of the resulting bitmap
      * @return A bitmap sampled down from the original with the same aspect ratio and dimensions
-     *         that are equal to or greater than the requested width and height
+     * that are equal to or greater than the requested width and height
      */
     public static Bitmap decodeBitmapFromFile(String filename, int reqWidth, int reqHeight) {
         // First decode with inJustDecodeBounds=true to check dimensions
@@ -105,10 +107,10 @@ public class ImageUtil {
      * Decode and sample down a bitmap from a file input stream to the requested width and height.
      *
      * @param fileDescriptor The file descriptor to read from
-     * @param reqWidth The requested width of the resulting bitmap
-     * @param reqHeight The requested height of the resulting bitmap
+     * @param reqWidth       The requested width of the resulting bitmap
+     * @param reqHeight      The requested height of the resulting bitmap
      * @return A bitmap sampled down from the original with the same aspect ratio and dimensions
-     *         that are equal to or greater than the requested width and height
+     * that are equal to or greater than the requested width and height
      */
     public static Bitmap decodeBitmapFromDescriptor(
             FileDescriptor fileDescriptor, int reqWidth, int reqHeight) {
@@ -127,15 +129,14 @@ public class ImageUtil {
     }
 
     /**
-     *
      * Calculate an inSampleSize for use in a {@link android.graphics.BitmapFactory.Options} object when decoding
      * bitmaps using the decode* methods from {@link android.graphics.BitmapFactory}. This implementation calculates
      * the closest inSampleSize that is a power of 2 and will result in the final decoded bitmap
      * having a width and height equal to or larger than the requested width and height.
      *
-     * @param options An options object with out* params already populated (run through a decode*
-     *            method with inJustDecodeBounds==true
-     * @param reqWidth The requested width of the resulting bitmap
+     * @param options   An options object with out* params already populated (run through a decode*
+     *                  method with inJustDecodeBounds==true
+     * @param reqWidth  The requested width of the resulting bitmap
      * @param reqHeight The requested height of the resulting bitmap
      * @return The value to be used for inSampleSize
      */

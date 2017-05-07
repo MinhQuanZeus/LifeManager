@@ -85,6 +85,7 @@ public final class AlarmRingingController extends AlarmRingingSessionDispatcher 
     public void requestAllowDismiss() {
         mAllowDismissRequested = true;
     }
+
     public void alarmRingingSessionDismissed() {
         if (mAllowDismissRequested) {
             mAllowDismissRequested = false;

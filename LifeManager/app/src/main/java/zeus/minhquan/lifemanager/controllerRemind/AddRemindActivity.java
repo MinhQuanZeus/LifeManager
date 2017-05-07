@@ -20,18 +20,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import zeus.minhquan.lifemanager.RecordActivity;
-import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver;
 import zeus.minhquan.lifemanager.R;
+import zeus.minhquan.lifemanager.RecordActivity;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.models.Remind;
+import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver;
 import zeus.minhquan.lifemanager.receiverAlarm.MyBroadcastReceiver2;
 
 public class AddRemindActivity extends AppCompatActivity {
 
     private static final String TAG = "AddRemindActivity";
     private static final int HOUR_OF_TIME = 12;
+    int yearChoose;
+    int monthChoose;
+    int dayChoose;
+    int houseChoose;
+    int minuteChoose;
     private EditText etTitle;
     private EditText etDescription;
     private TextView txtDate;
@@ -41,95 +46,8 @@ public class AddRemindActivity extends AppCompatActivity {
     private ImageView ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
-    int yearChoose;
-    int monthChoose;
-    int dayChoose;
-    int houseChoose;
-    int minuteChoose;
 
-
-
-
-
-    public enum HalfTime{
-        AM,
-        PM
-    }
-
-    public class MyTime{
-        private int hour;
-        private int min;
-        private HalfTime halfTime;
-
-        public MyTime(int hour, int min) {
-            this.hour = hour;
-            this.min = min;
-        }
-
-        public int getHour() {
-            return hour;
-        }
-
-        public int getMin() {
-            return min;
-        }
-
-        public String getTime(){
-            String hourFormat = "";
-            String minFormat = "";
-            halfTime = getHalfTime(hour);
-            if(hour < 10){
-                hourFormat = "0" + hour;
-            } else {
-                hourFormat = "" + hour;
-            }
-            if(min < 10){
-                minFormat = "0" + min;
-            } else {
-                minFormat = "" + min;
-            }
-            return hourFormat + " : " + minFormat + " " + halfTime;
-        }
-
-        public HalfTime getHalfTime(int hour){
-            if(hour >= HOUR_OF_TIME){
-                this.hour -= HOUR_OF_TIME;
-                return HalfTime.PM;
-            } else return HalfTime.AM;
-        }
-    }
-
-
-    public class MyDate{
-        private int year;
-        private int month;
-        private int myDate;
-        private static final int COUNT_MONTH_START = 1;
-
-        public MyDate(int year, int month, int date) {
-            this.year = year;
-            this.month = month + COUNT_MONTH_START;
-            this.myDate = date;
-        }
-
-        public int getYear() {
-            return year;
-        }
-
-        public int getMonth() {
-            return month;
-        }
-
-        public int getMyDate() {
-            return myDate;
-        }
-
-        public String getDate(){
-            return myDate + "/" + month + "/" + year;
-        }
-    }
-
-    public void setDefault(){
+    public void setDefault() {
         etTitle = (EditText) findViewById(R.id.et_title);
         etDescription = (EditText) findViewById(R.id.et_description);
         txtDate = (TextView) findViewById(R.id.et_date);
@@ -143,24 +61,19 @@ public class AddRemindActivity extends AppCompatActivity {
         txtTime.setText(getCurrentDate(TimeType.TIME));
 
         Calendar c = Calendar.getInstance();
-         yearChoose = c.get(Calendar.YEAR);
-         monthChoose = c.get(Calendar.MONTH);
-         dayChoose = c.get(Calendar.DAY_OF_MONTH);
-         houseChoose = c.get(Calendar.HOUR_OF_DAY);
-         minuteChoose = c.get(Calendar.MINUTE);
+        yearChoose = c.get(Calendar.YEAR);
+        monthChoose = c.get(Calendar.MONTH);
+        dayChoose = c.get(Calendar.DAY_OF_MONTH);
+        houseChoose = c.get(Calendar.HOUR_OF_DAY);
+        minuteChoose = c.get(Calendar.MINUTE);
     }
 
-    public enum TimeType{
-        DATE,
-        TIME
-    }
-
-    public String getCurrentDate(TimeType timeType){
+    public String getCurrentDate(TimeType timeType) {
         Calendar now = Calendar.getInstance();
-        switch (timeType){
+        switch (timeType) {
             case DATE:
-                Log.d(TAG,now.get(Calendar.YEAR) + "YEAR");
-                myDatePicker = new MyDate(now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DATE));
+                Log.d(TAG, now.get(Calendar.YEAR) + "YEAR");
+                myDatePicker = new MyDate(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE));
                 return myDatePicker.getDate();
 
             case TIME:
@@ -190,30 +103,28 @@ public class AddRemindActivity extends AppCompatActivity {
         ivSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // Log.d("hello" , "ABC");
+                // Log.d("hello" , "ABC");
                 //TODO : valid input
                 Date dateNow = new Date();
-                Date dateFuture = new GregorianCalendar(yearChoose,monthChoose,dayChoose,houseChoose,minuteChoose).getTime();
-                Log.d("Date Now " , dateNow.toString());
-                Log.d( " thoi gian" , yearChoose + "," + monthChoose + "," + dayChoose + " , " +minuteChoose);
-                Log.d("date Future" , dateFuture.toString() );
+                Date dateFuture = new GregorianCalendar(yearChoose, monthChoose, dayChoose, houseChoose, minuteChoose).getTime();
+                Log.d("Date Now ", dateNow.toString());
+                Log.d(" thoi gian", yearChoose + "," + monthChoose + "," + dayChoose + " , " + minuteChoose);
+                Log.d("date Future", dateFuture.toString());
 
-                int second = (int)((dateFuture.getTime() - dateNow.getTime())/1000) ;
+                int second = (int) ((dateFuture.getTime() - dateNow.getTime()) / 1000);
 
-                Log.d("Second" , second + "");
-                if(second > 0){
-                    Log.d("hello" , "ABC");
+                Log.d("Second", second + "");
+                if (second > 0) {
+                    Log.d("hello", "ABC");
                     RemindDatabase db = LifeManagerApplication.getInstance().getRemindDatabase();
                     db.add(new Remind(etTitle.getText().toString(), etDescription.getText().toString()
-                            ,txtDate.getText().toString(), txtTime.getText().toString()));
+                            , txtDate.getText().toString(), txtTime.getText().toString()));
                     Log.d("so giay hen là ", " " + second);
                     startEvent(second);
-                }
-                else {
-                    Log.d("hello" , "DEF");
+                } else {
+                    Log.d("hello", "DEF");
 
                 }
-
 
 
             }
@@ -233,46 +144,47 @@ public class AddRemindActivity extends AppCompatActivity {
         });
     }
 
-    public void showRecordActivity(){
+    public void showRecordActivity() {
         Intent intent = new Intent(AddRemindActivity.this, RecordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     // doan code tao su kien dem
-    public void startEvent(int second){
+    public void startEvent(int second) {
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
-        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + second * 1000, pendingIntent);
+        Toast.makeText(this, "Alarm set in " + second + " seconds", Toast.LENGTH_LONG).show();
 
         // alarmManager.cancel(pendingIntent);
 
     }
-    public void startEvent2(int second){
+
+    public void startEvent2(int second) {
         Intent intent = new Intent(this, MyBroadcastReceiver2.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
-        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + second * 1000, pendingIntent);
+        Toast.makeText(this, "Alarm set in " + second + " seconds", Toast.LENGTH_LONG).show();
 
         // alarmManager.cancel(pendingIntent);
 
     }
 
-    public void showDatePickerDialog(){
+    public void showDatePickerDialog() {
         DatePickerDialog.OnDateSetListener callback = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-                myDatePicker = new MyDate(year, month , date);
+                myDatePicker = new MyDate(year, month, date);
                 txtDate.setText(myDatePicker.getDate());
                 // lay ngay thang dc chon de chut nua tinh thoi gian hen gio
                 yearChoose = year;
                 monthChoose = month;
                 dayChoose = date;
 
-               // Log.d("Nam thang ngay" , yearChoose+" , "+monthChoose+" , "+dayChoose );
+                // Log.d("Nam thang ngay" , yearChoose+" , "+monthChoose+" , "+dayChoose );
             }
         };
         DatePickerDialog datePicker = new DatePickerDialog(AddRemindActivity.this, callback, myDatePicker.getYear(), myDatePicker.getMonth(), myDatePicker.getMyDate());
@@ -285,19 +197,101 @@ public class AddRemindActivity extends AppCompatActivity {
         final TimePickerDialog.OnTimeSetListener callback = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                Log.d(TAG,minute +" abc");
+                Log.d(TAG, minute + " abc");
                 myTimePicker = new MyTime(hour, minute);
                 txtTime.setText(myTimePicker.getTime());
 
                 // lay thoi gian hien tai chut nua tinh thoi gian con lai de dem
                 houseChoose = hour;
                 minuteChoose = minute;
-               // Log.d("gio , phut" , houseChoose+" , "+minuteChoose);
+                // Log.d("gio , phut" , houseChoose+" , "+minuteChoose);
             }
         };
         TimePickerDialog timePickerDialog = new TimePickerDialog(AddRemindActivity.this, callback, myTimePicker.getHour(), myTimePicker.getMin(), true);
         timePickerDialog.setTitle("Choose your time");
         timePickerDialog.show();
+    }
+
+    public enum HalfTime {
+        AM,
+        PM
+    }
+
+    public enum TimeType {
+        DATE,
+        TIME
+    }
+
+    public class MyTime {
+        private int hour;
+        private int min;
+        private HalfTime halfTime;
+
+        public MyTime(int hour, int min) {
+            this.hour = hour;
+            this.min = min;
+        }
+
+        public int getHour() {
+            return hour;
+        }
+
+        public int getMin() {
+            return min;
+        }
+
+        public String getTime() {
+            String hourFormat = "";
+            String minFormat = "";
+            halfTime = getHalfTime(hour);
+            if (hour < 10) {
+                hourFormat = "0" + hour;
+            } else {
+                hourFormat = "" + hour;
+            }
+            if (min < 10) {
+                minFormat = "0" + min;
+            } else {
+                minFormat = "" + min;
+            }
+            return hourFormat + " : " + minFormat + " " + halfTime;
+        }
+
+        public HalfTime getHalfTime(int hour) {
+            if (hour >= HOUR_OF_TIME) {
+                this.hour -= HOUR_OF_TIME;
+                return HalfTime.PM;
+            } else return HalfTime.AM;
+        }
+    }
+
+    public class MyDate {
+        private static final int COUNT_MONTH_START = 1;
+        private int year;
+        private int month;
+        private int myDate;
+
+        public MyDate(int year, int month, int date) {
+            this.year = year;
+            this.month = month + COUNT_MONTH_START;
+            this.myDate = date;
+        }
+
+        public int getYear() {
+            return year;
+        }
+
+        public int getMonth() {
+            return month;
+        }
+
+        public int getMyDate() {
+            return myDate;
+        }
+
+        public String getDate() {
+            return myDate + "/" + month + "/" + year;
+        }
     }
 
 

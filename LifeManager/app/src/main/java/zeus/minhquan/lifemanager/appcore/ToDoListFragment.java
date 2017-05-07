@@ -1,10 +1,10 @@
-package zeus.minhquan.lifemanager.todolist;
+package zeus.minhquan.lifemanager.appcore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Notification;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -21,7 +21,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.couchbase.lite.CouchbaseLiteException;
 import com.couchbase.lite.Database;
@@ -41,16 +40,15 @@ import java.util.List;
 import java.util.Map;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton;
-import zeus.minhquan.lifemanager.appcore.AlarmListItemTouchHelperCallback;
-import zeus.minhquan.lifemanager.appcore.DividerItemDecoration;
-import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
+import zeus.minhquan.lifemanager.todolist.TaskActivity;
 
 /**
  * Created by QuanT on 5/03/2017.
  */
 public class ToDoListFragment extends Fragment {
 
+    private static SimpleDateFormat mDateFormatter =
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private Database mDatabase = null;
     private TaskAdapter mAdapter = null;
     private RecyclerView mAlarmRecyclerView;
@@ -58,12 +56,7 @@ public class ToDoListFragment extends Fragment {
     private AppBarLayout mAppBarLayout;
     private CollapsingToolbarLayout mCollapsingLayout;
     private TaskListListener mCallbacks;
-    private int count = 0;
     private Context context;
-
-
-    private static SimpleDateFormat mDateFormatter =
-            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +77,21 @@ public class ToDoListFragment extends Fragment {
         Toolbar toolbar = (Toolbar) view
                 .findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.todo_list_title);
+        toolbar.setLogo(R.drawable.ic_menu_black_24dp);
+        View logoView = ((ToDoMainActivity) getActivity()).getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //logo clicked
+                if (((ToDoMainActivity) getActivity()).mDrawerLayout.isDrawerOpen(((ToDoMainActivity) getActivity()).mDrawerList)) {
+                    ((ToDoMainActivity) getActivity()).mDrawerLayout.closeDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
+                } else {
+                    ((ToDoMainActivity) getActivity()).mDrawerLayout.openDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
+                }
+            }
+        });
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
 
         AlarmFloatingActionButton fab = (AlarmFloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -107,8 +114,6 @@ public class ToDoListFragment extends Fragment {
         ItemTouchHelper.Callback callback = new AlarmListItemTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(mAlarmRecyclerView);
-
-
         return view;
     }
 
@@ -117,8 +122,6 @@ public class ToDoListFragment extends Fragment {
         if (mAdapter == null) {
             mAdapter = new TaskAdapter(context, query.toLiveQuery());
             mAlarmRecyclerView.setAdapter(mAdapter);
-            Toast toast = Toast.makeText(getContext(), "Null", Toast.LENGTH_SHORT);
-            toast.show();
         } else {
 
             mAdapter.setQuery(query.toLiveQuery());
@@ -126,6 +129,7 @@ public class ToDoListFragment extends Fragment {
         }
 
         if (LifeManagerApplication.getInstance().getToDoCB().getListsView().getTotalRows() == 0) {
+
             mAlarmRecyclerView.setVisibility(View.GONE);
             mEmptyView.setVisibility(View.VISIBLE);
             enableCollapsingBehaviour(false);
@@ -137,6 +141,7 @@ public class ToDoListFragment extends Fragment {
 
 
     }
+
     private Query getQuery() {
         return LifeManagerApplication.getInstance().getToDoCB().getListsView().createQuery();
 
@@ -174,14 +179,67 @@ public class ToDoListFragment extends Fragment {
         updateUI();
     }
 
+    private void displayCreateDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        //   android.util.Log.d("Context",context.toString());
+        alert.setTitle(getResources().getString(R.string.title_dialog_new_list));
+
+        LayoutInflater inflater = this.getLayoutInflater(null);
+        final View view = inflater.inflate(R.layout.view_dialog_input, null);
+        final EditText input = (EditText) view.findViewById(R.id.text);
+        alert.setView(view);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                try {
+                    String title = input.getText().toString();
+                    if (title.length() == 0) {
+                        return;
+                    }
+                    create(title);
+                    updateUI();
+
+                } catch (CouchbaseLiteException e) {
+                    Log.e(LifeManagerApplication.TAG, "Cannot create a new list", e);
+                }
+            }
+        });
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
+        });
+
+        alert.show();
+    }
+
+    private Document create(String title) throws CouchbaseLiteException {
+        String currentTimeString = mDateFormatter.format(new Date());
+
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("type", "list");
+        properties.put("title", title);
+        properties.put("created_at", currentTimeString);
+        properties.put("members", new ArrayList<String>());
+
+        String userId = LifeManagerApplication.getInstance().getToDoCB().getCurrentUserId();
+        if (userId != null)
+            properties.put("owner", "p:" + userId);
+
+        Document document = mDatabase.createDocument();
+        document.putProperties(properties);
+
+        return document;
+    }
+
     public interface TaskListListener {
         void onTaskSelected(Document list);
     }
 
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        Document mList;
         private TextView mTitleTextView;
         private RelativeLayout mContainer;
-        Document mList;
 
         public TaskHolder(View itemView) {
             super(itemView);
@@ -212,9 +270,18 @@ public class ToDoListFragment extends Fragment {
             mContainer.setPadding(0, tallItemPadding, 0, 0);
         }
 
+
         @Override
         public void onClick(View v) {
             mCallbacks.onTaskSelected(mList);
+            showTasks(mList);
+        }
+
+        private void showTasks(Document list) {
+            Intent intent = new Intent(getActivity(), TaskActivity.class);
+            intent.putExtra(TaskActivity.INTENT_LIST_ID, list.getId());
+            intent.putExtra(TaskActivity.INTENT_LIST_TITLE, list.getProperties().get("title").toString());
+            startActivity(intent);
         }
     }
 
@@ -223,12 +290,12 @@ public class ToDoListFragment extends Fragment {
         private LiveQuery query;
         private QueryEnumerator enumerator;
 
-        public TaskAdapter(Context context, LiveQuery query) {
+        public TaskAdapter(final Context context, LiveQuery query) {
             this.query = query;
             this.query.addChangeListener(new LiveQuery.ChangeListener() {
                 @Override
                 public void changed(final LiveQuery.ChangeEvent event) {
-                    ((Activity) getContext()).runOnUiThread(new Runnable() {
+                    ((Activity) context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             enumerator = event.getRows();
@@ -258,18 +325,16 @@ public class ToDoListFragment extends Fragment {
             return new TaskHolder(view);
         }
 
+
         @Override
         public void onBindViewHolder(TaskHolder holder, int position) {
-            Toast toast = Toast.makeText(getContext(), "Pos: "+position, Toast.LENGTH_SHORT);
-            toast.show();
             final Document list = (Document) getItem(position);
-      //           holder.setFirstItemDimensions();
             holder.bindTask(list);
         }
 
         @Override
         public int getItemCount() {
-            return LifeManagerApplication.getInstance().getToDoCB().getListsView().getTotalRows();
+            return enumerator != null ? enumerator.getCount() : 0;
         }
 
         @Override
@@ -285,7 +350,7 @@ public class ToDoListFragment extends Fragment {
         }
 
         public Object getItem(int i) {
-                return enumerator != null ? enumerator.getRow(i).getDocument() : null;
+            return enumerator != null ? enumerator.getRow(i).getDocument() : null;
         }
 
 
@@ -325,63 +390,11 @@ public class ToDoListFragment extends Fragment {
                     return true;
                 }
             });
-            if (getItemCount() == 0) {
+            if (LifeManagerApplication.getInstance().getToDoCB().getListsView().getTotalRows() == 0) {
                 updateUI();
             }
 
         }
-    }
-
-    private void displayCreateDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        //   android.util.Log.d("Context",context.toString());
-        alert.setTitle(getResources().getString(R.string.title_dialog_new_list));
-
-        LayoutInflater inflater = this.getLayoutInflater(null);
-        final View view = inflater.inflate(R.layout.view_dialog_input, null);
-        final EditText input = (EditText) view.findViewById(R.id.text);
-        alert.setView(view);
-
-        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                try {
-                    String title = input.getText().toString();
-                    if (title.length() == 0) {
-                        return;
-                    }
-                    create(title);
-
-                } catch (CouchbaseLiteException e) {
-                    Log.e(LifeManagerApplication.TAG, "Cannot create a new list", e);
-                }
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        alert.show();
-    }
-
-    private Document create(String title) throws CouchbaseLiteException {
-        String currentTimeString = mDateFormatter.format(new Date());
-
-        Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("type", "list");
-        properties.put("title", title);
-        properties.put("created_at", currentTimeString);
-        properties.put("members", new ArrayList<String>());
-
-        String userId = LifeManagerApplication.getInstance().getToDoCB().getCurrentUserId();
-        if (userId != null)
-            properties.put("owner", "p:" + userId);
-
-        Document document = mDatabase.createDocument();
-        document.putProperties(properties);
-
-        return document;
     }
 }
 

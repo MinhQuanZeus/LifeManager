@@ -1,5 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,25 +29,23 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/task_recycler_view"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/task_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".appcore.ToDoMainActivity"/>
+        tools:context=".appcore.ToDoMainActivity" />
 
     <zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_black_24dp"
         android:layout_gravity="bottom|right"
-        />
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
 
 
     <RelativeLayout
@@ -64,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:paddingTop="100dp"
-            android:text="@string/empty_alarm_list_text"
+            android:text="@string/empty_todo_list_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <ImageView
@@ -73,7 +70,7 @@
             android:layout_below="@+id/empty_view_text"
             android:layout_centerHorizontal="true"
             android:paddingTop="30dp"
-            android:src="@drawable/no_alarm_clock" />
+            app:srcCompat="@drawable/ic_empty_checklist" />
 
     </RelativeLayout>
 

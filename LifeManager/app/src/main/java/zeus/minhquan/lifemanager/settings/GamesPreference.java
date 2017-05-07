@@ -14,24 +14,24 @@ import zeus.minhquan.lifemanager.models.Alarm;
  */
 
 public class GamesPreference extends Preference {
-    private String[] mGameLabels;
-    private String[] mGameValues;
     ArrayList<String> mInitialValues;
     ArrayList<String> mEnabledValues;
+    private String[] mGameLabels;
+    private String[] mGameValues;
+
+    public GamesPreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     public static ArrayList<String> getEnabledGames(Context context, Alarm alarm) {
         ArrayList<String> enabledGames = new ArrayList<>();
         if (alarm.isFreakingMathEnabled()) {
             enabledGames.add(context.getString(R.string.pref_game_freaking_math_id));
         }
-        if(alarm.isCatchASnoozeEnabled()){
+        if (alarm.isCatchASnoozeEnabled()) {
             enabledGames.add(context.getString(R.string.pref_game_catch_a_snooze_id));
         }
         return enabledGames;
-    }
-
-    public GamesPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
     }
 
     public boolean hasChanged() {

@@ -41,6 +41,7 @@ public class ProgressButton extends ImageView {
     private ObjectAnimator mInteractionHintAnimation;
     private float mLoadingAnimationProgress;
     private RectF mLoadingAnimationRect;
+
     public ProgressButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setFocusable(true);
@@ -50,8 +51,8 @@ public class ProgressButton extends ImageView {
         sBlue = ContextCompat.getColor(context, R.color.blue);
         sGrey = ContextCompat.getColor(context, R.color.grey);
         sWhite = ContextCompat.getColor(context, R.color.white);
-        mMicrophoneIcon = ((BitmapDrawable)ContextCompat.getDrawable(context, android.R.drawable.ic_btn_speak_now)).getBitmap();
-        mCameraIcon = ((BitmapDrawable)ContextCompat.getDrawable(context, android.R.drawable.ic_menu_camera)).getBitmap();
+        mMicrophoneIcon = ((BitmapDrawable) ContextCompat.getDrawable(context, android.R.drawable.ic_btn_speak_now)).getBitmap();
+        mCameraIcon = ((BitmapDrawable) ContextCompat.getDrawable(context, android.R.drawable.ic_menu_camera)).getBitmap();
 
         mBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -63,9 +64,11 @@ public class ProgressButton extends ImageView {
         mPressedAnimation.setDuration(PRESSED_ANIMATION_DURATION);
         mPressedAnimation.setInterpolator(new DecelerateInterpolator());
     }
+
     public ProgressButton(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public ProgressButton(Context context) {
         this(context, null);
     }
@@ -117,8 +120,7 @@ public class ProgressButton extends ImageView {
         if (pressed) {
             mPressedAnimation.setFloatValues(mRadius, mInitialRadius * PRESSED_ANIMATION_GROW_FACTOR);
             mPressedAnimation.start();
-        }
-        else{
+        } else {
             mPressedAnimation.setFloatValues(mRadius, mInitialRadius);
             mPressedAnimation.start();
         }
@@ -135,8 +137,7 @@ public class ProgressButton extends ImageView {
                     mCenterX - (mCameraIcon.getWidth() / 2),
                     mCenterY - (mCameraIcon.getHeight() / 2),
                     mBrush);
-        }
-        else if (mState == State.ReadyAudio) {
+        } else if (mState == State.ReadyAudio) {
             prepareDrawFill(sYellow);
             canvas.drawCircle(mCenterX, mCenterY, mRadius, mBrush);
 
@@ -144,21 +145,19 @@ public class ProgressButton extends ImageView {
                     mCenterX - (mMicrophoneIcon.getWidth() / 2),
                     mCenterY - (mMicrophoneIcon.getHeight() / 2),
                     mBrush);
-        }
-        else if (mState == State.Loading) {
+        } else if (mState == State.Loading) {
             prepareDrawFill(sBlue);
             canvas.drawCircle(mCenterX, mCenterY, mRadius, mBrush);
 
             prepareDrawStroke(sWhite);
             canvas.drawArc(mLoadingAnimationRect, mLoadingAnimationProgress, 300f, false, mBrush);
-        }
-        else if (mState == State.Waiting) {
+        } else if (mState == State.Waiting) {
             prepareDrawFill(sGrey);
             canvas.drawCircle(mCenterX, mCenterY, mRadius, mBrush);
             prepareDrawFill(sWhite);
             canvas.drawCircle(mCenterX, mCenterY, (float) (mRadius * 0.7), mBrush);
             prepareDrawFill(sGrey);
-            float w = (float)(mRadius * 0.3);
+            float w = (float) (mRadius * 0.3);
             canvas.drawRect(mCenterX - w, mCenterY - w, mCenterX + w, mCenterY + w, mBrush);
         }
     }

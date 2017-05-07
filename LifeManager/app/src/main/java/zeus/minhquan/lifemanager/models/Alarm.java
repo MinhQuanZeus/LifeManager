@@ -24,9 +24,9 @@ public class Alarm {
     private static final int SNOOZE_DURATION_INTEGER = (5 * 60) * 1000;
 
     private UUID mId;
-    private String  mTitle;
-    private int     mTimeHour;
-    private int     mTimeMinute;
+    private String mTitle;
+    private int mTimeHour;
+    private int mTimeMinute;
     private boolean mRepeatingDays[];
     private Uri mAlarmTone;
     private boolean mIsEnabled;
@@ -39,7 +39,7 @@ public class Alarm {
     private int mSnoozeMinute;
     private int mSnoozeSeconds;
 
-    public Alarm () {
+    public Alarm() {
         this(UUID.randomUUID());
     }
 
@@ -48,7 +48,7 @@ public class Alarm {
         Calendar calendar = Calendar.getInstance();
         mTimeHour = calendar.get(Calendar.HOUR_OF_DAY);
         mTimeMinute = calendar.get(Calendar.MINUTE);
-        mRepeatingDays = new boolean[]{ false, false, false, false, false, false, false };
+        mRepeatingDays = new boolean[]{false, false, false, false, false, false, false};
         mAlarmTone = GeneralUtils.defaultRingtone();
         mIsEnabled = true;
         mVibrate = true;
@@ -277,8 +277,7 @@ public class Alarm {
                 repeating.put(mRepeatingDay);
             }
             json.put("Alarm Repeat", repeating);
-        }
-        catch (JSONException ex) {
+        } catch (JSONException ex) {
             Logger.trackException(ex);
         }
         return json;

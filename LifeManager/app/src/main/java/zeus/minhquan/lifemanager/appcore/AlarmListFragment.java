@@ -81,7 +81,20 @@ public class AlarmListFragment extends Fragment implements
         Toolbar toolbar = (Toolbar) view
                 .findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.alarm_list_title);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        toolbar.setLogo(R.drawable.ic_menu_black_24dp);
+        View logoView = ((AlarmMainActivity) getActivity()).getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //logo clicked
+                if (((AlarmMainActivity) getActivity()).mDrawerLayout.isDrawerOpen(((AlarmMainActivity) getActivity()).mDrawerList)) {
+                    ((AlarmMainActivity) getActivity()).mDrawerLayout.closeDrawer(((AlarmMainActivity) getActivity()).mDrawerList);
+                } else {
+                    ((AlarmMainActivity) getActivity()).mDrawerLayout.openDrawer(((AlarmMainActivity) getActivity()).mDrawerList);
+                }
+            }
+        });
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         AlarmFloatingActionButton fab = (AlarmFloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -123,19 +136,12 @@ public class AlarmListFragment extends Fragment implements
 
     @Override
     public void visibilityChanged(int visibility) {
-        if (View.GONE == visibility) {
-            mShowAddButtonInToolbar = true;
-        } else if (View.VISIBLE == visibility) {
-            mShowAddButtonInToolbar = false;
-        }
         getActivity().invalidateOptionsMenu();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_alarm_list, menu);
-        MenuItem add = menu.findItem(R.id.action_add_alarm);
-        add.setVisible(mShowAddButtonInToolbar);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -145,8 +151,6 @@ public class AlarmListFragment extends Fragment implements
         if (id == R.id.action_settings) {
             launchChildActivity(AlarmGlobalSettingsActivity.class);
             return true;
-        } else if (id == R.id.action_add_alarm) {
-            addAlarm();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -201,6 +205,7 @@ public class AlarmListFragment extends Fragment implements
 
     public interface AlarmListListener {
         void onAlarmSelected(Alarm alarm);
+
         void onAlarmChanged();
     }
 
@@ -291,7 +296,7 @@ public class AlarmListFragment extends Fragment implements
                 }
             }
             Integer[] daysWrapper = days.toArray(new Integer[days.size()]);
-            int[] daysOfWeek =  ArrayUtils.toPrimitive(daysWrapper);
+            int[] daysOfWeek = ArrayUtils.toPrimitive(daysWrapper);
             return DateTimeUtils.getDayPeriodSummaryString(getContext(), daysOfWeek);
         }
     }
@@ -319,7 +324,7 @@ public class AlarmListFragment extends Fragment implements
                 holder.setFirstItemDimensions();
             }
             holder.bindAlarm(alarm);
-            Log.d("Bind Alarm","Alarm");
+            Log.d("Bind Alarm", "Alarm");
         }
 
         @Override

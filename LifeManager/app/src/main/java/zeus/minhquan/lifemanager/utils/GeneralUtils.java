@@ -37,9 +37,9 @@ public class GeneralUtils {
     }
 
     public static void stripUnderlines(TextView textView) {
-        Spannable s = (Spannable)textView.getText();
+        Spannable s = (Spannable) textView.getText();
         URLSpan[] spans = s.getSpans(0, s.length(), URLSpan.class);
-        for (URLSpan span: spans) {
+        for (URLSpan span : spans) {
             int start = s.getSpanStart(span);
             int end = s.getSpanEnd(span);
             s.removeSpan(span);
@@ -47,20 +47,6 @@ public class GeneralUtils {
             s.setSpan(span, start, end, 0);
         }
         textView.setText(s);
-    }
-
-
-    // http://stackoverflow.com/questions/4096851/remove-underline-from-links-in-textview-android
-    private static class URLSpanNoUnderline extends URLSpan {
-        public URLSpanNoUnderline(String url) {
-            super(url);
-        }
-
-        @Override
-        public void updateDrawState(TextPaint ds) {
-            super.updateDrawState(ds);
-            ds.setUnderlineText(false);
-        }
     }
 
     public static void setLockScreenFlags(Window window) {
@@ -140,5 +126,18 @@ public class GeneralUtils {
             }
         }
         return false;
+    }
+
+    // http://stackoverflow.com/questions/4096851/remove-underline-from-links-in-textview-android
+    private static class URLSpanNoUnderline extends URLSpan {
+        public URLSpanNoUnderline(String url) {
+            super(url);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
     }
 }

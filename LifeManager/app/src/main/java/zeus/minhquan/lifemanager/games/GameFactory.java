@@ -25,15 +25,15 @@ public final class GameFactory {
     public static Fragment getGameFragment(Activity caller, UUID alarmId) {
         Alarm alarm = AlarmList.get(caller).getAlarm(alarmId);
         List<Class> games = new ArrayList<>();
-        if(alarm.isCatchASnoozeEnabled()){
+        if (alarm.isCatchASnoozeEnabled()) {
             games.add(GameCatchSnoozeFragment.class);
         }
-        if(alarm.isFreakingMathEnabled()){
+        if (alarm.isFreakingMathEnabled()) {
             games.add(GameFreakingMathFragment.class);
         }
 
         Class game = null;
-        if(games.size()>0){
+        if (games.size() > 0) {
             int rand = new Random().nextInt(games.size());
             game = games.get(rand);
         }
@@ -64,7 +64,9 @@ public final class GameFactory {
 
     public interface GameResultListener {
         void onGameSuccess(String shareable);
+
         void onGameFailure();
+
         void onGameError();
     }
 }

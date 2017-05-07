@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/material_grey">
@@ -9,52 +8,52 @@
         android:id="@+id/alarm_sunrise_header"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:src="@drawable/sunrise_header_1"
+        android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:layout_alignParentTop="true"/>
+        android:src="@drawable/sunrise_header_1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/alarm_sunrise_header">
+        android:layout_below="@id/alarm_sunrise_header"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_gravity="center_vertical">
+            android:orientation="vertical">
 
             <TextClock
                 android:id="@+id/alarm_ringing_time"
+                style="@style/Font.Ringing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                style="@style/Font.Ringing"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
             <TextView
                 android:id="@+id/alarm_ringing_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_below="@id/alarm_ringing_time"
                 android:layout_centerInParent="true"
-                android:layout_below="@id/alarm_ringing_time"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         </RelativeLayout>
 
         <TextView
             android:id="@+id/alarm_ringing_title"
+            style="@style/Font.Ringing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            style="@style/Font.Ringing"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:gravity="center"
-            android:layout_weight="1"/>
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -66,16 +65,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/snooze_button"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/snooze_button" />
 
             <ImageView
                 android:id="@+id/alarm_ringing_dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/dismiss_button"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:src="@drawable/dismiss_button" />
 
             <!-- Left arrows and right arrows surrounding the clock -->
             <!-- Make these two lower in the z-order so that the clock is above both arrows -->
@@ -83,34 +82,34 @@
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="40dp"
-                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/alarm_ringing_clock"
-                android:layout_toRightOf="@+id/alarm_ringing_snooze"
-                android:layout_centerVertical="true">
+                android:layout_toRightOf="@+id/alarm_ringing_snooze">
 
                 <ImageView
                     android:id="@+id/alarm_ringing_left_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|center_vertical"/>
+                    android:layout_gravity="right|center_vertical" />
 
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_toRightOf="@+id/alarm_ringing_clock"
                 android:layout_toLeftOf="@+id/alarm_ringing_dismiss"
-                android:layout_centerVertical="true">
+                android:layout_toRightOf="@+id/alarm_ringing_clock">
 
                 <ImageView
                     android:id="@+id/alarm_ringing_right_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left|center_vertical"/>
+                    android:layout_gravity="left|center_vertical" />
 
             </FrameLayout>
 

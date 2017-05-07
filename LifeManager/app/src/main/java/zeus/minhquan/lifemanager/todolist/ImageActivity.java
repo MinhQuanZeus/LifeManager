@@ -1,7 +1,5 @@
 package zeus.minhquan.lifemanager.todolist;
 
-import android.app.Activity;
-import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -57,7 +55,10 @@ public class ImageActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(LifeManagerApplication.TAG, "Cannot display the attached image", e);
         } finally {
-            if (is != null) try { is.close(); } catch (IOException e) { }
+            if (is != null) try {
+                is.close();
+            } catch (IOException e) {
+            }
         }
 
         ImageView imageView = (ImageView) findViewById(R.id.image);

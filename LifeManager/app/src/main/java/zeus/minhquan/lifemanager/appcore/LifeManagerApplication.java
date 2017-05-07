@@ -12,20 +12,21 @@ import zeus.minhquan.lifemanager.database.ToDoCB;
 
 public class LifeManagerApplication extends Application {
     public static final String TAG = "ToDo";
-    private ToDoCB toDoCB;
-    private RemindDatabase remindDatabase;
     private static LifeManagerApplication instance;
     private static Context sContext;
+    private ToDoCB toDoCB;
+    private RemindDatabase remindDatabase;
+
     public static Context getAppContext() {
         return LifeManagerApplication.sContext;
     }
 
-    public RemindDatabase getRemindDatabase() {
-        return remindDatabase;
-    }
-
     public static LifeManagerApplication getInstance() {
         return instance;
+    }
+
+    public RemindDatabase getRemindDatabase() {
+        return remindDatabase;
     }
 
     @Override
@@ -36,6 +37,7 @@ public class LifeManagerApplication extends Application {
         toDoCB = new ToDoCB(getApplicationContext());
         LifeManagerApplication.sContext = getApplicationContext();
     }
+
     public ToDoCB getToDoCB() {
         return toDoCB;
     }

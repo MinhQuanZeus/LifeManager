@@ -5,6 +5,7 @@ import android.database.CursorWrapper;
 import android.net.Uri;
 
 import java.util.UUID;
+
 import zeus.minhquan.lifemanager.database.AlarmDbSchema.AlarmTable;
 import zeus.minhquan.lifemanager.models.Alarm;
 
@@ -13,7 +14,9 @@ import zeus.minhquan.lifemanager.models.Alarm;
  */
 
 public class AlarmCursorWrapper extends CursorWrapper {
-    public AlarmCursorWrapper(Cursor cursor) { super(cursor); }
+    public AlarmCursorWrapper(Cursor cursor) {
+        super(cursor);
+    }
 
     public Alarm getAlarm() {
         String uuidString = getString(getColumnIndex(AlarmTable.Columns.UUID));

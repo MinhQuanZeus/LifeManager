@@ -26,7 +26,6 @@ import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.models.Alarm;
 import zeus.minhquan.lifemanager.models.AlarmList;
 import zeus.minhquan.lifemanager.utils.DateTimeUtils;
-import zeus.minhquan.lifemanager.utils.GeneralUtils;
 import zeus.minhquan.lifemanager.utils.Loggable;
 import zeus.minhquan.lifemanager.utils.Logger;
 
@@ -152,7 +151,7 @@ public class AlarmRingingFragment extends Fragment {
                 switch (event.getAction()) {
                     case DragEvent.ACTION_DRAG_LOCATION:
                         // Update the left/right arrow visibility based on the current drag location.
-                        onClockDragLocation(event.getX(), event.getY(), v.getWidth()/2);
+                        onClockDragLocation(event.getX(), event.getY(), v.getWidth() / 2);
                         break;
                     case DragEvent.ACTION_DROP:
                         // The user has dropped the drag, but it is dropped within the view, instead of the target
@@ -199,7 +198,7 @@ public class AlarmRingingFragment extends Fragment {
         DragZone newDragZone;
         if (x < viewMiddleX - mDragThreshold) {
             newDragZone = DragZone.DRAGGING_TO_LEFT;
-        } else if (x > viewMiddleX + mDragThreshold){
+        } else if (x > viewMiddleX + mDragThreshold) {
             newDragZone = DragZone.DRAGGING_TO_RIGHT;
         } else {
             newDragZone = DragZone.NEAR_MIDDLE_OF_VIEW;
@@ -268,7 +267,7 @@ public class AlarmRingingFragment extends Fragment {
         mLeftArrowAnimation.start();
         mRightArrowAnimation.start();
 
-     //   GeneralUtils.registerCrashReport(getActivity());
+        //   GeneralUtils.registerCrashReport(getActivity());
     }
 
     @Override
@@ -309,15 +308,15 @@ public class AlarmRingingFragment extends Fragment {
         mRightArrowAnimation = (AnimationDrawable) mRightArrowImage.getBackground();
     }
 
-    public interface RingingResultListener {
-        void onRingingSnooze();
-
-        void onRingingDismiss();
-    }
-
     enum DragZone {
         NEAR_MIDDLE_OF_VIEW,
         DRAGGING_TO_LEFT,
         DRAGGING_TO_RIGHT
+    }
+
+    public interface RingingResultListener {
+        void onRingingSnooze();
+
+        void onRingingDismiss();
     }
 }

@@ -23,7 +23,7 @@ public final class AlarmScheduler {
     }
 
     public static boolean scheduleAlarms(Context context) {
-        List<Alarm> alarms =  AlarmList.get(context).getAlarms();
+        List<Alarm> alarms = AlarmList.get(context).getAlarms();
         boolean alarmsScheduled = false;
         for (Alarm alarm : alarms) {
             if (alarm.isEnabled()) {
@@ -35,7 +35,7 @@ public final class AlarmScheduler {
     }
 
     public static void cancelAlarms(Context context) {
-        List<Alarm> alarms =  AlarmList.get(context).getAlarms();
+        List<Alarm> alarms = AlarmList.get(context).getAlarms();
         for (Alarm alarm : alarms) {
             if (alarm.isEnabled()) {
                 cancelAlarm(context, alarm);
@@ -213,7 +213,7 @@ public final class AlarmScheduler {
         Intent intent = new Intent(context, AlarmWakeReceiver.class);
         intent.putExtra(ARGS_ALARM_ID, alarm.getId());
 
-        return PendingIntent.getBroadcast(context, (int)Math.abs(alarm.getId().getLeastSignificantBits()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getBroadcast(context, (int) Math.abs(alarm.getId().getLeastSignificantBits()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private static void setAlarm(Context context, long time, PendingIntent pendingIntent) {

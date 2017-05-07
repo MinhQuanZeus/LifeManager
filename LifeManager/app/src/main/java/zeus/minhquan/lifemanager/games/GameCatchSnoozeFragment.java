@@ -127,7 +127,7 @@ public class GameCatchSnoozeFragment extends Fragment {
             addOnLayoutChangeListener(this);
             SurfaceHolder holder = getHolder();
             holder.addCallback(this);
-            mGameEngine  = new GameEngine();
+            mGameEngine = new GameEngine();
             mGameLoop = new GameLoop(holder, mGameEngine);
             mParentFragment = parent;
         }
@@ -138,11 +138,9 @@ public class GameCatchSnoozeFragment extends Fragment {
 
             if (tapsRemaining == 2) {
                 mInstructionText.setText(R.string.game_nonetwork_prompt2);
-            }
-            else if (tapsRemaining == 1) {
+            } else if (tapsRemaining == 1) {
                 mInstructionText.setText(R.string.game_nonetwork_prompt3);
-            }
-            else if (tapsRemaining <= 0){
+            } else if (tapsRemaining <= 0) {
                 stopLoop();
                 mParentFragment.gameSuccess();
             }
@@ -175,14 +173,11 @@ public class GameCatchSnoozeFragment extends Fragment {
         private void stopLoop() {
             mGameLoop.setRunning(false);
             boolean retry = true;
-            while (retry)
-            {
-                try
-                {
+            while (retry) {
+                try {
                     mGameLoop.join();
                     retry = false;
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     Logger.trackException(e);
                 }
             }
@@ -191,7 +186,7 @@ public class GameCatchSnoozeFragment extends Fragment {
 
     private class GameLoop extends Thread {
         private final SurfaceHolder mSurfaceHolder;
-        private final long  DELAY = 4;
+        private final long DELAY = 4;
         private boolean mRunning;
         private GameEngine mGameEngine;
 
@@ -203,8 +198,7 @@ public class GameCatchSnoozeFragment extends Fragment {
 
         @Override
         public void run() {
-            while (mRunning)
-            {
+            while (mRunning) {
                 mGameEngine.update();
                 Canvas canvas = mSurfaceHolder.lockCanvas(null);
                 if (canvas != null) {
@@ -216,8 +210,7 @@ public class GameCatchSnoozeFragment extends Fragment {
 
                 try {
                     Thread.sleep(DELAY);
-                }
-                catch (InterruptedException ex) {
+                } catch (InterruptedException ex) {
                     Logger.trackException(ex);
                 }
             }
@@ -250,7 +243,8 @@ public class GameCatchSnoozeFragment extends Fragment {
             mPaint.setColor(Color.GREEN);
             mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mBackgroundPaint.setColor(Color.WHITE);
-            mX = 0; mY = 0;
+            mX = 0;
+            mY = 0;
 
             mAsset1 = BitmapFactory.decodeResource(getResources(), R.drawable.offline_game_1);
             mAsset2 = BitmapFactory.decodeResource(getResources(), R.drawable.offline_game_2);
@@ -278,24 +272,20 @@ public class GameCatchSnoozeFragment extends Fragment {
             if (newX < EPSILON) {
                 mVelocity.x(-mVelocity.x());
                 mX = EPSILON;
-            }
-            else if (newX > mWidth - mHitbox.width()- EPSILON) {
+            } else if (newX > mWidth - mHitbox.width() - EPSILON) {
                 mVelocity.x(-mVelocity.x());
                 mX = mWidth - mHitbox.width() - EPSILON;
-            }
-            else {
+            } else {
                 mX = newX;
             }
 
             if (newY < EPSILON) {
                 mVelocity.y(-mVelocity.y());
                 mY = EPSILON;
-            }
-            else if (newY > mHeight - mHitbox.height() - EPSILON) {
+            } else if (newY > mHeight - mHitbox.height() - EPSILON) {
                 mVelocity.y(-mVelocity.y());
                 mY = mHeight - mHitbox.height() - EPSILON;
-            }
-            else {
+            } else {
                 mY = newY;
             }
             mHitbox.offsetTo(mX, mY);
@@ -308,7 +298,7 @@ public class GameCatchSnoozeFragment extends Fragment {
             canvas.drawBitmap(mAsset1, 0, 0, mPaint);
             canvas.translate(mAsset1.getWidth(), 0);
             for (int i = 0; i < mTapsRemaining; i++) {
-                mPaint.setAlpha((int)(Math.pow(0.8, i) * 255));
+                mPaint.setAlpha((int) (Math.pow(0.8, i) * 255));
                 canvas.drawBitmap(mAsset2, 0, 0, mPaint);
                 canvas.scale(0.8f, 0.8f);
                 canvas.translate(75, -50);
@@ -318,7 +308,7 @@ public class GameCatchSnoozeFragment extends Fragment {
         }
 
         public int touch(MotionEvent event) {
-            if (mHitbox.contains(event.getX(), event.getY())){
+            if (mHitbox.contains(event.getX(), event.getY())) {
                 mVelocity.mult(1.5f);
                 mTapsRemaining--;
             }
@@ -327,31 +317,36 @@ public class GameCatchSnoozeFragment extends Fragment {
     }
 
     private class Vector2D {
-        private float [] v = new float[2];
+        private float[] v = new float[2];
+
         public Vector2D(float x, float y) {
             v[0] = x;
             v[1] = y;
         }
+
         public float x() {
             return v[0];
         }
+
         public float y() {
             return v[1];
         }
+
         public void x(float newX) {
             v[0] = newX;
         }
+
         public void y(float newY) {
             v[1] = newY;
         }
 
         public float length() {
-            return (float) Math.sqrt(x() * x() +  y() * y());
+            return (float) Math.sqrt(x() * x() + y() * y());
         }
 
         public void normalize() {
             float length = length();
-            if (length > 0){
+            if (length > 0) {
                 v[0] = v[0] / length;
                 v[1] = v[1] / length;
             }

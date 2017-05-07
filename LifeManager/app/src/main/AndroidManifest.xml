@@ -24,6 +24,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="14" />
+
 
     <application
         android:name=".appcore.LifeManagerApplication"
@@ -48,16 +52,18 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".appcore.BaseActivity"
+            android:theme="@style/AppThemeWithActionBar">
         </activity>
         <activity android:name=".appcore.MainActivity" />
 
         <!-- alarm -->
         <activity
             android:name=".appcore.AlarmMainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ringing.AlarmRingingActivity"
             android:launchMode="singleTask"
@@ -104,7 +110,8 @@
         <activity
             android:name=".todolist.ImageActivity"
             android:theme="@style/AppThemeWithActionBar" />
-        <activity android:name=".appcore.ToDoMainActivity"></activity>
+        <activity android:name=".appcore.ToDoMainActivity" />
+
     </application>
 
 </manifest>

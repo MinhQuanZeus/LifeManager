@@ -6,11 +6,16 @@ package zeus.minhquan.lifemanager.games;
 
 public interface IGameImplementation {
     void initializeCapture();
+
     void startCapture();
+
     void stopCapture();
 
     void onCountDownTimerExpired();
+
     void onSucceeded();
+
     void onFailed();
+
     void onInternalError();
 }

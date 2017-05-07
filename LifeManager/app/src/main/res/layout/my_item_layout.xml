@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,20 +13,21 @@
         <TextView
             android:id="@+id/contentRemind"
             android:layout_width="0dp"
-            android:textAlignment="center"
-            android:fontFamily="sans-serif"
-            android:textColor="#57ba5d"
-            android:textSize="25sp"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"
             android:layout_weight="9"
-            android:contentDescription="here" />
+            android:contentDescription="here"
+            android:fontFamily="sans-serif"
+            android:textAlignment="center"
+            android:textColor="#57ba5d"
+            android:textSize="25sp" />
 
-        <CheckBox  android:id="@+id/chkitem"
+        <CheckBox
+            android:id="@+id/chkitem"
             android:layout_width="0dp"
-            android:text="Xóa"
             android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:layout_weight="2"
+            android:text="Xóa" />
 
     </LinearLayout>
 
@@ -80,11 +81,8 @@
             android:id="@+id/record"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"/>
+            android:layout_weight="4" />
     </LinearLayout>
-
-
-
 
 
 </LinearLayout>

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.CheckBoxPreference;
-import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.DividerItemDecoration;
-import zeus.minhquan.lifemanager.utils.GeneralUtils;
 import zeus.minhquan.lifemanager.utils.Logger;
 import zeus.minhquan.lifemanager.utils.SettingsUtils;
 
@@ -69,7 +67,7 @@ public class GamesSettingsFragment extends PreferenceFragmentCompat {
         Bundle args = getArguments();
         ArrayList<String> enabledGames = args.getStringArrayList(ARGS_ENABLED_GAMES);
         for (String gameId : enabledGames) {
-            ((CheckBoxPreference)findPreference(gameId)).setChecked(true);
+            ((CheckBoxPreference) findPreference(gameId)).setChecked(true);
         }
     }
 
@@ -111,7 +109,7 @@ public class GamesSettingsFragment extends PreferenceFragmentCompat {
     private void setDefaultEnabledState() {
         PreferenceScreen preferenceScreen = getPreferenceManager().getPreferenceScreen();
         for (int i = 0; i < preferenceScreen.getPreferenceCount(); i++) {
-            ((CheckBoxPreference)preferenceScreen.getPreference(i)).setChecked(false);
+            ((CheckBoxPreference) preferenceScreen.getPreference(i)).setChecked(false);
         }
 
     }
@@ -120,7 +118,7 @@ public class GamesSettingsFragment extends PreferenceFragmentCompat {
         ArrayList<String> enabledGames = new ArrayList<>();
         PreferenceScreen preferenceScreen = getPreferenceManager().getPreferenceScreen();
         for (int i = 0; i < preferenceScreen.getPreferenceCount(); i++) {
-            CheckBoxPreference preference = (CheckBoxPreference)preferenceScreen.getPreference(i);
+            CheckBoxPreference preference = (CheckBoxPreference) preferenceScreen.getPreference(i);
             if (preference.isChecked()) {
                 enabledGames.add(preference.getKey());
             }

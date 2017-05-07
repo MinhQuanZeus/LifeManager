@@ -10,7 +10,6 @@ import android.util.Log;
 import java.util.UUID;
 
 import zeus.minhquan.lifemanager.scheduling.AlarmNotificationManager;
-import zeus.minhquan.lifemanager.utils.GeneralUtils;
 import zeus.minhquan.lifemanager.utils.SharedWakeLock;
 
 /**

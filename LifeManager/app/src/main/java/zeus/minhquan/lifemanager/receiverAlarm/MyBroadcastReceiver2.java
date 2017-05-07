@@ -14,9 +14,10 @@ import zeus.minhquan.lifemanager.R;
 
 public class MyBroadcastReceiver2 extends BroadcastReceiver {
     MediaPlayer mp;
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        mp=MediaPlayer.create(context, R.raw.lactroi);
+        mp = MediaPlayer.create(context, R.raw.lactroi);
         mp.start();
         Toast.makeText(context, "Dậy đi , ngủ như con lợn  !!!!", Toast.LENGTH_LONG).show();
     }

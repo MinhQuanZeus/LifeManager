@@ -1,12 +1,9 @@
 package zeus.minhquan.lifemanager.utils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by QuanT on 4/22/2017.
@@ -19,8 +16,7 @@ public class Loggable {
     public void putProp(String property, Object value) {
         try {
             Properties.put(property, value);
-        }
-        catch (JSONException ex) {
+        } catch (JSONException ex) {
             Logger.trackException(ex);
         }
     }
@@ -29,12 +25,11 @@ public class Loggable {
         try {
             Iterator<?> keys = json.keys();
 
-            while( keys.hasNext() ) {
-                String key = (String)keys.next();
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
                 Properties.put(key, json.get(key));
             }
-        }
-        catch (JSONException ex) {
+        } catch (JSONException ex) {
             Logger.trackException(ex);
         }
     }
@@ -59,52 +54,48 @@ public class Loggable {
     }
 
     public static class UserAction extends Loggable {
-        public UserAction (String name) {
+        public UserAction(String name) {
             Name = name;
             Properties = new JSONObject();
             try {
                 Properties.put("Type", "User Action");
-            }
-            catch (JSONException jsonEx) {
+            } catch (JSONException jsonEx) {
             }
         }
     }
 
     public static class AppAction extends Loggable {
-        public AppAction (String name) {
+        public AppAction(String name) {
             Name = name;
             Properties = new JSONObject();
             try {
                 Properties.put("Type", "App Action");
-            }
-            catch (JSONException jsonEx) {
+            } catch (JSONException jsonEx) {
             }
         }
     }
 
     public static class AppException extends Loggable {
-        public AppException (String name, Exception ex) {
+        public AppException(String name, Exception ex) {
             Name = name;
             Properties = new JSONObject();
             try {
                 Properties.put("Type", "Exception");
                 Properties.put("Message", ex);
                 Properties.put("Detailed Message", ex.getMessage());
-            }
-            catch (JSONException jsonEx) {
+            } catch (JSONException jsonEx) {
             }
         }
     }
 
     public static class AppError extends Loggable {
-        public AppError (String name, String error) {
+        public AppError(String name, String error) {
             Name = name;
             Properties = new JSONObject();
             try {
                 Properties.put("Type", "Error");
                 Properties.put("Message", error);
-            }
-            catch (JSONException jsonEx) {
+            } catch (JSONException jsonEx) {
             }
         }
     }

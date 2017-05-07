@@ -18,7 +18,7 @@ import zeus.minhquan.lifemanager.RecordActivity;
  * Created by EDGY on 4/23/2017.
  */
 
-public class RecordAdapter extends BaseAdapter{
+public class RecordAdapter extends BaseAdapter {
     private static final String TAG = "RecordAdapter";
     private Context context;
     private List<RecordActivity.FileRecord> recordList;
@@ -54,11 +54,11 @@ public class RecordAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        Log.d(TAG,view + "");
+        Log.d(TAG, view + "");
         view = layoutInflater.inflate(R.layout.record_list_layout, null, false);
         ImageView ivRecord = (ImageView) view.findViewById(R.id.iv_record);
         TextView tvRecordName = (TextView) view.findViewById(R.id.tv_record_name);
-        if(recordList == null){
+        if (recordList == null) {
             tvRecordName.setText("No record here");
         } else {
             tvRecordName.setText(recordList.get(position).getFileName());

@@ -2,36 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:gravity="center_vertical"
     android:clipToPadding="false"
-    android:focusable="true" >
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingTop="2dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="16dp"
+        android:paddingTop="2dp">
 
         <TextView
             android:id="@android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pref_title_repeating"
-            android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceListItem"
             android:ellipsize="marquee"
-            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-            />
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:singleLine="true"
+            android:text="@string/pref_title_repeating"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <LinearLayout
-            android:layout_below="@android:id/title"
             android:id="@+id/pref_repeating_container"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@android:id/title"
+            android:orientation="horizontal" />
 
     </RelativeLayout>
 

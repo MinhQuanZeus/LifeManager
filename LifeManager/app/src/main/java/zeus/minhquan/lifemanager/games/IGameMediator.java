@@ -11,16 +11,24 @@ enum GameButtonBehavior {
 
 public interface IGameMediator {
     void start();
+
     void stop();
+
     boolean isGameRunning();
 
     void onGameSuccess(String successMessage);
+
     void onGameFailureWithRetry(String failureMessage);
+
     void onGameFailure(String failureMessage);
+
     void onGameInternalError();
 
     void registerStateBanner(GameStateBanner gameStateBanner);
+
     void registerCountDownTimer(CountDownTimerView countDownTimerView, int timeout);
+
     void registerProgressButton(ProgressButton progressButton, GameButtonBehavior buttonBehavior);
+
     void registerGame(IGameImplementation game);
 }

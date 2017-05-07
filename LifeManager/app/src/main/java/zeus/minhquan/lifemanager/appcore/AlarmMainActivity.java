@@ -2,11 +2,9 @@ package zeus.minhquan.lifemanager.appcore;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.view.KeyEvent;
 
@@ -27,20 +25,20 @@ import zeus.minhquan.lifemanager.utils.SettingsUtils;
  * Created by QuanT on 4/22/2017.
  */
 
-public class AlarmMainActivity extends AppCompatActivity
+public class AlarmMainActivity extends BaseActivity
         implements AlarmListFragment.AlarmListListener,
         AlarmSettingsFragment.AlarmSettingsListener,
         GamesSettingsFragment.GamesSettingsListener {
 
-    private SharedPreferences mPreferences = null;
     private AudioManager mAudioManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment);
-        String packageName = getApplicationContext().getPackageName();
-        mPreferences = getSharedPreferences(packageName, MODE_PRIVATE);
+        //  setContentView(R.layout.activity_fragment);
+        getLayoutInflater().inflate(R.layout.activity_fragment, frameLayout);
+        mDrawerList.setItemChecked(position, true);
+
         PreferenceManager.setDefaultValues(this, R.xml.pref_global, false);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         AlarmNotificationManager.get(this).handleNextAlarmNotificationStatus();
@@ -130,7 +128,7 @@ public class AlarmMainActivity extends AppCompatActivity
     public void onGamesSettingsDismiss(ArrayList<String> enabledGames) {
         AlarmSettingsFragment settingsFragment = SettingsUtils.
                 getAlarmSettingsFragment(getSupportFragmentManager());
-        if (settingsFragment != null){
+        if (settingsFragment != null) {
             settingsFragment.updateGamesPreference(enabledGames);
         }
     }

@@ -36,7 +36,7 @@ public class RepeatingDaysPreference extends Preference {
     public void onBindViewHolder(PreferenceViewHolder holder) {
         LinearLayout container = (LinearLayout) holder.findViewById(R.id.pref_repeating_container);
         container.removeAllViews();
-        for(int i = 0; i < mRepeatingDays.length; i++) {
+        for (int i = 0; i < mRepeatingDays.length; i++) {
             DayView dayView = new DayView(getContext(), this, i);
             dayView.setText(mDayNames[i]);
             dayView.setRepeating(mRepeatingDays[i]);
@@ -45,7 +45,7 @@ public class RepeatingDaysPreference extends Preference {
         super.onBindViewHolder(holder);
     }
 
-    public void setRepeatingDay(int index, boolean doesRepeat){
+    public void setRepeatingDay(int index, boolean doesRepeat) {
         mRepeatingDays[index] = doesRepeat;
     }
 
@@ -90,19 +90,18 @@ public class RepeatingDaysPreference extends Preference {
 
         @Override
         protected void onDraw(Canvas canvas) {
-            if (getRepeating()){
+            if (getRepeating()) {
                 float centerX = getWidth() / 2;
                 float centerY = getHeight() / 2;
                 canvas.drawCircle(centerX, centerY, centerY - mPadding, mPaint);
                 setTypeface(null, Typeface.BOLD);
-            }
-            else{
+            } else {
                 setTypeface(null, Typeface.NORMAL);
             }
             super.onDraw(canvas);
         }
 
-        public void toggleRepeating(){
+        public void toggleRepeating() {
             setRepeating(!getRepeating());
             mParent.setChanged(true);
             invalidate();

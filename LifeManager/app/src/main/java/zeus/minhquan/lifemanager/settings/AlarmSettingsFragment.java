@@ -126,7 +126,7 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
         RecyclerView recyclerView = super.onCreateRecyclerView(inflater, parent, savedInstanceState);
         int timePreferenceOrder = mTimePreference.getOrder();
         int buttonsPreferenceOrder = mButtonsPreference.getOrder();
-        int[] excludeDividerList = new int[] { timePreferenceOrder, buttonsPreferenceOrder };
+        int[] excludeDividerList = new int[]{timePreferenceOrder, buttonsPreferenceOrder};
         recyclerView.addItemDecoration(new SettingsDividerItemDecoration(getContext(), excludeDividerList));
 
         return recyclerView;
@@ -347,7 +347,9 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
 
     public interface AlarmSettingsListener {
         void onShowGamesSettings(ArrayList<String> enabledGames);
+
         void onSettingsSaveOrIgnoreChanges();
+
         void onSettingsDeleteOrNewCancel();
     }
 }

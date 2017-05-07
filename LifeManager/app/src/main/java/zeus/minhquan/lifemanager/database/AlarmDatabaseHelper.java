@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 import zeus.minhquan.lifemanager.database.AlarmDbSchema.AlarmTable;
 
 /**
@@ -15,11 +16,13 @@ public class AlarmDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "alarmDatabase.db";
 
-    public AlarmDatabaseHelper(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION); }
+    public AlarmDatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL( "create table " + AlarmDbSchema.AlarmTable.NAME + "(" +
+        db.execSQL("create table " + AlarmDbSchema.AlarmTable.NAME + "(" +
                 " _id integer primary key autoincrement, " +
                 AlarmTable.Columns.UUID + ", " +
                 AlarmTable.Columns.TITLE + ", " +

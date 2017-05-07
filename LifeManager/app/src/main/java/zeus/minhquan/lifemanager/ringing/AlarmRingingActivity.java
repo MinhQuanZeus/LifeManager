@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.games.GameFactory;
 import zeus.minhquan.lifemanager.games.GameCatchSnoozeFragment;
+import zeus.minhquan.lifemanager.games.GameFactory;
 import zeus.minhquan.lifemanager.models.Alarm;
 import zeus.minhquan.lifemanager.models.AlarmList;
 import zeus.minhquan.lifemanager.scheduling.AlarmScheduler;
@@ -61,7 +61,7 @@ public class AlarmRingingActivity extends AppCompatActivity
             // interact with the service.  Because we have bound to an explicit
             // service that we know is running in our own process, we can
             // cast its IBinder to a concrete class and directly access it.
-            mRingingService = ((AlarmRingingService.LocalBinder)service).getService();
+            mRingingService = ((AlarmRingingService.LocalBinder) service).getService();
         }
 
         public void onServiceDisconnected(ComponentName className) {
@@ -239,7 +239,7 @@ public class AlarmRingingActivity extends AppCompatActivity
         // otherwise we need to launch Alarm settings
         AlarmSettingsFragment settingsFragment = SettingsUtils
                 .getAlarmSettingsFragment(getSupportFragmentManager());
-        if (settingsFragment != null){
+        if (settingsFragment != null) {
             settingsFragment.updateGamesPreference(enabledGames);
         } else {
             GeneralUtils.showFragmentFromLeft(getSupportFragmentManager(),
@@ -260,7 +260,7 @@ public class AlarmRingingActivity extends AppCompatActivity
 
         Log.d(TAG, "Entered onResume!");
 
-     //   GeneralUtils.registerCrashReport(this);
+        //   GeneralUtils.registerCrashReport(this);
     }
 
     @Override
@@ -376,7 +376,7 @@ public class AlarmRingingActivity extends AppCompatActivity
         }
     }
 
-    private void cancelAlarmTimeout () {
+    private void cancelAlarmTimeout() {
         mHandler.removeCallbacks(mAlarmCancelTask);
     }
 }

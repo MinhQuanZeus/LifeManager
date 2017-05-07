@@ -17,14 +17,15 @@ public class StringUtil {
             byte[] inputBytes = string.getBytes();
             byte[] hashBytes = digest.digest(inputBytes);
             return byteArrayToHex(hashBytes);
-        } catch (NoSuchAlgorithmException e) { }
+        } catch (NoSuchAlgorithmException e) {
+        }
 
         return null;
     }
 
     private static String byteArrayToHex(byte[] a) {
         StringBuilder sb = new StringBuilder(a.length * 2);
-        for(byte b: a)
+        for (byte b : a)
             sb.append(String.format("%02x", b & 0xff));
         return sb.toString();
     }

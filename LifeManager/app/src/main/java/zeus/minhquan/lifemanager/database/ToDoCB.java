@@ -103,16 +103,13 @@ public class ToDoCB implements Replication.ChangeListener {
         return null;
     }
 
-
-
-    private void setCurrentUserId(String userId) {
-        this.mCurrentUserId = userId;
-    }
-
     public String getCurrentUserId() {
         return this.mCurrentUserId;
     }
 
+    private void setCurrentUserId(String userId) {
+        this.mCurrentUserId = userId;
+    }
 
     @Override
     public void changed(Replication.ChangeEvent event) {
@@ -132,13 +129,15 @@ public class ToDoCB implements Replication.ChangeListener {
         }
     }
 
-    /** Database View */
+    /**
+     * Database View
+     */
     public View getListsView() {
         View view = mDatabase.getView("lists");
         if (view.getMap() == null) {
             Mapper mapper = new Mapper() {
                 public void map(Map<String, Object> document, Emitter emitter) {
-                    String type = (String)document.get("type");
+                    String type = (String) document.get("type");
                     if ("list".equals(type))
                         emitter.emit(document.get("title"), null);
                 }
@@ -167,7 +166,9 @@ public class ToDoCB implements Replication.ChangeListener {
         return view;
     }
 
-    /** Display error message */
+    /**
+     * Display error message
+     */
 
     public void showErrorMessage(final String errorMessage, final Throwable throwable) {
         runOnUiThread(new Runnable() {

@@ -26,6 +26,7 @@ public class GameStateBanner extends TextView {
     public GameStateBanner(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public GameStateBanner(final Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mSuccessColor = ContextCompat.getColor(context, R.color.green3);
@@ -36,18 +37,18 @@ public class GameStateBanner extends TextView {
         mEnterLeftAnimation.setTarget(this);
     }
 
-    public void success(String message, final Command onAnimationEnd){
+    public void success(String message, final Command onAnimationEnd) {
         setBackgroundColor(mSuccessColor);
         animate(message, onAnimationEnd);
 
     }
 
-    public void failure(String message, final Command onAnimationEnd){
+    public void failure(String message, final Command onAnimationEnd) {
         setBackgroundColor(mFailureColor);
         animate(message, onAnimationEnd);
     }
 
-    private void animate(String message, final Command onAnimationEnd){
+    private void animate(String message, final Command onAnimationEnd) {
         setText(message);
         mEnterLeftAnimation.removeAllListeners();
         mEnterLeftAnimation.addListener(new Animator.AnimatorListener() {
@@ -83,7 +84,7 @@ public class GameStateBanner extends TextView {
     }
 
     // This is required for animation
-    public void setXPercentage(float value){
+    public void setXPercentage(float value) {
         value /= 100f;
         setX((mWidth > 0) ? (value * mWidth) : 0);
     }

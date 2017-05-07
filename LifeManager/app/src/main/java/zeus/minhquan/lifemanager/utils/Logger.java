@@ -24,11 +24,11 @@ public class Logger {
     private static long debugTimerStart;
     private static String debugTimerName = null;
 
-    private static Boolean isLogging(){
+    private static Boolean isLogging() {
         return !BuildConfig.DEBUG || LOG_IN_DEBUG;
     }
 
-    public static void init(Context caller){
+    public static void init(Context caller) {
         sContext = caller;
         if (!sStarted && isLogging()) {
             String android_id = Settings.Secure.getString(caller.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -36,7 +36,7 @@ public class Logger {
 
                 sMixpanelToken = KeyUtils.getToken(caller, "mixpanel");
 
-                if (sMixpanelToken == null || sMixpanelToken.equals("")){
+                if (sMixpanelToken == null || sMixpanelToken.equals("")) {
                     sStarted = false;
                     return;
                 }
@@ -48,8 +48,7 @@ public class Logger {
                 mixpanel.getPeople().set("name", android_id);
                 mixpanel.getPeople().set("Build Version", BuildConfig.VERSION_NAME);
                 mixpanel.getPeople().setMap(Collections.<String, Object>unmodifiableMap(mixpanel.getDeviceInfo()));
-            }
-            catch (Exception ex){
+            } catch (Exception ex) {
                 trackException(ex);
             }
         }
@@ -61,16 +60,14 @@ public class Logger {
         }
     }
 
-    public static void track(Loggable loggable){
+    public static void track(Loggable loggable) {
         if (isLogging() && sStarted) {
             try {
                 MixpanelAPI.getInstance(sContext, sMixpanelToken).track(loggable.Name, loggable.Properties);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 trackException(ex);
             }
-        }
-        else {
+        } else {
             if (debugTimerName != null) {
                 long duration = System.currentTimeMillis() - debugTimerStart;
                 Log.d(TAG, debugTimerName + " took " + duration + " milliseconds");
@@ -80,16 +77,14 @@ public class Logger {
         }
     }
 
-    public static void trackDurationStart(Loggable loggable){
+    public static void trackDurationStart(Loggable loggable) {
         if (isLogging() && sStarted) {
             try {
                 MixpanelAPI.getInstance(sContext, sMixpanelToken).timeEvent(loggable.Name);
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 trackException(ex);
             }
-        }
-        else {
+        } else {
             debugTimerName = loggable.Name;
             debugTimerStart = System.currentTimeMillis();
             debugPrint(loggable);
@@ -104,10 +99,9 @@ public class Logger {
             } catch (Exception mixpanelEx) {
                 Log.e(TAG, mixpanelEx.getMessage());
             }
-        }
-        else {
+        } else {
             // This is called in a debug only scenario
-            Log.e(TAG, "Logging exception:" , ex);
+            Log.e(TAG, "Logging exception:", ex);
         }
     }
 

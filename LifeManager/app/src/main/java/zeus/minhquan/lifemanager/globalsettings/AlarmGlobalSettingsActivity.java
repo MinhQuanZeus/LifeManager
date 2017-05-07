@@ -42,7 +42,7 @@ public class AlarmGlobalSettingsActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) ||
                 (keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
-            ((AlarmGlobalSettingsFragment)fragments.get(0)).onKeyDown(keyCode);
+            ((AlarmGlobalSettingsFragment) fragments.get(0)).onKeyDown(keyCode);
         } else {
             return super.onKeyDown(keyCode, event);
         }
@@ -67,11 +67,11 @@ public class AlarmGlobalSettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_global);
-            mSnoozeDuration = (ListPreference)findPreference(getString(R.string.pref_snooze_duration_key));
-            mRingDuration = (ListPreference)findPreference(getString(R.string.pref_ring_duration_key));
-            mAlarmVolume = (VolumeSliderPreference)findPreference(getString(R.string.pref_ring_volume_key));
-            mEnableNotifications = (SwitchPreferenceCompat)findPreference(getString(R.string.pref_enable_notifications_key));
-            mEnableReliability = (SwitchPreferenceCompat)findPreference(getString(R.string.pref_enable_reliability_key));
+            mSnoozeDuration = (ListPreference) findPreference(getString(R.string.pref_snooze_duration_key));
+            mRingDuration = (ListPreference) findPreference(getString(R.string.pref_ring_duration_key));
+            mAlarmVolume = (VolumeSliderPreference) findPreference(getString(R.string.pref_ring_volume_key));
+            mEnableNotifications = (SwitchPreferenceCompat) findPreference(getString(R.string.pref_enable_notifications_key));
+            mEnableReliability = (SwitchPreferenceCompat) findPreference(getString(R.string.pref_enable_reliability_key));
             mEnableReliability.setEnabled(mEnableNotifications.isChecked());
             setDefaultSummaryValues();
         }
@@ -130,7 +130,7 @@ public class AlarmGlobalSettingsActivity extends AppCompatActivity {
         }
 
         public void onKeyDown(int keyCode) {
-            if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
+            if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
                 mAlarmVolume.decreaseVolume();
             } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
                 mAlarmVolume.increaseVolume();

@@ -52,11 +52,9 @@ public class RingtonePreference extends Preference {
         mRingtone = ringtone;
         if (mRingtone == null) {
             setSummary(getContext().getString(R.string.pref_no_ringtone));
-        }
-        else if (mRingtone.toString().compareToIgnoreCase(GeneralUtils.defaultRingtone().toString()) == 0) {
+        } else if (mRingtone.toString().compareToIgnoreCase(GeneralUtils.defaultRingtone().toString()) == 0) {
             setSummary(getContext().getString(R.string.default_ringtone_name));
-        }
-        else {
+        } else {
             setSummary(RingtoneManager.getRingtone(getContext(), mRingtone).getTitle(getContext()));
         }
     }

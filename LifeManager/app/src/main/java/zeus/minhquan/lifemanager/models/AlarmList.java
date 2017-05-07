@@ -114,7 +114,7 @@ public class AlarmList {
     public void deleteAlarm(Alarm alarm) {
         mDatabase.delete(AlarmTable.NAME,
                 AlarmTable.Columns.UUID + " = ?",
-                new String[] { alarm.getId().toString() });
+                new String[]{alarm.getId().toString()});
     }
 
     private AlarmCursorWrapper queryAlarms(String queryClause, String[] queryArgs, String orderBy) {

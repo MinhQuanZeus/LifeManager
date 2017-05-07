@@ -1,6 +1,5 @@
 package zeus.minhquan.lifemanager.todolist;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +39,7 @@ import java.util.TimeZone;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton;
+import zeus.minhquan.lifemanager.appcore.BaseActivity;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.utils.LiveQueryAdapter;
 
@@ -48,19 +47,20 @@ import zeus.minhquan.lifemanager.utils.LiveQueryAdapter;
  * Created by QuanT on 5/2/2017.
  */
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends BaseActivity {
+    private static SimpleDateFormat mDateFormatter =
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private Database mDatabase = null;
     private ListAdapter mAdapter = null;
     private AppBarLayout mAppBarLayout;
     private CollapsingToolbarLayout mCollapsingLayout;
 
-    private static SimpleDateFormat mDateFormatter =
-            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        // setContentView(R.layout.activity_list);
+        getLayoutInflater().inflate(R.layout.activity_list, frameLayout);
+        mDrawerList.setItemChecked(position, true);
 
         LifeManagerApplication application = (LifeManagerApplication) getApplication();
         mDatabase = application.getToDoCB().getDatabase();
@@ -73,6 +73,19 @@ public class ListActivity extends AppCompatActivity {
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.todo_list_title);
+        toolbar.setLogo(R.drawable.ic_menu_black_24dp);
+        View logoView = getToolbarLogoView(toolbar);
+        logoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //logo clicked
+                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                } else {
+                    mDrawerLayout.openDrawer(mDrawerList);
+                }
+            }
+        });
         mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         mCollapsingLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
@@ -178,7 +191,8 @@ public class ListActivity extends AppCompatActivity {
         });
 
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) { }
+            public void onClick(DialogInterface dialog, int whichButton) {
+            }
         });
 
         alert.show();
@@ -229,7 +243,7 @@ public class ListActivity extends AppCompatActivity {
             public boolean run() {
                 try {
                     QueryEnumerator tasks = query.run();
-                    while(tasks.hasNext()) {
+                    while (tasks.hasNext()) {
                         QueryRow task = tasks.next();
                         task.getDocument().getCurrentRevision().deleteDocument();
                     }
@@ -246,7 +260,7 @@ public class ListActivity extends AppCompatActivity {
     private void showTasks(Document list) {
         Intent intent = new Intent(this, TaskActivity.class);
         intent.putExtra(TaskActivity.INTENT_LIST_ID, list.getId());
-        intent.putExtra(TaskActivity.INTENT_LIST_TITLE,list.getProperties().get("title").toString());
+        intent.putExtra(TaskActivity.INTENT_LIST_TITLE, list.getProperties().get("title").toString());
         startActivity(intent);
     }
 

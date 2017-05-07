@@ -20,7 +20,7 @@ public class GameStateManager implements IGameMediator {
     boolean mGameRunning;
 
     // Should be called from Fragment::onStart, which is when it becomes visible to the user
-    public void start(){
+    public void start() {
         Log.d(TAG, "Entered start!");
         mGameRunning = true;
         mCountDownTimer.start();

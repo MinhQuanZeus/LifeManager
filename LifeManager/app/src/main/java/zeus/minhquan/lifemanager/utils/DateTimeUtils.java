@@ -22,7 +22,9 @@ import zeus.minhquan.lifemanager.R;
 
 public final class DateTimeUtils {
     private final static String TWO_CHARACTER_SHORT_DAY_PATTERN = "EEEEEE";
-    private DateTimeUtils() {}
+
+    private DateTimeUtils() {
+    }
 
     public static String getUserTimeString(Context context, int hour, int minute) {
         Format formatter = android.text.format.DateFormat.getTimeFormat(context);
@@ -43,7 +45,7 @@ public final class DateTimeUtils {
         String[] dayNames = new String[7];
         Format formatter = new SimpleDateFormat(TWO_CHARACTER_SHORT_DAY_PATTERN, Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
-        for(int d = Calendar.SUNDAY, i = 0; d <= Calendar.SATURDAY; d++, i++) {
+        for (int d = Calendar.SUNDAY, i = 0; d <= Calendar.SATURDAY; d++, i++) {
             calendar.set(Calendar.DAY_OF_WEEK, d);
             dayNames[i] = formatter.format(calendar.getTime()).toUpperCase(Locale.getDefault());
         }
@@ -54,7 +56,7 @@ public final class DateTimeUtils {
         String dayNames = null;
         Format formatter = new SimpleDateFormat(TWO_CHARACTER_SHORT_DAY_PATTERN, Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
-        for(int day = 0; day < daysOfWeek.length; day++) {
+        for (int day = 0; day < daysOfWeek.length; day++) {
             calendar.set(Calendar.DAY_OF_WEEK, daysOfWeek[day]);
             if (day == 0) {
                 dayNames = formatter.format(calendar.getTime()).toUpperCase(Locale.getDefault());
@@ -66,11 +68,11 @@ public final class DateTimeUtils {
     }
 
     public static String getDayPeriodSummaryString(Context context, int[] daysOfWeek) {
-        int[] weekdays = { Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY,
-                Calendar.FRIDAY };
-        int[] weekend = { Calendar.SUNDAY, Calendar.SATURDAY };
-        int[] everyday = { Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
-                Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY };
+        int[] weekdays = {Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY, Calendar.THURSDAY,
+                Calendar.FRIDAY};
+        int[] weekend = {Calendar.SUNDAY, Calendar.SATURDAY};
+        int[] everyday = {Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, Calendar.WEDNESDAY,
+                Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY};
         if (Arrays.equals(daysOfWeek, weekend)) {
             return context.getString(R.string.alarm_list_weekend);
         } else if (Arrays.equals(daysOfWeek, weekdays)) {
@@ -96,7 +98,7 @@ public final class DateTimeUtils {
         int hours = Math.max(0, calendarNow.fieldDifference(alarmTime, Calendar.HOUR_OF_DAY));
         int minutes = Math.max(0, calendarNow.fieldDifference(alarmTime, Calendar.MINUTE));
 
-        Map<String,Integer> args = new HashMap<>();
+        Map<String, Integer> args = new HashMap<>();
         try {
             args.put("days", days);
             args.put("hours", hours);

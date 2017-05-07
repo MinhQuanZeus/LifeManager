@@ -58,7 +58,7 @@ public class CountDownTimerView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float percentage = (float)mMillisUntilFinished / (float) mTotalTime;
+        float percentage = (float) mMillisUntilFinished / (float) mTotalTime;
         canvas.drawRect(0, 0, mWidth, mHeight, m100PercentPaint);
         canvas.drawRect(0, 0, 0.75f * mWidth, mHeight, m75PercentPaint);
         canvas.drawRect(0, 0, 0.5f * mWidth, mHeight, m50PercentPaint);
@@ -84,7 +84,7 @@ public class CountDownTimerView extends View {
 
     public void resume() {
         if (mIsPaused && mMillisUntilFinished > 0) {
-            if (mTimer != null){
+            if (mTimer != null) {
                 mTimer.cancel();
                 mTimer = null;
             }
@@ -105,6 +105,7 @@ public class CountDownTimerView extends View {
                 mMillisUntilFinished = millisUntilFinished;
                 invalidate();
             }
+
             @Override
             public void onFinish() {
                 if (mCommand != null) {
