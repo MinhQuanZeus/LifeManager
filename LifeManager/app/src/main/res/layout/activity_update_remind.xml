@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity">
-
+    tools:context="zeus.minhquan.lifemanager.controllerRemind.UpdateRemind">
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -98,18 +97,6 @@
         app:srcCompat="@drawable/back_ic_new"
         android:layout_marginStart="24dp" />
 
-    <ImageView
-        android:id="@+id/iv_save"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/ic_done_black_24dp"
-        android:layout_marginEnd="24dp" />
-
-
 
     <ImageView
         android:id="@+id/view_record"
@@ -180,16 +167,16 @@
         android:layout_marginTop="8dp" />
 
     <TextView
-        android:id="@+id/et_record"
+        android:id="@+id/et_record1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:textSize="30sp"
-        app:layout_constraintLeft_toRightOf="@+id/iv_record1"
-        app:layout_constraintTop_toTopOf="@+id/view_record"
         app:layout_constraintBottom_toBottomOf="@+id/view_record"
-        android:layout_marginBottom="8dp" />
+        app:layout_constraintLeft_toRightOf="@+id/iv_record1"
+        app:layout_constraintTop_toTopOf="@+id/view_record" />
 
     <TextView
         android:id="@+id/et_time1"
@@ -210,7 +197,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
-        android:text="@string/remind_toolbar"
+        android:text="@string/update_toolbar_remind"
         android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView"
@@ -218,15 +205,16 @@
         android:layout_marginBottom="24dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:textColor="@color/green3"
+        android:layout_marginRight="24dp"
         android:layout_marginTop="16dp"
         android:background="#ffffff"
-        app:layout_constraintTop_toBottomOf="@+id/view_record"
-        android:layout_marginRight="24dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:text="Edit"
+        android:textColor="@color/green3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_record" />
+
 
 </android.support.constraint.ConstraintLayout>

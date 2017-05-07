@@ -55,10 +55,9 @@ public class RemindDatabase extends SQLiteAssetHelper {
             values.put(DESCRIPTION, remind.getDescription());
             values.put(TIME, remind.getTime());
             values.put(DATE, remind.getDate());
-            if(remind.getRecord_name() != null || remind.getRecord_name() != ""){
+            if(remind.getRecord_name() != null && remind.getRecord_name() != ""){
                 values.put(RECORD_NAME, remind.getRecord_name());
             }
-
 
             result = db.insert(TABLE_NAME, null, values);
             Log.d("Ok ! fine",result + "");
@@ -74,10 +73,28 @@ public class RemindDatabase extends SQLiteAssetHelper {
             db.close();
             return true;
         } catch (Exception ex){
-          //  Log.d(TAG, ex.toString());
+
         }
         return false;
     }
+    public int updateContact(Remind remind) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TITLE, remind.getTitle());
+        values.put(DESCRIPTION, remind.getDescription());
+        values.put(TIME, remind.getTime());
+        values.put(DATE, remind.getDate());
+        if(remind.getRecord_name() != null && remind.getRecord_name() != ""){
+            values.put(RECORD_NAME, remind.getRecord_name());
+        }
+
+        return db.update(TABLE_NAME, values, ID + " = ?",
+                new String[] { String.valueOf(remind.getId()) });
+    }
+
+
+
 
     public List<Remind> loadAllReminds(){
         // get readable database , lay quyen dc doc
@@ -91,7 +108,7 @@ public class RemindDatabase extends SQLiteAssetHelper {
             String description = cursor.getString(cursor.getColumnIndex(DESCRIPTION));
             String time = cursor.getString(cursor.getColumnIndex(TIME));
             String date = cursor.getString(cursor.getColumnIndex(DATE));
-            if(cursor.getString(cursor.getColumnIndex(RECORD_NAME)) != null || cursor.getString(cursor.getColumnIndex(RECORD_NAME)) != "" ){
+            if(cursor.getString(cursor.getColumnIndex(RECORD_NAME)) != null && cursor.getString(cursor.getColumnIndex(RECORD_NAME)) != "" ){
                 reminds.add(new Remind(id,title,description,date,time,cursor.getString(cursor.getColumnIndex(RECORD_NAME)) ));
             } else {
                 reminds.add(new Remind(id,title,description,date,time));

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -35,11 +33,8 @@ import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
 import zeus.minhquan.lifemanager.animation.GifImageView;
-import zeus.minhquan.lifemanager.animation.GifWebView;
 import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
-import zeus.minhquan.lifemanager.controllerRemind.RemindActivity;
-import zeus.minhquan.lifemanager.database.models.Remind;
-import zeus.minhquan.lifemanager.utils.StringUtil;
+import zeus.minhquan.lifemanager.controllerRemind.UpdateRemind;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -93,6 +88,9 @@ public class RecordActivity extends AppCompatActivity {
     private TextView tvRecordHide;
     private EditText tvInputRecord;
     private boolean isDuplicate;
+
+
+    String page;
 
     public void setDefault(){
         ivRecord = (ImageView) findViewById(R.id.iv_start_record);
@@ -316,7 +314,7 @@ public class RecordActivity extends AppCompatActivity {
                 ivSave.setEnabled(true);
                 isSave = true;
                 playRecord = (FileRecord) (parent.getItemAtPosition(position));
-                ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record);
+                ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record1);
                 ivPlay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -367,14 +365,29 @@ public class RecordActivity extends AppCompatActivity {
                     Toast.makeText(RecordActivity.this,"Please choose record", Toast.LENGTH_SHORT).show();
                 } else {
                     if(isPlayRecord) stopRecord();
-                    Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
-                    intent.putExtra("title",sendDataToResume("title"));
-                    intent.putExtra("description",sendDataToResume("description"));
-                    intent.putExtra("date",sendDataToResume("date"));
-                    intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record_path", playRecord.getFilePath());
-                    intent.putExtra("record_name", playRecord.getFileName());
-                    startActivity(intent);
+                    if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ){
+                        Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
+                        intent.putExtra("title",sendDataToResume("title"));
+                        intent.putExtra("description",sendDataToResume("description"));
+                        intent.putExtra("date",sendDataToResume("date"));
+                        intent.putExtra("time",sendDataToResume("time"));
+                        intent.putExtra("record_path", playRecord.getFilePath());
+                        intent.putExtra("record_name", playRecord.getFileName());
+                        Log.d("ID BLABLA" , sendDataToResume("idFromRecord"));
+                        intent.putExtra("idFromRecord", sendDataToResume("idFromRecord"));
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                        intent.putExtra("title",sendDataToResume("title"));
+                        intent.putExtra("description",sendDataToResume("description"));
+                        intent.putExtra("date",sendDataToResume("date"));
+                        intent.putExtra("time",sendDataToResume("time"));
+                        intent.putExtra("record_path", playRecord.getFilePath());
+                        intent.putExtra("record_name", playRecord.getFileName());
+                        startActivity(intent);
+                    }
+
+
                 }
             }
         });
@@ -382,12 +395,23 @@ public class RecordActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
-                intent.putExtra("title",sendDataToResume("title"));
-                intent.putExtra("description",sendDataToResume("description"));
-                intent.putExtra("date",sendDataToResume("date"));
-                intent.putExtra("time",sendDataToResume("time"));
-                startActivity(intent);
+                if(sendDataToResume("page")!= null && sendDataToResume("page") != ""){
+                    Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
+                    intent.putExtra("title",sendDataToResume("title"));
+                    intent.putExtra("description",sendDataToResume("description"));
+                    intent.putExtra("date",sendDataToResume("date"));
+                    intent.putExtra("time",sendDataToResume("time"));
+
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                    intent.putExtra("title",sendDataToResume("title"));
+                    intent.putExtra("description",sendDataToResume("description"));
+                    intent.putExtra("date",sendDataToResume("date"));
+                    intent.putExtra("time",sendDataToResume("time"));
+                    startActivity(intent);
+                }
+
             }
         });
     }

@@ -67,4 +67,28 @@ public class Remind {
     public String getRecord_name() {
         return record_name;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setRecord_name(String record_name) {
+        this.record_name = record_name;
+    }
 }

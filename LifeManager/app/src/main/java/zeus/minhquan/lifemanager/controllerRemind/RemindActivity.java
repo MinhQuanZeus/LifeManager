@@ -33,13 +33,10 @@ import zeus.minhquan.lifemanager.database.models.Remind;
 
 public class RemindActivity extends AppCompatActivity {
 
-    public static HashMap<String ,PendingIntent> listPendingAlarm = new HashMap<>();
+    //public static HashMap<String ,PendingIntent> listPendingAlarm = new HashMap<>();
     private FloatingActionButton ivAdd;
-
     ArrayList<Remind> arrRemind;
     MyArrayAdapter adapter=null;
-
-
     ExpandableLayoutListView expandableLayoutListView;
 
     @Override
@@ -58,8 +55,6 @@ public class RemindActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     @Override
     protected void onResume() {
