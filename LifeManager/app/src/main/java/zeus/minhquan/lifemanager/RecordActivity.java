@@ -1,11 +1,12 @@
 package zeus.minhquan.lifemanager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -27,7 +28,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
@@ -35,16 +35,11 @@ import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
 import zeus.minhquan.lifemanager.animation.GifImageView;
-import zeus.minhquan.lifemanager.animation.GifWebView;
 import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
-import zeus.minhquan.lifemanager.controllerRemind.RemindActivity;
-import zeus.minhquan.lifemanager.database.models.Remind;
-import zeus.minhquan.lifemanager.utils.StringUtil;
-
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity implements MyListener{
 
     private static final String TAG = "RecordActivity";
     private static final String RANDOM_CHARACTER = "ABCDEFGHIKLMNOPQRSTUVWXYZ";
@@ -129,6 +124,11 @@ public class RecordActivity extends AppCompatActivity {
         isDuplicate = false;
     }
 
+    @Override
+    public void emptyClick() {
+        emptyRecord();
+    }
+
     enum TypeSlide{
         UP,
         DOWN
@@ -163,6 +163,10 @@ public class RecordActivity extends AppCompatActivity {
             case DOWN:
                 if(height <= 50){
                     height = 0;
+                    ivStop.setImageResource(R.drawable.pre_stop);
+                    ivPlay.setImageResource(R.drawable.play_record);
+                    ivStop.setEnabled(false);
+                    ivPlay.setEnabled(true);
                 }
                 applyConstraintSet.constrainHeight(R.id.lv_record, height);
                 applyConstraintSet.constrainHeight(R.id.iv_start_record, ConstraintSet.WRAP_CONTENT);
@@ -184,6 +188,24 @@ public class RecordActivity extends AppCompatActivity {
 
     public void onResetClick(View view) {
 
+    }
+
+    public void enableSlide(TypeSlide typeSlide){
+        switch (typeSlide){
+            case DOWN:
+                ivPlay.setImageResource(R.drawable.pre_play);
+                ivStop.setImageResource(R.drawable.stop_record);
+                ivPlay.setEnabled(false);
+                ivStop.setEnabled(true);
+                break;
+
+            case UP:
+                ivPlay.setImageResource(R.drawable.play_record);
+                ivStop.setImageResource(R.drawable.pre_stop);
+                ivPlay.setEnabled(true);
+                ivStop.setEnabled(false);
+                break;
+        }
     }
 
     @Override
@@ -296,7 +318,8 @@ public class RecordActivity extends AppCompatActivity {
                                 mediaRecorder.stop();
                                 tvInputRecord.setEnabled(true);
                                 tvRecordHide.setText(R.string.click_to_record);
-                                fileRecords.add(new FileRecord(outputPath, outputName));
+                                Log.d(TAG,"Debug output : "+outputPath+" ||| " + outputName);
+                                fileRecords = getFiles(outputPath);
                                 timer.cancel();
                                 loadAllRecord();
                             } catch (Exception e) {
@@ -311,12 +334,16 @@ public class RecordActivity extends AppCompatActivity {
         });
         records.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 ivSave.setImageResource(R.drawable.ic_done_black_24dp);
                 ivSave.setEnabled(true);
                 isSave = true;
                 playRecord = (FileRecord) (parent.getItemAtPosition(position));
-                ivRecordDisk = (ImageView) view.findViewById(R.id.iv_record);
+                if(records.getAdapter().getCount() == 0){
+                    Toast.makeText(RecordActivity.this,R.string.no_record,Toast.LENGTH_SHORT).show();
+                    applyConstraintSet.constrainWidth(R.id.iv_no_record,ConstraintSet.WRAP_CONTENT);
+                    applyConstraintSet.constrainHeight(R.id.iv_no_record, ConstraintSet.WRAP_CONTENT);
+                }
                 ivPlay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -324,6 +351,8 @@ public class RecordActivity extends AppCompatActivity {
                         ivPlay.setImageResource(R.drawable.pre_play);
                         ivPlay.setEnabled(false);
                         ivStop.setImageResource(R.drawable.stop_record);
+                        Log.d(TAG,"fking record "+playRecord.getFilePath());
+                        Log.d(TAG,"position "+position);
                         playRecord(playRecord.getFilePath());
 //                        animationDisk = new Timer();
 //                        animationDisk.schedule(new TimerTask() {
@@ -347,7 +376,7 @@ public class RecordActivity extends AppCompatActivity {
 //                                    }
 //                                });
 //                            }
-//                        },0,10);
+//                        },0
                     }
                 });
                 ivStop.setOnClickListener(new View.OnClickListener() {
@@ -356,8 +385,6 @@ public class RecordActivity extends AppCompatActivity {
                         stopRecord();
                     }
                 });
-//                    FileRecord fileRecord = (FileRecord) (parent.getItemAtPosition(position));
-//                    playRecord(fileRecord.getFilePath());
             }
         });
         ivSave.setOnClickListener(new View.OnClickListener() {
@@ -390,6 +417,7 @@ public class RecordActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     public void stopRecord(){
@@ -416,10 +444,8 @@ public class RecordActivity extends AppCompatActivity {
     public void startRecord() {
         if (checkPermission()) {
             outputPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            fileRecords = getFiles(Environment.getExternalStorageDirectory().getAbsolutePath());
             outputName = tvInputRecord.getText().toString() + "BNN.3gp";
             outputFile = outputPath + "/" + outputName;
-            Log.d(TAG, "file location : " + Environment.getExternalStorageDirectory().getAbsolutePath());
             readyToRecord();
             isStartRecording = false;
             isRecording = true;
@@ -487,14 +513,22 @@ public class RecordActivity extends AppCompatActivity {
         }
     }
 
+    public void emptyRecord(){
+        applyConstraintSet.constrainWidth(R.id.iv_no_record,ConstraintSet.WRAP_CONTENT);
+        applyConstraintSet.constrainHeight(R.id.iv_no_record, ConstraintSet.WRAP_CONTENT);
+    }
+
     public void loadAllRecord(){
-        if(fileRecords != null) {
-            RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords);
+        if(fileRecords != null && fileRecords.size() != 0) {
+            applyConstraintSet.constrainWidth(R.id.iv_no_record,0);
+            applyConstraintSet.constrainHeight(R.id.iv_no_record, 0);
+            RecordAdapter recordAdapter = new RecordAdapter(RecordActivity.this, fileRecords, RecordActivity.this);
             records.setAdapter(recordAdapter);
             records.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        } else if(fileRecords.size() == 0 || fileRecords == null){
+        } else if(fileRecords.size() == 0){
             Toast.makeText(RecordActivity.this,R.string.no_record,Toast.LENGTH_SHORT).show();
-            records.setBackgroundResource(R.drawable.no_record);
+            applyConstraintSet.constrainWidth(R.id.iv_no_record,ConstraintSet.WRAP_CONTENT);
+            applyConstraintSet.constrainHeight(R.id.iv_no_record, ConstraintSet.WRAP_CONTENT);
         }
     }
 
@@ -505,7 +539,11 @@ public class RecordActivity extends AppCompatActivity {
 //            return;
 //        }
             isPlayRecord = true;
+            AudioManager amanager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+            int maxVolume = amanager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+            amanager.setStreamVolume(AudioManager.STREAM_ALARM, maxVolume, 0);
             mediaRecordPlayer = new MediaPlayer();
+            mediaRecordPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
             try {
                 mediaRecordPlayer.setDataSource(recordPath);
                 mediaRecordPlayer.prepare();
@@ -516,6 +554,14 @@ public class RecordActivity extends AppCompatActivity {
             mediaRecordPlayer.start();
             Toast.makeText(RecordActivity.this, "Recording Playing",
                     Toast.LENGTH_LONG).show();
+            if(mediaRecordPlayer != null) {
+            mediaRecordPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    enableSlide(TypeSlide.UP);
+                }
+            });
+        }
     }
 
     @Override
