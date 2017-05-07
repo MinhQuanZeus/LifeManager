@@ -10,22 +10,20 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.RecordActivity;
 
-public class MyBroadcastReceiver extends BroadcastReceiver {
+/**
+ * Created by anh82 on 5/8/2017.
+ */
+
+public class MyBroadcastReceiver2 extends BroadcastReceiver {
     MediaPlayer mp;
     @Override
     public void onReceive(Context context, Intent intent) {
-        Bundle bd = intent.getExtras();
         String  title = "";
         String record = "";
         title = intent.getStringExtra("title");
         record = intent.getStringExtra("record");
         Toast.makeText(context,title+" !!!! "+ record, Toast.LENGTH_LONG).show();
-//        if(bd != null){
-//            title = bd.getString("title");
-//            record = bd.getString("record");
-//        }
         if(record != "" && record != null){
             playRecord(record);
         } else {

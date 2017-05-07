@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import zeus.minhquan.lifemanager.RecordActivity;
+import zeus.minhquan.lifemanager.controllerRemind.receiverAlarm.MyBroadcastReceiver2;
 import zeus.minhquan.lifemanager.database.models.MyDate;
 import zeus.minhquan.lifemanager.database.models.MyTime;
 import zeus.minhquan.lifemanager.database.models.TimeType;
@@ -296,9 +297,10 @@ public class UpdateRemind extends AppCompatActivity {
     // doan code tao su kien dem
 
     public void startEvent(int second ,Remind emp, int id){
-        Intent intent = new Intent(UpdateRemind.this, MyBroadcastReceiver.class);
-        intent.putExtra("title",emp.getTitle() );
+        Intent intent = new Intent(UpdateRemind.this, MyBroadcastReceiver2.class);
+        intent.putExtra("title",emp.getTitle());
         intent.putExtra("record", emp.getRecord_name());
+        Log.d("Truoc khi gui", emp.getTitle() + emp.getRecord_name());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);

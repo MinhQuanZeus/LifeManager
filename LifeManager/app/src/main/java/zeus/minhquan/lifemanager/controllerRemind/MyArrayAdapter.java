@@ -130,7 +130,7 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
 
 
 
-        Log.d("Content" , emp.getTitle());
+
 
         return convertView;
 

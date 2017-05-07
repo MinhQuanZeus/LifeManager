@@ -72,11 +72,11 @@ public class RemindActivity extends AppCompatActivity {
         RemindDatabase remindDatabase = LifeManagerApplication.getInstance().getRemindDatabase();
         arrRemind = new ArrayList<>();
         arrRemind = (ArrayList<Remind>) remindDatabase.loadAllReminds();
-        Log.d("Size is", arrRemind.size() + "");
+
         for(Remind remind : arrRemind){
-            Log.d("Content is ", remind.getTitle() + "");
+
         }
-        Log.d("", arrRemind.size() + "------------------------------------");
+
         adapter=new MyArrayAdapter(this,R.layout.view_row, arrRemind,expandableLayoutListView);
         expandableLayoutListView.setAdapter(adapter);
 

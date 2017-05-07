@@ -139,7 +139,6 @@ public final class DateTimeUtils {
     }
 
     public static String getTimeCountFromNow(long second){
-        second -= 31*SECOND_OF_DATE;
         long date = second / SECOND_OF_DATE;
         long hour = (second - date*SECOND_OF_DATE) / SECOND_OF_HOUR;
         long min = (second - date*SECOND_OF_DATE - hour*SECOND_OF_HOUR) / SECOND_OF_MIN;

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zeus.minhquan.lifemanager">
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     //record
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     //camera
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.front" android:required="false" />
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.front"
-        android:required="false" />
+
     <uses-feature
         android:name="android.hardware.sensor.light"
-        android:required="false" />
+        android:required="false"/>
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -33,6 +32,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -40,7 +40,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
+                android:resource="@xml/provider_paths"/>
         </provider>
 
         <activity
@@ -48,16 +48,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".appcore.MainActivity" />
+        <activity android:name=".appcore.MainActivity"></activity>
 
-        <!-- alarm -->
+        <!--alarm-->
         <activity
             android:name=".appcore.AlarmMainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".ringing.AlarmRingingActivity"
             android:launchMode="singleTask"
@@ -67,22 +68,28 @@
         <receiver
             android:name=".ringing.AlarmWakeReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"/>
 
         <service
             android:name=".ringing.AlarmRingingService"
-            android:enabled="true" />
+            android:enabled="true"/>
 
-        <receiver android:name=".scheduling.AlarmRegistrar">
+        <receiver
+            android:name=".scheduling.AlarmRegistrar">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".controllerRemind.receiverAlarm.MyBroadcastReceiver" />
+        <receiver android:name=".controllerRemind.receiverAlarm.MyBroadcastReceiver2"/>
+        <receiver android:name=".controllerRemind.receiverAlarm.MyBroadcastReceiver"/>
 
+        <activity
+            android:name=".controllerRemind.UpdateRemind">
+
+        </activity>
         <activity
             android:name=".globalsettings.AlarmGlobalSettingsActivity"
             android:label="@string/title_activity_alarm_settings"
@@ -90,28 +97,27 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="appcore.AlarmMainActivity" />
-        </activity>
-        <activity
-            android:name=".RecordActivity"
-            android:hardwareAccelerated="false"></activity>
-        <activity android:name=".controllerRemind.RemindActivity" />
-        <activity
-            android:name=".controllerRemind.AddRemindActivity"
-            ></activity>
-        <activity
-            android:name=".controllerRemind.UpdateRemind"
-            >
+                android:value="appcore.AlarmMainActivity"/>
         </activity>
 
-        <!-- todolist -->
+        <activity
+            android:name=".RecordActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false">
+        </activity>
+
+        <activity android:name=".controllerRemind.RemindActivity"/>
+        <activity
+            android:name=".controllerRemind.AddRemindActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+
+        <!--todolist-->
         <activity android:name=".todolist.ListActivity" />
-        <activity
-            android:name=".todolist.TaskActivity"
-            android:theme="@style/AppThemeWithActionBar" />
-        <activity
-            android:name=".todolist.ImageActivity"
-            android:theme="@style/AppThemeWithActionBar" />
+        <activity android:name=".todolist.TaskActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
+        <activity android:name=".todolist.ImageActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
 
     </application>
 
