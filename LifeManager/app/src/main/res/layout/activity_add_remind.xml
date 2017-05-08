@@ -88,7 +88,7 @@
         android:layout_marginStart="8dp" />
 
     <ImageView
-        android:id="@+id/imageView51"
+        android:id="@+id/iv_back_list_remind"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="24dp"
@@ -97,18 +97,6 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:srcCompat="@drawable/back_ic_new"
         android:layout_marginStart="24dp" />
-
-    <ImageView
-        android:id="@+id/iv_save"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintRight_toRightOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:srcCompat="@drawable/ic_done_black_24dp"
-        android:layout_marginEnd="24dp" />
-
 
 
     <ImageView
@@ -212,13 +200,13 @@
         android:layout_marginTop="24dp"
         android:text="@string/remind_toolbar"
         android:textSize="30sp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView51"
+        app:layout_constraintLeft_toRightOf="@+id/iv_back_list_remind"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         android:layout_marginBottom="24dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/iv_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
@@ -228,5 +216,17 @@
         app:layout_constraintTop_toBottomOf="@+id/view_record"
         android:layout_marginRight="24dp"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/iv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff"
+
+        android:text="Cancel"
+        app:layout_constraintRight_toLeftOf="@+id/iv_save"
+        app:layout_constraintTop_toBottomOf="@+id/view_record" />
 
 </android.support.constraint.ConstraintLayout>

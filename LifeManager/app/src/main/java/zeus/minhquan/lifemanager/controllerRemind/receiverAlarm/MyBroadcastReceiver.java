@@ -21,19 +21,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Remind remind = (Remind) intent.getSerializableExtra("remind");
-       // Toast.makeText(context, remind.getTitle(),   Toast.LENGTH_SHORT).show();
-
-
         intent = new Intent(context, NotifyMonitor.class);
         intent.setFlags( Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("remind1", remind);
         context.startActivity(intent);
-        //Intent.FLAG_ACTIVITY_CLEAR_TASK |
 
-
-//        Intent i = new Intent();
-//        i.setClassName("com.test", "com.test.MainActivity");
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        context.startActivity(i);
     }
 }

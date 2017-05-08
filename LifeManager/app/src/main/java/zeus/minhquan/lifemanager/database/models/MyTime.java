@@ -18,8 +18,11 @@ public class MyTime {
     }
 
     public int getHour() {
+        halfTime = getHalfTime(hour);
         if (halfTime == HalfTime.AM && hour <= 12){
             return hour;
+        } else if(halfTime == HalfTime.PM && hour > 12){
+            return hour -= HOUR_OF_TIME;
         }
         else return hour + 12;
     }

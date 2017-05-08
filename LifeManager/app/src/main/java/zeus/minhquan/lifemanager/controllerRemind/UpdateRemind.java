@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -38,11 +37,11 @@ import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.models.Remind;
+import zeus.minhquan.lifemanager.utils.CountDownAlarm;
 
 
 public class UpdateRemind extends AppCompatActivity {
 
-    private static final String TAG = "UpdateRemindActivity";
 
     RemindDatabase db = LifeManagerApplication.getInstance().getRemindDatabase();
     Remind remindCur;
@@ -55,7 +54,6 @@ public class UpdateRemind extends AppCompatActivity {
     private Button ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
-    private ImageView ivBack;
 
     private boolean isSave;
     private int yearChoose;
@@ -64,6 +62,8 @@ public class UpdateRemind extends AppCompatActivity {
     private int houseChoose;
     private int minuteChoose;
     private String mainRecordPath;
+    private Button btnCancel;
+    private ImageView ivBack;
 
     int idRemind;
 
@@ -73,9 +73,10 @@ public class UpdateRemind extends AppCompatActivity {
         txtDate = (TextView) findViewById(R.id.et_date1);
         txtTime = (TextView) findViewById(R.id.et_time1);
         ivSave = (Button) findViewById(R.id.button1);
-        ivRecord = (ImageView) findViewById(R.id.iv_record1);
+        ivRecord = (ImageView) findViewById(R.id.view_record_up);
         tvRecord = (TextView) findViewById(R.id.et_record1);
-        ivBack = (ImageView) findViewById(R.id.imageView51);
+        btnCancel = (Button) findViewById(R.id.iv_cancel_up);
+        ivBack = (ImageView) findViewById(R.id.iv_back_list_remind);
         if(getDataToResume("idFromRecord")!= ""){
             etTitle.setText(getDataToResume("title"));
             etDescription.setText(getDataToResume("description"));
@@ -102,7 +103,7 @@ public class UpdateRemind extends AppCompatActivity {
                     break;
                 }
             }
-            Log.d("Description ", remindCur.getDescription());
+
             etTitle.setText(remindCur.getTitle());
             etDescription.setText(remindCur.getDescription());
             txtDate.setText(remindCur.getDate());
@@ -121,6 +122,7 @@ public class UpdateRemind extends AppCompatActivity {
             }
         Calendar c = Calendar.getInstance();
         myDatePicker = new MyDate(c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DATE));
+
         myTimePicker = new MyTime(c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
 
         // convert string to calandar
@@ -157,7 +159,7 @@ public class UpdateRemind extends AppCompatActivity {
         Calendar now = Calendar.getInstance();
         switch (timeType) {
             case DATE:
-                Log.d(TAG, now.get(Calendar.YEAR) + "YEAR");
+
                 myDatePicker = new MyDate(now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DATE));
                 return myDatePicker.getDate();
 
@@ -192,7 +194,19 @@ public class UpdateRemind extends AppCompatActivity {
             idRemind = Integer.parseInt(getDataToResume("idFromRecord"));
         }
         setDefault(idRemind);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateRemind.super.onBackPressed();
+            }
+        });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateRemind.super.onBackPressed();
+            }
+        });
 
         etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -232,23 +246,21 @@ public class UpdateRemind extends AppCompatActivity {
                     isSave = false;
                 }
                 if (isSave) {
-                    Toast.makeText(UpdateRemind.this, "Set", Toast.LENGTH_SHORT).show();
                     Date dateNow = new Date();
                     Date dateFuture = new GregorianCalendar(yearChoose, monthChoose, dayChoose, houseChoose, minuteChoose).getTime();
 
-                    Log.d("time future " , dateFuture.toString());
+
                     int second = (int) ((dateFuture.getTime() - dateNow.getTime()) / 1000);
                     if (second > 0) {
                         //TODO: import record path to database
                         //mainRecordPath
                         Remind remindTemp;
                         if (mainRecordPath != null && mainRecordPath != "") {
-                            Log.d("Record name" , mainRecordPath);
+
                             remindTemp = new Remind(idRemind,etTitle.getText().toString(), etDescription.getText().toString()
                                     , txtDate.getText().toString(), txtTime.getText().toString(), mainRecordPath);
 
                         } else {
-                            Log.d("Record name bi null" , "null");
                             remindTemp = new Remind(idRemind,etTitle.getText().toString(), etDescription.getText().toString()
                                     , txtDate.getText().toString(), txtTime.getText().toString());
                         }
@@ -270,24 +282,7 @@ public class UpdateRemind extends AppCompatActivity {
                 showRecordActivity();
             }
         });
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UpdateRemind.this , RemindActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                UpdateRemind.this.startActivity(intent);
-            }
-        });
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            Intent intent = new Intent(UpdateRemind.this , RemindActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            UpdateRemind.this.startActivity(intent);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+
     }
 
     public void showRecordActivity() {
@@ -318,17 +313,18 @@ public class UpdateRemind extends AppCompatActivity {
 
     public void startEvent(int second ,Remind emp, int id){
         Intent intent = new Intent(UpdateRemind.this, MyBroadcastReceiver2.class);
-        intent.putExtra("remind",emp );
-
+        intent.putExtra("remind", emp);
+        Log.d("Truoc khi gui", emp.getTitle() + emp.getRecord_name());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
-        Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Alarm set in "  + CountDownAlarm.getTimeCountDown(second),Toast.LENGTH_LONG).show();
 
     }
 
     public  void cancelAlarm(int id) {
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
+        //intent.putExtra("title",title );
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
@@ -358,7 +354,7 @@ public class UpdateRemind extends AppCompatActivity {
         final TimePickerDialog.OnTimeSetListener callback = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                Log.d(TAG, minute + " abc");
+
                 myTimePicker = new MyTime(hour, minute);
                 txtTime.setText(myTimePicker.getTime());
 

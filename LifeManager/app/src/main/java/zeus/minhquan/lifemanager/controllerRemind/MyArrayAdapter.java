@@ -5,37 +5,26 @@ package zeus.minhquan.lifemanager.controllerRemind;
  */
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.andexert.expandablelayout.library.ExpandableLayoutListView;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.RecordActivity;
 import zeus.minhquan.lifemanager.database.RemindDatabase;
-import zeus.minhquan.lifemanager.database.models.MyDate;
-import zeus.minhquan.lifemanager.database.models.MyTime;
 import zeus.minhquan.lifemanager.database.models.Remind;
-import zeus.minhquan.lifemanager.database.models.TimeType;
 import zeus.minhquan.lifemanager.controllerRemind.receiverAlarm.MyBroadcastReceiver;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -92,8 +81,8 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
 
             holder.description = (TextView) convertView.findViewById(R.id.description);
 
-            holder.txtRecord = (TextView) convertView.findViewById(R.id.record1);
-            holder.btnDelete = (Button) convertView.findViewById(R.id.btndelete);
+            holder.txtRecord = (TextView) convertView.findViewById(R.id.et_sd_record);
+            holder.btnDelete = (ImageView) convertView.findViewById(R.id.btn_sd_delete);
             holder.btnUpdate = (Button) convertView.findViewById(R.id.btnUpdate);
 
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -116,12 +105,9 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
                     context.startActivity(intent);
                 }
             });
-
-
             convertView.setTag(holder);
         }
         else {
-
             holder = (ViewHolder) convertView.getTag();
         }
         setValues(emp);
@@ -193,7 +179,7 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
         TextView txtTimeFull1;
         TextView description;
         TextView txtRecord;
-        Button btnDelete;
+        ImageView btnDelete;
         Button btnUpdate;
 
     }
