@@ -79,7 +79,7 @@ public class AlarmListItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
             int drawWidth = Math.min(x, maxDrawWidth);
             // Cap the height of the drawable area to the selectable area - this improves the visual
-            // for the first taller item in the alarm list
+            // for the first taller item in the alarm menu_todo_list
             int itemTop = itemView.getBottom() - resources.getDimensionPixelSize(R.dimen.alarm_list_item_height);
 
             if (dX > 0) {

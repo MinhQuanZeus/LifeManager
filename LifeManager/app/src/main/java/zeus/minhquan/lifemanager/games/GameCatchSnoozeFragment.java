@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -311,9 +312,17 @@ public class GameCatchSnoozeFragment extends Fragment {
             if (mHitbox.contains(event.getX(), event.getY())) {
                 mVelocity.mult(1.5f);
                 mTapsRemaining--;
+                SoundManager.playSound("1");
+            }else{
+                SoundManager.playSound("0");
+                vibrate();
             }
             return mTapsRemaining;
         }
+    }
+    private void vibrate(){
+        Vibrator vibe = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibe.vibrate(200);
     }
 
     private class Vector2D {

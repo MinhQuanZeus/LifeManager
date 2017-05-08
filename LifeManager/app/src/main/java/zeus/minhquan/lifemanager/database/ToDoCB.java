@@ -138,7 +138,7 @@ public class ToDoCB implements Replication.ChangeListener {
             Mapper mapper = new Mapper() {
                 public void map(Map<String, Object> document, Emitter emitter) {
                     String type = (String) document.get("type");
-                    if ("list".equals(type))
+                    if ("menu_todo_list".equals(type))
                         emitter.emit(document.get("title"), null);
                 }
             };

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,12 +24,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
-import zeus.minhquan.lifemanager.appcore.BaseActivity;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class RecordActivity extends BaseActivity {
+public class RecordActivity extends AppCompatActivity {
 
     private static final String TAG = "RecordActivity";
     private static final String RANDOM_CHARACTER = "ABCDEFGHIKLMNOPQRSTUVWXYZ";

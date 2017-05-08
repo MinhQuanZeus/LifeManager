@@ -5,6 +5,7 @@ import android.content.Context;
 
 import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.ToDoCB;
+import zeus.minhquan.lifemanager.games.SoundManager;
 
 /**
  * Created by QuanT on 4/22/2017.
@@ -36,6 +37,7 @@ public class LifeManagerApplication extends Application {
         remindDatabase = new RemindDatabase(this);
         toDoCB = new ToDoCB(getApplicationContext());
         LifeManagerApplication.sContext = getApplicationContext();
+        SoundManager.loadSoundIntoList(this);
     }
 
     public ToDoCB getToDoCB() {

@@ -11,12 +11,12 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.appcore.BaseActivity;
+import zeus.minhquan.lifemanager.appcore.BaseActivityBottonNavigation;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
 import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.models.Remind;
 
-public class RemindActivity extends BaseActivity {
+public class RemindActivity extends BaseActivityBottonNavigation {
 
     ArrayList<Remind> arrRemind;
     //Sử dụng MyArrayAdapter thay thì ArrayAdapter

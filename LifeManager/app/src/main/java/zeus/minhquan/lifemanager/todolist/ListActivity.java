@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,15 +40,15 @@ import java.util.TimeZone;
 
 import zeus.minhquan.lifemanager.R;
 import zeus.minhquan.lifemanager.appcore.AlarmFloatingActionButton;
-import zeus.minhquan.lifemanager.appcore.BaseActivity;
 import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
+import zeus.minhquan.lifemanager.appcore.TaskActivity;
 import zeus.minhquan.lifemanager.utils.LiveQueryAdapter;
 
 /**
  * Created by QuanT on 5/2/2017.
  */
 
-public class ListActivity extends BaseActivity {
+public class ListActivity extends AppCompatActivity {
     private static SimpleDateFormat mDateFormatter =
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
     private Database mDatabase = null;
@@ -58,9 +59,8 @@ public class ListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_list);
-        getLayoutInflater().inflate(R.layout.activity_list, frameLayout);
-        mDrawerList.setItemChecked(position, true);
+         setContentView(R.layout.activity_list);
+      //  getLayoutInflater().inflate(R.layout.activity_list, frameLayout);
 
         LifeManagerApplication application = (LifeManagerApplication) getApplication();
         mDatabase = application.getToDoCB().getDatabase();
@@ -73,19 +73,6 @@ public class ListActivity extends BaseActivity {
         });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.todo_list_title);
-        toolbar.setLogo(R.drawable.ic_menu_black_24dp);
-        View logoView = getToolbarLogoView(toolbar);
-        logoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //logo clicked
-                if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                    mDrawerLayout.closeDrawer(mDrawerList);
-                } else {
-                    mDrawerLayout.openDrawer(mDrawerList);
-                }
-            }
-        });
         mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
         mCollapsingLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 
@@ -116,7 +103,7 @@ public class ListActivity extends BaseActivity {
                         if (owner == null || owner.equals("p:" + application.getToDoCB().getCurrentUserId()))
                             deleteList(list);
                         else
-                            application.getToDoCB().showErrorMessage("Only owner can delete the list", null);
+                            application.getToDoCB().showErrorMessage("Only owner can delete the menu_todo_list", null);
                         return true;
                     }
                 });
@@ -132,7 +119,7 @@ public class ListActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.list, menu);
+        getMenuInflater().inflate(R.menu.menu_todo_list, menu);
         return true;
     }
 
@@ -185,7 +172,7 @@ public class ListActivity extends BaseActivity {
                         return;
                     create(title);
                 } catch (CouchbaseLiteException e) {
-                    Log.e(LifeManagerApplication.TAG, "Cannot create a new list", e);
+                    Log.e(LifeManagerApplication.TAG, "Cannot create a new menu_todo_list", e);
                 }
             }
         });
@@ -207,7 +194,7 @@ public class ListActivity extends BaseActivity {
         String currentTimeString = mDateFormatter.format(new Date());
 
         Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("type", "list");
+        properties.put("type", "menu_todo_list");
         properties.put("title", title);
         properties.put("created_at", currentTimeString);
         properties.put("members", new ArrayList<String>());
@@ -249,7 +236,7 @@ public class ListActivity extends BaseActivity {
                     }
                     list.delete();
                 } catch (CouchbaseLiteException e) {
-                    Log.e(LifeManagerApplication.TAG, "Cannot delete list", e);
+                    Log.e(LifeManagerApplication.TAG, "Cannot delete menu_todo_list", e);
                     return false;
                 }
                 return true;

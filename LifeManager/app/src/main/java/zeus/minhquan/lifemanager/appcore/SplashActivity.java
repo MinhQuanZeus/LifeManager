@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent intent = new Intent(SplashActivity.this, BaseActivity.class);
+                Intent intent = new Intent(SplashActivity.this, BaseActivityBottonNavigation.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

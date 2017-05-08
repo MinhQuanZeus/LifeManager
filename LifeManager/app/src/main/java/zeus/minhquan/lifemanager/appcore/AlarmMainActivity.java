@@ -6,6 +6,7 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import zeus.minhquan.lifemanager.utils.SettingsUtils;
  * Created by QuanT on 4/22/2017.
  */
 
-public class AlarmMainActivity extends BaseActivity
+public class AlarmMainActivity extends BaseActivityBottonNavigation
         implements AlarmListFragment.AlarmListListener,
         AlarmSettingsFragment.AlarmSettingsListener,
         GamesSettingsFragment.GamesSettingsListener {
@@ -37,8 +38,8 @@ public class AlarmMainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_fragment);
         getLayoutInflater().inflate(R.layout.activity_fragment, frameLayout);
-        mDrawerList.setItemChecked(position, true);
-
+      //  navigation.setSelectedItemId(idFrame);
+        navigation.getMenu().getItem(0).setChecked(true);
         PreferenceManager.setDefaultValues(this, R.xml.pref_global, false);
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         AlarmNotificationManager.get(this).handleNextAlarmNotificationStatus();

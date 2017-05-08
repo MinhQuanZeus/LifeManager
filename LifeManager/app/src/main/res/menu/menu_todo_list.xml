@@ -3,6 +3,7 @@
     xmlns:compat="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/create"
+        android:icon="@drawable/ic_add_circle_black_24dp"
         android:title="@string/action_create_list"
         compat:showAsAction="always" />
 </menu>

@@ -1,4 +1,4 @@
-package zeus.minhquan.lifemanager.todolist;
+package zeus.minhquan.lifemanager.appcore;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -9,16 +9,17 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.media.ExifInterface;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -57,7 +58,7 @@ import java.util.TimeZone;
 
 import zeus.minhquan.lifemanager.BuildConfig;
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.appcore.LifeManagerApplication;
+import zeus.minhquan.lifemanager.todolist.ImageActivity;
 import zeus.minhquan.lifemanager.utils.ImageUtil;
 import zeus.minhquan.lifemanager.utils.LiveQueryAdapter;
 
@@ -68,7 +69,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
  * Created by QuanT on 5/2/2017.
  */
 
-public class TaskActivity extends AppCompatActivity {
+public class TaskActivity extends BaseActivityBottonNavigation {
     public static final String INTENT_LIST_ID = "list_id";
     public static final String INTENT_LIST_TITLE = "list_TITLE";
     public static final int RequestPermissionCode = 1;
@@ -88,9 +89,10 @@ public class TaskActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_task);
+     //   setContentView(R.layout.activity_task);
+        getLayoutInflater().inflate(R.layout.activity_task, frameLayout);
+        navigation.getMenu().getItem(2).setChecked(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         LifeManagerApplication application = (LifeManagerApplication) getApplication();
         mDatabase = application.getToDoCB().getDatabase();
@@ -168,6 +170,11 @@ public class TaskActivity extends AppCompatActivity {
                 String inputText = text.getText().toString();
                 if (inputText.length() > 0)
                     createTask(inputText, mImageToBeAttached, mListId);
+                else{
+                    Toast.makeText(TaskActivity.this, R.string.empty_input_text,
+                            Toast.LENGTH_LONG).show();
+                }
+
 
                 text.setText("");
                 deleteCurrentPhoto();
@@ -415,6 +422,21 @@ public class TaskActivity extends AppCompatActivity {
                 BitmapFactory.decodeFile(mImagePathToBeAttached, options);
                 options.inJustDecodeBounds = false;
                 mImageToBeAttached = BitmapFactory.decodeFile(mImagePathToBeAttached, options);
+                try{
+                    ExifInterface exif = new ExifInterface(mImagePathToBeAttached);
+                    String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+                    int orientation = orientString != null ? Integer.parseInt(orientString) :  ExifInterface.ORIENTATION_NORMAL;
+                    int rotationAngle = 0;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+                    Matrix matrix = new Matrix();
+                    matrix.setRotate(rotationAngle, (float) mImageToBeAttached.getWidth() / 2, (float) mImageToBeAttached.getHeight() / 2);
+                    mImageToBeAttached = Bitmap.createBitmap(mImageToBeAttached, 0, 0, options.outWidth, options.outHeight, matrix, true);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
                 if (mCurrentTaskToAttachImage == null) {
                     thumbnail = ThumbnailUtils.extractThumbnail(mImageToBeAttached, size, size);
                 }

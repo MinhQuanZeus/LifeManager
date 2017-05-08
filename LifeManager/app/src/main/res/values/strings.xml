@@ -75,4 +75,11 @@
     <string name="dummy_string">Life Manager</string>
     <string name="open_drawer">Drawer Open</string>
     <string name="close_drawer">Drawer Close</string>
+    <string name="title_activity_base_botton_navigation">BaseActivityBottonNavigation</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="todo">To do</string>
+    <string name="remind_title">Reminds</string>
+    <string name="empty_input_text">Task title must be non empty</string>
 </resources>

@@ -15,8 +15,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
@@ -40,12 +45,11 @@ import java.util.List;
 import java.util.Map;
 
 import zeus.minhquan.lifemanager.R;
-import zeus.minhquan.lifemanager.todolist.TaskActivity;
 
 /**
  * Created by QuanT on 5/03/2017.
  */
-public class ToDoListFragment extends Fragment {
+public class ToDoListFragment extends Fragment implements AlarmFloatingActionButton.OnVisibilityChangedListener {
 
     private static SimpleDateFormat mDateFormatter =
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -57,6 +61,7 @@ public class ToDoListFragment extends Fragment {
     private CollapsingToolbarLayout mCollapsingLayout;
     private TaskListListener mCallbacks;
     private Context context;
+    private boolean mShowAddButtonInToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,20 +82,20 @@ public class ToDoListFragment extends Fragment {
         Toolbar toolbar = (Toolbar) view
                 .findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.todo_list_title);
-        toolbar.setLogo(R.drawable.ic_menu_black_24dp);
-        View logoView = ((ToDoMainActivity) getActivity()).getToolbarLogoView(toolbar);
-        logoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //logo clicked
-                if (((ToDoMainActivity) getActivity()).mDrawerLayout.isDrawerOpen(((ToDoMainActivity) getActivity()).mDrawerList)) {
-                    ((ToDoMainActivity) getActivity()).mDrawerLayout.closeDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
-                } else {
-                    ((ToDoMainActivity) getActivity()).mDrawerLayout.openDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
-                }
-            }
-        });
+//        View logoView = ((ToDoMainActivity) getActivity()).getToolbarLogoView(toolbar);
+//        logoView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //logo clicked
+//                if (((ToDoMainActivity) getActivity()).mDrawerLayout.isDrawerOpen(((ToDoMainActivity) getActivity()).mDrawerList)) {
+//                    ((ToDoMainActivity) getActivity()).mDrawerLayout.closeDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
+//                } else {
+//                    ((ToDoMainActivity) getActivity()).mDrawerLayout.openDrawer(((ToDoMainActivity) getActivity()).mDrawerList);
+//                }
+//            }
+//        });
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
 
         AlarmFloatingActionButton fab = (AlarmFloatingActionButton) view.findViewById(R.id.fab);
@@ -101,6 +106,7 @@ public class ToDoListFragment extends Fragment {
                 displayCreateDialog();
             }
         });
+        fab.setVisibilityListener(this);
         mEmptyView = (RelativeLayout) view.findViewById(R.id.empty_view);
 
         mCollapsingLayout = (CollapsingToolbarLayout) view.findViewById(R.id.toolbar_layout);
@@ -180,15 +186,15 @@ public class ToDoListFragment extends Fragment {
     }
 
     private void displayCreateDialog() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         //   android.util.Log.d("Context",context.toString());
         alert.setTitle(getResources().getString(R.string.title_dialog_new_list));
 
         LayoutInflater inflater = this.getLayoutInflater(null);
         final View view = inflater.inflate(R.layout.view_dialog_input, null);
         final EditText input = (EditText) view.findViewById(R.id.text);
+        input.requestFocus();
         alert.setView(view);
-
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 try {
@@ -200,7 +206,7 @@ public class ToDoListFragment extends Fragment {
                     updateUI();
 
                 } catch (CouchbaseLiteException e) {
-                    Log.e(LifeManagerApplication.TAG, "Cannot create a new list", e);
+                    Log.e(LifeManagerApplication.TAG, "Cannot create a new menu_todo_list", e);
                 }
             }
         });
@@ -209,15 +215,25 @@ public class ToDoListFragment extends Fragment {
             public void onClick(DialogInterface dialog, int whichButton) {
             }
         });
+        // Dialog
+        AlertDialog dialog = alert.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 
-        alert.show();
+            @Override
+            public void onShow(DialogInterface dialog) {
+                InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+        dialog.show();
     }
 
     private Document create(String title) throws CouchbaseLiteException {
         String currentTimeString = mDateFormatter.format(new Date());
 
         Map<String, Object> properties = new HashMap<String, Object>();
-        properties.put("type", "list");
+        properties.put("type", "menu_todo_list");
         properties.put("title", title);
         properties.put("created_at", currentTimeString);
         properties.put("members", new ArrayList<String>());
@@ -230,6 +246,35 @@ public class ToDoListFragment extends Fragment {
         document.putProperties(properties);
 
         return document;
+    }
+
+    @Override
+    public void visibilityChanged(int visibility) {
+        if (View.INVISIBLE == visibility) {
+            mShowAddButtonInToolbar = true;
+        } else if (View.VISIBLE == visibility) {
+            mShowAddButtonInToolbar = false;
+        }
+        android.util.Log.d("Show add",mShowAddButtonInToolbar+"");
+        getActivity().invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_todo_list, menu);
+        MenuItem add = menu.findItem(R.id.create);
+        add.setVisible(mShowAddButtonInToolbar);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.create) {
+            displayCreateDialog();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public interface TaskListListener {
@@ -267,7 +312,8 @@ public class ToDoListFragment extends Fragment {
             mContainer.setLayoutParams(params);
 
             int tallItemPadding = itemHeightTall - getContext().getResources().getDimensionPixelSize(R.dimen.alarm_list_item_height);
-            mContainer.setPadding(0, tallItemPadding, 0, 0);
+            int leftPadding = getContext().getResources().getDimensionPixelSize(R.dimen.todo_list_item_left_padding);
+            mContainer.setPadding(leftPadding, tallItemPadding, 0, 0);
         }
 
 
@@ -329,8 +375,12 @@ public class ToDoListFragment extends Fragment {
         @Override
         public void onBindViewHolder(TaskHolder holder, int position) {
             final Document list = (Document) getItem(position);
+            if (position == 0) {
+                holder.setFirstItemDimensions();
+            }
             holder.bindTask(list);
         }
+
 
         @Override
         public int getItemCount() {
@@ -345,7 +395,7 @@ public class ToDoListFragment extends Fragment {
             if (owner == null || owner.equals("p:" + LifeManagerApplication.getInstance().getToDoCB().getCurrentUserId()))
                 deleteList(list);
             else
-                LifeManagerApplication.getInstance().getToDoCB().showErrorMessage("Only owner can delete the list", null);
+                LifeManagerApplication.getInstance().getToDoCB().showErrorMessage("Only owner can delete the menu_todo_list", null);
             notifyItemRemoved(position);
         }
 
@@ -384,7 +434,7 @@ public class ToDoListFragment extends Fragment {
                         }
                         list.delete();
                     } catch (CouchbaseLiteException e) {
-                        Log.e(LifeManagerApplication.TAG, "Cannot delete list", e);
+                        Log.e(LifeManagerApplication.TAG, "Cannot delete menu_todo_list", e);
                         return false;
                     }
                     return true;

@@ -32,7 +32,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/list"-->
+    <!--android:id="@+id/menu_todo_list"-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
     <!--xmlns:tools="http://schemas.android.com/tools"-->

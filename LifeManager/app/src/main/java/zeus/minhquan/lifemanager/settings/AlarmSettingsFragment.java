@@ -14,6 +14,9 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -47,7 +50,7 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
     private GamesPreference mGamesPreference;
     private RingtonePreference mRingtonePreference;
     private VibratePreference mVibratePreference;
-    private ButtonsPreference mButtonsPreference;
+ //   private ButtonsPreference mButtonsPreference;
 
     public static AlarmSettingsFragment newInstance(String alarmId) {
         AlarmSettingsFragment fragment = new AlarmSettingsFragment();
@@ -88,14 +91,14 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
         mAlarm = AlarmList.get(getContext()).getAlarm(alarmId);
         ArrayList<String> enabledGames = args.getStringArrayList(ARGS_ENABLED_GAMES);
 
-        // Initialize the preferences from the alarm object before populating the settings list
+        // Initialize the preferences from the alarm object before populating the settings menu_todo_list
         initializeTimePreference();
         initializeRepeatingDaysPreference();
         initializeNamePreference();
         initializeGamesPreference(enabledGames);
         initializeRingtonePreference();
         initializeVibratePreference();
-        initializeButtons();
+    //    initializeButtons();
     }
 
     @Override
@@ -112,6 +115,7 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
                 onCancel();
             }
         });
+        setHasOptionsMenu(true);
 
         Loggable.UserAction userAction;
         if (mAlarm.isNew()) {
@@ -125,11 +129,31 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
 
         RecyclerView recyclerView = super.onCreateRecyclerView(inflater, parent, savedInstanceState);
         int timePreferenceOrder = mTimePreference.getOrder();
-        int buttonsPreferenceOrder = mButtonsPreference.getOrder();
-        int[] excludeDividerList = new int[]{timePreferenceOrder, buttonsPreferenceOrder};
+  //      int buttonsPreferenceOrder = mButtonsPreference.getOrder();
+        int[] excludeDividerList = new int[]{timePreferenceOrder};
         recyclerView.addItemDecoration(new SettingsDividerItemDecoration(getContext(), excludeDividerList));
 
         return recyclerView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_alarm_setting, menu);
+        MenuItem add = menu.findItem(R.id.action_delete_alarm);
+        add.setVisible(!mAlarm.isNew());
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_delete_alarm) {
+            deleteSettingsAndExit();
+            return true;
+        } else if (id == R.id.action_save_alarm) {
+            saveSettingsAndExit();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void updateGamesPreference(ArrayList<String> enabledGames) {
@@ -183,26 +207,26 @@ public class AlarmSettingsFragment extends PreferenceFragmentCompat {
         mVibratePreference.setInitialValue(mAlarm.shouldVibrate());
     }
 
-    private void initializeButtons() {
-        mButtonsPreference = (ButtonsPreference) findPreference(getString(R.string.pref_buttons_key));
-        int resId = mAlarm.isNew() ? android.R.string.cancel : R.string.pref_button_delete;
-        mButtonsPreference.setLeftButtonText(getResources().getString(resId));
-        mButtonsPreference.setRightButtonText(getResources().getString(R.string.pref_button_save));
-        mButtonsPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object o) {
-                boolean rightButtonPressed = (boolean) o;
-                if (rightButtonPressed) {
-                    // Save button was pressed
-                    saveSettingsAndExit();
-                } else {
-                    // Cancel (when new) or Delete button was pressed
-                    deleteSettingsAndExit();
-                }
-                return true;
-            }
-        });
-    }
+//    private void initializeButtons() {
+//        mButtonsPreference = (ButtonsPreference) findPreference(getString(R.string.pref_buttons_key));
+//        int resId = mAlarm.isNew() ? android.R.string.cancel : R.string.pref_button_delete;
+//        mButtonsPreference.setLeftButtonText(getResources().getString(resId));
+//        mButtonsPreference.setRightButtonText(getResources().getString(R.string.pref_button_save));
+//        mButtonsPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//            @Override
+//            public boolean onPreferenceChange(Preference preference, Object o) {
+//                boolean rightButtonPressed = (boolean) o;
+//                if (rightButtonPressed) {
+//                    // Save button was pressed
+//                    saveSettingsAndExit();
+//                } else {
+//                    // Cancel (when new) or Delete button was pressed
+//                    deleteSettingsAndExit();
+//                }
+//                return true;
+//            }
+//        });
+//    }
 
     @Override
     public void onDisplayPreferenceDialog(Preference preference) {

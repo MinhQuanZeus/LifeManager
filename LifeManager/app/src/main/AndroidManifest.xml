@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="zeus.minhquan.lifemanager">
 
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="14" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -24,10 +28,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-sdk
-        android:minSdkVersion="11"
-        android:targetSdkVersion="14" />
-
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".appcore.LifeManagerApplication"
@@ -52,13 +54,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".appcore.BaseActivity"
-            android:theme="@style/AppThemeWithActionBar">
-        </activity>
-        <activity android:name=".appcore.MainActivity" />
 
         <!-- alarm -->
         <activity
@@ -105,13 +104,15 @@
         <!-- todolist -->
         <activity android:name=".todolist.ListActivity" />
         <activity
-            android:name=".todolist.TaskActivity"
+            android:name=".appcore.TaskActivity"
             android:theme="@style/AppThemeWithActionBar" />
         <activity
             android:name=".todolist.ImageActivity"
             android:theme="@style/AppThemeWithActionBar" />
         <activity android:name=".appcore.ToDoMainActivity" />
-
+        <activity
+            android:name=".appcore.BaseActivityBottonNavigation"
+            android:label="@string/title_activity_base_botton_navigation"></activity>
     </application>
 
 </manifest>

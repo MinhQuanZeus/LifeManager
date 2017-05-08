@@ -24,6 +24,6 @@
         android:key="@string/pref_vibrate_key"
         android:title="@string/pref_title_vibrate" />
 
-    <zeus.minhquan.lifemanager.settings.ButtonsPreference android:key="@string/pref_buttons_key" />
+    <!--<zeus.minhquan.lifemanager.settings.ButtonsPreference android:key="@string/pref_buttons_key" />-->
 
 </PreferenceScreen>

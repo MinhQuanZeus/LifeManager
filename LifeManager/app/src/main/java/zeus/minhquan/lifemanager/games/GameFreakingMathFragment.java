@@ -2,6 +2,7 @@ package zeus.minhquan.lifemanager.games;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,9 +63,12 @@ public class GameFreakingMathFragment extends Fragment {
             public void onClick(View v) {
                 if (isTrue == true) {
                     mTapsRemaining--;
+                    SoundManager.playSound("1");
                     isCorrect = true;
                 } else {
                     mFailedsRemaining--;
+                    vibrate();
+                    SoundManager.playSound("0");
                     isCorrect = false;
                 }
                 checkWin();
@@ -76,9 +80,12 @@ public class GameFreakingMathFragment extends Fragment {
             public void onClick(View v) {
                 if (isTrue == false) {
                     mTapsRemaining--;
+                    SoundManager.playSound("1");
                     isCorrect = true;
                 } else {
                     mFailedsRemaining--;
+                    SoundManager.playSound("0");
+                    vibrate();
                     isCorrect = false;
                 }
                 checkWin();
@@ -87,6 +94,11 @@ public class GameFreakingMathFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void vibrate(){
+        Vibrator vibe = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        vibe.vibrate(500);
     }
 
     @Override

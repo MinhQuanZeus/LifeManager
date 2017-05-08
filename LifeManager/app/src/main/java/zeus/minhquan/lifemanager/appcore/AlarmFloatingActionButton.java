@@ -3,6 +3,7 @@ package zeus.minhquan.lifemanager.appcore;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -24,6 +25,7 @@ public class AlarmFloatingActionButton extends FloatingActionButton {
     protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (changedView == this && mVisibilityListener != null) {
+            Log.d("Change","change");
             mVisibilityListener.visibilityChanged(visibility);
         }
     }
