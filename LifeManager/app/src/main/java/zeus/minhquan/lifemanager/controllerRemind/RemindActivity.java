@@ -63,9 +63,6 @@ public class RemindActivity extends AppCompatActivity {
     }
 
     private void setDefault() {
-
-
-
         ivAdd = (FloatingActionButton) findViewById(R.id.add_remind);
         expandableLayoutListView = (ExpandableLayoutListView) findViewById(R.id.listview1);
 

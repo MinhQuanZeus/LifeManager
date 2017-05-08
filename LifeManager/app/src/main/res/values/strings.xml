@@ -46,6 +46,8 @@
     <string name="game_twister_perfect_message">Perfect!</string>
 
     <string name="accept">accept</string>
+    <string name="no_widget_title">This event is start in</string>
+    <string name="widget_title">Tbe event</string>
     <string name="no_title"> "You must enter title"</string>
     <string name="game_nonetwork_prompt">catch the sleepyhead!</string>
     <string name="game_nonetwork_prompt2">keep going</string>

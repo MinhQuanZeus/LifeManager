@@ -62,6 +62,8 @@ public class UpdateRemind extends AppCompatActivity {
     private int houseChoose;
     private int minuteChoose;
     private String mainRecordPath;
+    private Button btnCancel;
+    private ImageView ivBack;
 
     int idRemind;
 
@@ -71,8 +73,10 @@ public class UpdateRemind extends AppCompatActivity {
         txtDate = (TextView) findViewById(R.id.et_date1);
         txtTime = (TextView) findViewById(R.id.et_time1);
         ivSave = (Button) findViewById(R.id.button1);
-        ivRecord = (ImageView) findViewById(R.id.iv_record1);
+        ivRecord = (ImageView) findViewById(R.id.view_record_up);
         tvRecord = (TextView) findViewById(R.id.et_record1);
+        btnCancel = (Button) findViewById(R.id.iv_cancel_up);
+        ivBack = (ImageView) findViewById(R.id.iv_back_list_remind);
         if(getDataToResume("idFromRecord")!= ""){
             etTitle.setText(getDataToResume("title"));
             etDescription.setText(getDataToResume("description"));
@@ -189,7 +193,19 @@ public class UpdateRemind extends AppCompatActivity {
             idRemind = Integer.parseInt(getDataToResume("idFromRecord"));
         }
         setDefault(idRemind);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateRemind.super.onBackPressed();
+            }
+        });
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateRemind.super.onBackPressed();
+            }
+        });
 
         etTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

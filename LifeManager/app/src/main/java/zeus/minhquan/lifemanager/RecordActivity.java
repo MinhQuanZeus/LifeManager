@@ -391,11 +391,9 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
         ivSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("Check click" , "da click roi nhe");
                 if(!isSave){
                     Toast.makeText(RecordActivity.this,"Please choose record", Toast.LENGTH_SHORT).show();
                 } else {
-
                     if(isPlayRecord) stopRecord();
                     Log.d("Page" , sendDataToResume("page"));
                     if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
@@ -427,14 +425,15 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
+                if(sendDataToResume("title").equals("") && sendDataToResume("description").equals("")){
+
+                    RecordActivity.super.onBackPressed();
+                } else if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
                     Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
                     intent.putExtra("title",sendDataToResume("title"));
                     intent.putExtra("description",sendDataToResume("description"));
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record_path", playRecord.getFilePath());
-                    intent.putExtra("record_name", playRecord.getFileName());
                     intent.putExtra("idFromRecord", sendDataToResume("idFromRecord"));
                     startActivity(intent);
                 } else {
@@ -443,8 +442,6 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
                     intent.putExtra("description",sendDataToResume("description"));
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record_path", playRecord.getFilePath());
-                    intent.putExtra("record_name", playRecord.getFileName());
                     startActivity(intent);
                 }
             }

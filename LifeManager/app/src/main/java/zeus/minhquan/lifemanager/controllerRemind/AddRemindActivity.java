@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,7 +46,7 @@ public class AddRemindActivity extends AppCompatActivity {
     private TextView txtTime;
     private MyDate myDatePicker;
     private MyTime myTimePicker;
-    private ImageView ivSave;
+    private Button ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
     private boolean isSave;
@@ -55,16 +56,21 @@ public class AddRemindActivity extends AppCompatActivity {
     private int houseChoose;
     private int minuteChoose;
     private String mainRecordPath;
-
+    private ImageView ivBack;
+    private ImageView ivShowRecord;
+    private Button btnCancel;
 
     public void setDefault(){
         etTitle = (EditText) findViewById(R.id.et_title1);
         etDescription = (EditText) findViewById(R.id.et_description1);
         txtDate = (TextView) findViewById(R.id.et_date1);
         txtTime = (TextView) findViewById(R.id.et_time1);
-        ivSave = (ImageView) findViewById(R.id.iv_save);
+        ivSave = (Button) findViewById(R.id.iv_save);
         ivRecord = (ImageView) findViewById(R.id.iv_record1);
         tvRecord = (TextView) findViewById(R.id.et_record);
+        ivBack = (ImageView) findViewById(R.id.iv_back_list_remind);
+        ivShowRecord = (ImageView) findViewById(R.id.view_record);
+        btnCancel = (Button) findViewById(R.id.iv_cancel);
         //current date time
 
         txtDate.setText(getCurrentDate(TimeType.DATE));
@@ -183,14 +189,35 @@ public class AddRemindActivity extends AppCompatActivity {
                         db.add(remindTemp);
                         startEvent(second, remindTemp, db.getIDMax());
                         Intent intent = new Intent(AddRemindActivity.this, RemindActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     } else {
-
                         Toast.makeText(AddRemindActivity.this,R.string.past_input_time, Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Want to save?
 
+                //back to List remind
+                AddRemindActivity.super.onBackPressed();
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddRemindActivity.super.onBackPressed();
+            }
+        });
+        ivShowRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRecordActivity();
             }
         });
 
@@ -234,8 +261,6 @@ public class AddRemindActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
         Toast.makeText(this, "Alarm set in "  +second+ " seconds",Toast.LENGTH_LONG).show();
-
-
     }
 
     public void showDatePickerDialog(){
@@ -248,8 +273,6 @@ public class AddRemindActivity extends AppCompatActivity {
                 yearChoose = year;
                 monthChoose = month;
                 dayChoose = date;
-
-
             }
         };
         DatePickerDialog datePicker = new DatePickerDialog(AddRemindActivity.this, callback,
