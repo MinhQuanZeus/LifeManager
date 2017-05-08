@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -47,6 +50,7 @@ public class AddRemindActivity extends AppCompatActivity {
     private MyTime myTimePicker;
     private ImageView ivSave;
     private ImageView ivRecord;
+    private ImageView ivBack;
     private TextView tvRecord;
     private boolean isSave;
     private int yearChoose;
@@ -65,6 +69,7 @@ public class AddRemindActivity extends AppCompatActivity {
         ivSave = (ImageView) findViewById(R.id.iv_save);
         ivRecord = (ImageView) findViewById(R.id.iv_record1);
         tvRecord = (TextView) findViewById(R.id.et_record);
+        ivBack = (ImageView) findViewById(R.id.imageView51);
         //current date time
 
         txtDate.setText(getCurrentDate(TimeType.DATE));
@@ -110,6 +115,28 @@ public class AddRemindActivity extends AppCompatActivity {
             txtTime.setText(getCurrentDate(TimeType.TIME));
         } else {
             txtTime.setText(getDataToResume("time"));
+        }
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            cal.setTime(sdf.parse(txtDate.getText().toString()));
+        } catch (ParseException e) {
+
+        }
+        yearChoose = cal.get(Calendar.YEAR);
+        monthChoose = cal.get(Calendar.MONTH);
+        dayChoose = cal.get(Calendar.DAY_OF_MONTH);
+
+        //convert string to house and minute
+
+        String time2 = txtTime.getText().toString();
+        if(time2.substring(8,10).equals("AM")){
+            houseChoose = Integer.parseInt(time2.substring(0,2));
+            minuteChoose = Integer.parseInt(time2.substring(5,7));
+        } else {
+            houseChoose = Integer.parseInt(time2.substring(0,2))+12;
+            minuteChoose = Integer.parseInt(time2.substring(5,7));
         }
         tvRecord.setText(getDataToResume("record_name"));
         mainRecordPath = getDataToResume("record_path");
@@ -194,6 +221,15 @@ public class AddRemindActivity extends AppCompatActivity {
             }
         });
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddRemindActivity.this , RemindActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                AddRemindActivity.this.startActivity(intent);
+            }
+        });
+
         ivRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,6 +237,16 @@ public class AddRemindActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Intent intent = new Intent(AddRemindActivity.this , RemindActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            AddRemindActivity.this.startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void showRecordActivity(){
@@ -228,8 +274,8 @@ public class AddRemindActivity extends AppCompatActivity {
     // doan code tao su kien dem
     public void startEvent(int second ,Remind emp, int id){
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        intent.putExtra("title",emp.getTitle() );
-        intent.putExtra("record", emp.getRecord_name());
+        intent.putExtra("remind",emp );
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);

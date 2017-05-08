@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -36,6 +37,7 @@ import java.util.TimerTask;
 import zeus.minhquan.lifemanager.adapters.RecordAdapter;
 import zeus.minhquan.lifemanager.animation.GifImageView;
 import zeus.minhquan.lifemanager.controllerRemind.AddRemindActivity;
+import zeus.minhquan.lifemanager.controllerRemind.RemindActivity;
 import zeus.minhquan.lifemanager.controllerRemind.UpdateRemind;
 
 import static android.Manifest.permission.RECORD_AUDIO;
@@ -401,22 +403,34 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
                     if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
                         Log.d("Check click" , "da click roi nhe");
                         Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("title",sendDataToResume("title"));
                         intent.putExtra("description",sendDataToResume("description"));
                         intent.putExtra("date",sendDataToResume("date"));
                         intent.putExtra("time",sendDataToResume("time"));
-                        intent.putExtra("record_path", playRecord.getFilePath());
-                        intent.putExtra("record_name", playRecord.getFileName());
+                        if(playRecord != null){
+                            intent.putExtra("record_path", playRecord.getFilePath());
+                            intent.putExtra("record_name", playRecord.getFileName());
+                        } else {
+                            intent.putExtra("record_path", "");
+                            intent.putExtra("record_name", "");
+                        }
                         intent.putExtra("idFromRecord", sendDataToResume("idFromRecord"));
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         intent.putExtra("title",sendDataToResume("title"));
                         intent.putExtra("description",sendDataToResume("description"));
                         intent.putExtra("date",sendDataToResume("date"));
                         intent.putExtra("time",sendDataToResume("time"));
-                        intent.putExtra("record_path", playRecord.getFilePath());
-                        intent.putExtra("record_name", playRecord.getFileName());
+                        if(playRecord != null){
+                            intent.putExtra("record_path", playRecord.getFilePath());
+                            intent.putExtra("record_name", playRecord.getFileName());
+                        } else {
+                            intent.putExtra("record_path", "");
+                            intent.putExtra("record_name", "");
+                        }
                         startActivity(intent);
                     }
 
@@ -429,27 +443,84 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
             public void onClick(View view) {
                 if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
                     Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("title",sendDataToResume("title"));
                     intent.putExtra("description",sendDataToResume("description"));
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record_path", playRecord.getFilePath());
-                    intent.putExtra("record_name", playRecord.getFileName());
+                    if(playRecord != null){
+                        intent.putExtra("record_path", playRecord.getFilePath());
+                        intent.putExtra("record_name", playRecord.getFileName());
+                    } else {
+                        intent.putExtra("record_path", "");
+                        intent.putExtra("record_name", "");
+                    }
                     intent.putExtra("idFromRecord", sendDataToResume("idFromRecord"));
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     intent.putExtra("title",sendDataToResume("title"));
                     intent.putExtra("description",sendDataToResume("description"));
                     intent.putExtra("date",sendDataToResume("date"));
                     intent.putExtra("time",sendDataToResume("time"));
-                    intent.putExtra("record_path", playRecord.getFilePath());
-                    intent.putExtra("record_name", playRecord.getFileName());
+
+                    // check neu playrecord == null ,
+                    if(playRecord != null){
+                        intent.putExtra("record_path", playRecord.getFilePath());
+                        intent.putExtra("record_name", playRecord.getFileName());
+                    } else {
+                        intent.putExtra("record_path", "");
+                        intent.putExtra("record_name", "");
+                    }
+
                     startActivity(intent);
                 }
             }
         });
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(sendDataToResume("page")!= null && sendDataToResume("page") != "" ) {
+                Intent intent = new Intent(RecordActivity.this, UpdateRemind.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("title",sendDataToResume("title"));
+                intent.putExtra("description",sendDataToResume("description"));
+                intent.putExtra("date",sendDataToResume("date"));
+                intent.putExtra("time",sendDataToResume("time"));
+                if(playRecord != null){
+                    intent.putExtra("record_path", playRecord.getFilePath());
+                    intent.putExtra("record_name", playRecord.getFileName());
+                } else {
+                    intent.putExtra("record_path", "");
+                    intent.putExtra("record_name", "");
+                }
+                intent.putExtra("idFromRecord", sendDataToResume("idFromRecord"));
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(RecordActivity.this, AddRemindActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("title",sendDataToResume("title"));
+                intent.putExtra("description",sendDataToResume("description"));
+                intent.putExtra("date",sendDataToResume("date"));
+                intent.putExtra("time",sendDataToResume("time"));
+
+                // check neu playrecord == null ,
+                if(playRecord != null){
+                    intent.putExtra("record_path", playRecord.getFilePath());
+                    intent.putExtra("record_name", playRecord.getFileName());
+                } else {
+                    intent.putExtra("record_path", "");
+                    intent.putExtra("record_name", "");
+                }
+
+                startActivity(intent);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void stopRecord(){

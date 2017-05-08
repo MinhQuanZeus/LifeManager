@@ -75,7 +75,7 @@ public class AlarmRingingFragment extends Fragment {
         UUID alarmId = UUID.fromString(args.getString(ARGS_ALARM_ID));
         mAlarm = AlarmList.get(getContext()).getAlarm(alarmId);
 
-        View view = inflater.inflate(R.layout.fragment_alarm_ringing, container, false);
+        View view = inflater.inflate(R.layout.fragment_alarm_ringing , container, false);
 
         if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
             TextView timeField = (TextView) view.findViewById(R.id.alarm_ringing_time);

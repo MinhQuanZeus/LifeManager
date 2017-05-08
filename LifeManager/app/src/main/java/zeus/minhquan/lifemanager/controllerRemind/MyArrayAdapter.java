@@ -165,9 +165,6 @@ public class MyArrayAdapter extends ArrayAdapter<Remind>
     }
 
 
-
-
-
     // doan code tao su kien dem
     public void startEvent(int second ,String title, int id){
         Intent intent = new Intent(context, MyBroadcastReceiver.class);

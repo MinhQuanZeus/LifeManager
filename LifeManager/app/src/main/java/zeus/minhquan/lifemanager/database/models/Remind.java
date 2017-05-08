@@ -1,10 +1,12 @@
 package zeus.minhquan.lifemanager.database.models;
 
+import java.io.Serializable;
+
 /**
  * Created by anh82 on 4/18/2017.
  */
 
-public class Remind {
+public class Remind implements Serializable {
     private int id;
     private String title;
     private String description;

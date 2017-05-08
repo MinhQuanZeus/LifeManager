@@ -87,7 +87,7 @@
         android:layout_marginStart="8dp" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageView51"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="24dp"
@@ -199,7 +199,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/update_toolbar_remind"
         android:textSize="30sp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView5"
+        app:layout_constraintLeft_toRightOf="@+id/imageView51"
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         android:layout_marginBottom="24dp" />

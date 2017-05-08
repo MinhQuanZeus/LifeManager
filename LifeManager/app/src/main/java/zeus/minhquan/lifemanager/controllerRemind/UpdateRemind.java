@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -54,6 +55,7 @@ public class UpdateRemind extends AppCompatActivity {
     private Button ivSave;
     private ImageView ivRecord;
     private TextView tvRecord;
+    private ImageView ivBack;
 
     private boolean isSave;
     private int yearChoose;
@@ -73,6 +75,7 @@ public class UpdateRemind extends AppCompatActivity {
         ivSave = (Button) findViewById(R.id.button1);
         ivRecord = (ImageView) findViewById(R.id.iv_record1);
         tvRecord = (TextView) findViewById(R.id.et_record1);
+        ivBack = (ImageView) findViewById(R.id.imageView51);
         if(getDataToResume("idFromRecord")!= ""){
             etTitle.setText(getDataToResume("title"));
             etDescription.setText(getDataToResume("description"));
@@ -267,7 +270,24 @@ public class UpdateRemind extends AppCompatActivity {
                 showRecordActivity();
             }
         });
-
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UpdateRemind.this , RemindActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                UpdateRemind.this.startActivity(intent);
+            }
+        });
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent(UpdateRemind.this , RemindActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            UpdateRemind.this.startActivity(intent);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void showRecordActivity() {
@@ -298,9 +318,8 @@ public class UpdateRemind extends AppCompatActivity {
 
     public void startEvent(int second ,Remind emp, int id){
         Intent intent = new Intent(UpdateRemind.this, MyBroadcastReceiver2.class);
-        intent.putExtra("title",emp.getTitle());
-        intent.putExtra("record", emp.getRecord_name());
-        Log.d("Truoc khi gui", emp.getTitle() + emp.getRecord_name());
+        intent.putExtra("remind",emp );
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() +  second * 1000 , pendingIntent);
@@ -310,7 +329,6 @@ public class UpdateRemind extends AppCompatActivity {
 
     public  void cancelAlarm(int id) {
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        //intent.putExtra("title",title );
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
