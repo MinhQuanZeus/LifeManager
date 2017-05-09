@@ -97,7 +97,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="appcore.AlarmMainActivity" />
         </activity>
-        <activity android:name=".RecordActivity" />
         <activity android:name=".controllerRemind.RemindActivity" />
         <activity android:name=".controllerRemind.AddRemindActivity" />
 
