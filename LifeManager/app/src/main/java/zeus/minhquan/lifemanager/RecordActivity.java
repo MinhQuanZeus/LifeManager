@@ -286,7 +286,7 @@ public class RecordActivity extends AppCompatActivity implements MyListener{
                     Toast.makeText(RecordActivity.this,R.string.no_name_record,Toast.LENGTH_SHORT).show();
                 }else if(tvInputRecord.getText().toString().length() < 4){
                     Toast.makeText(RecordActivity.this,R.string.too_short_name_record,Toast.LENGTH_SHORT).show();
-                } else if(tvInputRecord.getText().toString().length() >= 10){
+                } else if(tvInputRecord.getText().toString().length() > 16){
                     Toast.makeText(RecordActivity.this,R.string.too_long_name_record,Toast.LENGTH_SHORT).show();
                 } else {
                     isDuplicate = false;

@@ -14,8 +14,8 @@
     <string name="duplicate_record_name">Record name is duplicated, please try another name</string>
     <string name="record_complete">Record completed</string>
     <string name="start_record">Record completed</string>
-    <string name="no_name_record">Please enter your record name from 4-10 characters</string>
-    <string name="too_long_name_record">Your record name too long, please input less than 10 characters</string>
+    <string name="no_name_record">Please enter your record name from 4-16 characters</string>
+    <string name="too_long_name_record">Your record name too long, please input less than 16 characters</string>
     <string name="too_short_name_record">Your record name too long, please input more than 4 characters</string>
     <string name="Alarm_Remind_rung">Đã đến giờ của  </string>
     <string name="click_to_stop">Click mic to stop</string>
