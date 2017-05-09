@@ -10,7 +10,7 @@
         android:layout_height="110dp"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/sunrise_header_1" />
+        android:src="@drawable/sunrise_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/snooze_button" />
+                android:src="@drawable/snooze_btn" />
 
             <ImageView
                 android:id="@+id/alarm_ringing_dismiss"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/dismiss_button" />
+                android:src="@drawable/dismiss_btn" />
 
             <!-- Left arrows and right arrows surrounding the clock -->
             <!-- Make these two lower in the z-order so that the clock is above both arrows -->
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/alarm_ringing_clock" />
+                android:src="@drawable/alarm_ringing" />
 
         </RelativeLayout>
 

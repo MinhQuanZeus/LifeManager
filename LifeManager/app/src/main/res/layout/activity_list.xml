@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@drawable/ic_add_black_24dp" />
     <!--app:layout_anchor="@id/empty_view"-->
     <!--app:layout_anchorGravity="bottom|end"-->
 
@@ -87,7 +87,7 @@
             android:layout_below="@+id/empty_view_text"
             android:layout_centerHorizontal="true"
             android:paddingTop="30dp"
-            android:src="@drawable/no_alarm_clock" />
+            android:src="@drawable/no_alarm" />
 
     </RelativeLayout>
 
