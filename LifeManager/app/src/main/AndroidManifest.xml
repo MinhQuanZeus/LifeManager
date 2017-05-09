@@ -54,7 +54,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -86,7 +85,12 @@
                 <action android:name="android.intent.action.DATE_CHANGED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiverAlarm.MyBroadcastReceiver" />
+
+        <activity
+            android:name=".controllerRemind.UpdateRemind"
+            android:theme="@style/AppThemeWithActionBar"
+            >
+        </activity>
 
         <activity
             android:name=".globalsettings.AlarmGlobalSettingsActivity"
@@ -97,8 +101,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="appcore.AlarmMainActivity" />
         </activity>
-        <activity android:name=".controllerRemind.RemindActivity" />
-        <activity android:name=".controllerRemind.AddRemindActivity" />
+        <activity android:name=".appcore.RemindActivity" />
+        <activity android:name=".controllerRemind.AddRemindActivity"
+            android:theme="@style/AppThemeWithActionBar"/>
 
         <!-- todolist -->
         <activity android:name=".todolist.ListActivity" />
@@ -112,6 +117,45 @@
         <activity
             android:name=".appcore.BaseActivityBottonNavigation"
             android:label="@string/title_activity_base_botton_navigation"></activity>
+
+
+
+
+        <activity android:label="@string/app_name"
+            android:name=".testWidget.LoremActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+        </activity>
+        <receiver android:icon="@drawable/remind_splash"
+            android:label="@string/app_name"
+            android:name=".testWidget.WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider" />
+        </receiver>
+        <service android:name=".testWidget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+
+        <receiver android:name=".controllerRemind.receiverAlarm.MyBroadcastReceiver2" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".controllerRemind.receiverAlarm.MyBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".appcore.RecordActivity"
+            android:screenOrientation="portrait"
+            android:hardwareAccelerated="false">
+        </activity>
+
+        <activity android:name=".controllerRemind.NotifyMonitor"/>
     </application>
 
 </manifest>

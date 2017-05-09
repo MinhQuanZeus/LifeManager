@@ -1,5 +1,6 @@
 package zeus.minhquan.lifemanager.appcore;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,7 +37,7 @@ public class BaseActivityBottonNavigation extends AppCompatActivity {
                     return true;
                 case R.id.navigation_remind:
                     if(!isRemindSrart) {
-                 //       startActivity(new Intent(BaseActivityBottonNavigation.this, RemindActivity.class));
+                       startActivity(new Intent(BaseActivityBottonNavigation.this, RemindActivity.class));
 //                        Intent myIntent = new Intent(BaseActivityBottonNavigation.this, RemindActivity.class);
 //                        ActivityOptions options =
 //                                ActivityOptions.makeCustomAnimation(BaseActivityBottonNavigation.this, android.R.anim., android.R.anim.fade_out);
@@ -87,5 +88,9 @@ public class BaseActivityBottonNavigation extends AppCompatActivity {
         homeIntent.addCategory( Intent.CATEGORY_HOME );
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(homeIntent);
+    }
+
+    public Context getContext(){
+        return this;
     }
 }

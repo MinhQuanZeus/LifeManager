@@ -247,7 +247,7 @@ public class GameCatchSnoozeFragment extends Fragment {
             mX = 0;
             mY = 0;
 
-            mAsset1 = BitmapFactory.decodeResource(getResources(), R.drawable.offline_game_1);
+            mAsset1 = BitmapFactory.decodeResource(getResources(), R.drawable.sheep_run);
             mAsset2 = BitmapFactory.decodeResource(getResources(), R.drawable.offline_game_2);
             mHitbox = new RectF(0, 0, mAsset1.getWidth(), mAsset1.getHeight());
         }

@@ -82,4 +82,35 @@
     <string name="todo">To do</string>
     <string name="remind_title">Reminds</string>
     <string name="empty_input_text">Task title must be non empty</string>
+
+    <string name="app_name_remind">List Reminds</string>
+    <string name="remind_toolbar">Add remind</string>
+    <string name="record_app">Add record</string>
+    <string name="click_to_record">Click mic to record</string>
+    <string name="past_input_time">You must input future time</string>
+    <string name="no_record">You has no record here</string>
+    <string name="duplicate_record_name">Record name is duplicated, please try another name</string>
+    <string name="record_complete">Record completed</string>
+    <string name="start_record">Record completed</string>
+    <string name="no_name_record">Please enter your record name from 4-16 characters/n /t Use the button to add reminds</string>
+    <string name="too_long_name_record">Your record name too long, please input less than 16 characters</string>
+    <string name="too_short_name_record">Your record name too long, please input more than 4 characters</string>
+    <string name="Alarm_Remind_rung">Đã đến giờ của  </string>
+    <string name="click_to_stop">Click mic to stop</string>
+    <string name="record_toolbar">Add record</string>
+    <string name="update_toolbar_remind">Update Remind</string>
+
+    <string name="game_vision_prompt">Find something %s</string>
+    <string name="game_emotion_prompt">Make a %s face</string>
+    <string name="action_feedback_UserVoice">Feedback</string>
+    <string name="action_tutorial">Tutorial</string>
+    <string name="game_emotion_failure">You look too %s, try again</string>
+    <string name="game_emotion_failure_not_enough">You don\'t look %s enough, try again</string>
+    <string name="game_twister_perfect_message">Perfect!</string>
+
+    <string name="no_widget_title">This event is start in</string>
+    <string name="widget_title">Tbe event</string>
+    <string name="no_title"> "You must enter title"</string>
+    <string name="title_remind">Add remind</string>
+    <string name="emty_list_remind">You don\'t have any reminds set!</string>
 </resources>

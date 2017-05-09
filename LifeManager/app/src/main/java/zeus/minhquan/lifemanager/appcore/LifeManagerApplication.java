@@ -3,6 +3,7 @@ package zeus.minhquan.lifemanager.appcore;
 import android.app.Application;
 import android.content.Context;
 
+import zeus.minhquan.lifemanager.database.RemindDatabase;
 import zeus.minhquan.lifemanager.database.ToDoCB;
 import zeus.minhquan.lifemanager.games.SoundManager;
 
@@ -15,6 +16,7 @@ public class LifeManagerApplication extends Application {
     private static LifeManagerApplication instance;
     private static Context sContext;
     private ToDoCB toDoCB;
+    private RemindDatabase remindDatabase;
 
     public static Context getAppContext() {
         return LifeManagerApplication.sContext;
@@ -22,6 +24,9 @@ public class LifeManagerApplication extends Application {
 
     public static LifeManagerApplication getInstance() {
         return instance;
+    }
+    public RemindDatabase getRemindDatabase() {
+        return remindDatabase;
     }
 
 
@@ -32,6 +37,7 @@ public class LifeManagerApplication extends Application {
         toDoCB = new ToDoCB(getApplicationContext());
         LifeManagerApplication.sContext = getApplicationContext();
         SoundManager.loadSoundIntoList(this);
+        remindDatabase = new RemindDatabase(this);
     }
 
     public ToDoCB getToDoCB() {
